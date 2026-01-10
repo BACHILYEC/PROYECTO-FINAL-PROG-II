@@ -1,3 +1,5 @@
+-- database: ../Database/triv.sqlite
+
 DROP TABLE IF EXISTS Answer;
 DROP TABLE IF EXISTS Question;
 DROP TABLE IF EXISTS Category;
@@ -71,7 +73,7 @@ CREATE TABLE Answer (
     idQuestion INTEGER REFERENCES Question(idQuestion)
     ,idAnswer INTEGER PRIMARY KEY AUTOINCREMENT
     ,Answer VARCHAR(255) NOT NULL
-    ,CorrectAns VARCHAR(1) NOT NULL
+    ,CorrectAns INTEGER NOT NULL
     ,Status VARCHAR(10) NOT NULL DEFAULT 'Activo'
     ,CreationDate DATETIME NOT NULL DEFAULT(datetime('now','localtime'))
     ,ModificateDate DATETIME DEFAULT NULL
