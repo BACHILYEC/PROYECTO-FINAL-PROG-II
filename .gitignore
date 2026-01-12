@@ -1,0 +1,22 @@
+*.class
+
+# Carpetas de compilación
+bin/
+build/
+dist/
+out/
+
+# IDEs y editores
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+
+# Dependencias locales (opcional, depende de tu proyecto)
