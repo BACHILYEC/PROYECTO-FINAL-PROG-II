@@ -9,6 +9,22 @@ public class PlayerDTO {
     private String ModificateDate;
 
     public PlayerDTO () {}
+    
+
+    public PlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score) {
+        IdPlayer = idPlayer;
+        IdUserType = idUserType;
+        Name = name;
+        Score = score;
+    }
+
+    public PlayerDTO(Integer idPlayer, String name, Integer score) {
+        IdPlayer = idPlayer;
+        Name = name;
+        Score = score;
+    }
+
+
 
     public PlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate,
             String modificateDate) {
