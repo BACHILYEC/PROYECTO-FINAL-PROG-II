@@ -9,6 +9,18 @@ public class QuestionDTO {
 
     public QuestionDTO() {}
 
+    public QuestionDTO( String Question) {
+        this.Question = Question;
+
+    }
+
+    public QuestionDTO(Integer idQuestion, Integer idCategory, String Question) {
+        this.Question = Question;
+        this.IdQuestion = idQuestion;
+        this.IdCategory = idCategory;
+
+    }
+
     public QuestionDTO(Integer idQuestion, Integer idCategory, String question, String creationDate,
             String modificateDate) {
         IdQuestion = idQuestion;
