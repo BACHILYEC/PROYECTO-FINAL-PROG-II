@@ -28,6 +28,13 @@ public class UserAdminDTO {
         LastLogin = lastLogin;
     }
 
+    public UserAdminDTO(Integer idAdministrator, String userName, String password, String lastLogin) {
+        IdAdministrator = idAdministrator;
+        UserName = userName;
+        Password = password;
+        LastLogin = lastLogin;
+    }
+
     public Integer getIdAdministrator() {
         return IdAdministrator;
     }
