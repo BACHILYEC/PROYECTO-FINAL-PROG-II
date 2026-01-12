@@ -20,7 +20,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
 
     @Override
     public List<UserAdminDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idAdmin, UserName, LastLogin FROM Administrator";
+        String query = "SELECT idAdmin, UserName, Password, LastLogin FROM UserAdmin";
         if (status) {
             query += " WHERE Status = 'Activo';";
         }
