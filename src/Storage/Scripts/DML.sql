@@ -14,7 +14,7 @@ INSERT INTO UserType
    ,(   'Admin'          ,'Who administrates the database'         );
 
 
-INSERT INTO Administrator
+INSERT INTO UserAdmin
     (   idUserType       ,UserName             ,Password           ) VALUES
     (   2                ,'InFismal'           ,'NoSeVale'         )
    ,(   2                ,'Bachily'            ,'2725'             )

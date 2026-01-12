@@ -1,6 +1,6 @@
 package DataAccessComponent.DTOs;
 
-public class PlayerDTO {
+public class UserPlayerDTO {
     private Integer IdPlayer;
     private Integer IdUserType;
     private String Name;
@@ -8,23 +8,23 @@ public class PlayerDTO {
     private String CreationDate;
     private String ModificateDate;
 
-    public PlayerDTO() {
+    public UserPlayerDTO() {
     }
 
-    public PlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score) {
+    public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score) {
         IdPlayer = idPlayer;
         IdUserType = idUserType;
         Name = name;
         Score = score;
     }
 
-    public PlayerDTO(Integer idPlayer, String name, Integer score) {
+    public UserPlayerDTO(Integer idPlayer, String name, Integer score) {
         IdPlayer = idPlayer;
         Name = name;
         Score = score;
     }
 
-    public PlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate,
+    public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate,
             String modificateDate) {
         IdPlayer = idPlayer;
         IdUserType = idUserType;

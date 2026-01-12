@@ -1,6 +1,6 @@
 package DataAccessComponent.DTOs;
 
-public class AdministratorDTO {
+public class UserAdminDTO {
 
     private Integer IdAdministrator;
     private Integer IdUserType;
@@ -9,10 +9,10 @@ public class AdministratorDTO {
     private String CreationDate;
     private String LastLogin;
 
-    public AdministratorDTO() {
+    public UserAdminDTO() {
     }
 
-    public AdministratorDTO(Integer idAdministrator, Integer idUserType, String userName, String password,
+    public UserAdminDTO(Integer idAdministrator, Integer idUserType, String userName, String password,
             String creationDate, String lastLogin) {
         setIdAdministrator(idAdministrator);
         setIdUserType(idUserType);
@@ -22,7 +22,7 @@ public class AdministratorDTO {
         setLastLogin(lastLogin);
     }
 
-    public AdministratorDTO(Integer idAdministrator, String userName, String lastLogin) {
+    public UserAdminDTO(Integer idAdministrator, String userName, String lastLogin) {
         IdAdministrator = idAdministrator;
         UserName = userName;
         LastLogin = lastLogin;

@@ -6,31 +6,31 @@ import java.util.ArrayList;
 import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
-import DataAccessComponent.DTOs.PlayerDTO;
+import DataAccessComponent.DTOs.UserPlayerDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO> {
+public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDTO> {
 
     @Override
-    public List<PlayerDTO> readBy(String name) throws Exception {
+    public List<UserPlayerDTO> readBy(String name) throws Exception {
         throw new UnsupportedOperationException("Unimplemented method 'readBy'");
     }
 
     @Override
-    public List<PlayerDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserPlayerDTO> readAllstatus(boolean status) throws Exception {
         String query = "SELECT idPlayer, Name, Score FROM Player";
         if (status) {
             query += " WHERE Status = 'Activo';";
         }
-        List<PlayerDTO> players = new ArrayList<>();
+        List<UserPlayerDTO> players = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                PlayerDTO player = new PlayerDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
+                UserPlayerDTO player = new UserPlayerDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
                 players.add(player);
             }
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO> {
     }
 
     @Override
-    public boolean create(PlayerDTO entity) throws Exception {
+    public boolean create(UserPlayerDTO entity) throws Exception {
         String query = "INSERT INTO Player (IdUserType, Name, Score) "
                 + "VALUES (?, ?, ?);";
         try {
@@ -58,7 +58,7 @@ public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO> {
     }
 
     @Override
-    public boolean update(PlayerDTO entity) throws Exception {
+    public boolean update(UserPlayerDTO entity) throws Exception {
         String query = "UPDATE Player SET Name = ?, Score = ? "
                 + "WHERE idPlayer = ?;";
         try {

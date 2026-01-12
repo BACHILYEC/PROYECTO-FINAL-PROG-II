@@ -1,6 +1,6 @@
-import DataAccessComponent.DAOs.AdministratorDAO;
+import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DAOs.AnswerDAO;
-import DataAccessComponent.DTOs.AdministratorDTO;
+import DataAccessComponent.DTOs.UserAdminDTO;
 import DataAccessComponent.DTOs.AnswerDTO;
 
 public class App {

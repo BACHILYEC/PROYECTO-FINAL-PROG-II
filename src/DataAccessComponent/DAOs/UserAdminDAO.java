@@ -6,31 +6,31 @@ import java.util.ArrayList;
 import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
-import DataAccessComponent.DTOs.AdministratorDTO;
+import DataAccessComponent.DTOs.UserAdminDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AdministratorDAO extends DataHelperSQLite implements IDAO<AdministratorDTO> {
+public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO> {
 
     @Override
-    public List<AdministratorDTO> readBy(String name) throws Exception {
+    public List<UserAdminDTO> readBy(String name) throws Exception {
         throw new UnsupportedOperationException("Unimplemented method 'readBy'");
     }
 
     @Override
-    public List<AdministratorDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserAdminDTO> readAllstatus(boolean status) throws Exception {
         String query = "SELECT idAdmin, UserName, LastLogin FROM Administrator";
         if (status) {
             query += " WHERE Status = 'Activo';";
         }
-        List<AdministratorDTO> administrators = new ArrayList<>();
+        List<UserAdminDTO> administrators = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                AdministratorDTO admin = new AdministratorDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
+                UserAdminDTO admin = new UserAdminDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
                 administrators.add(admin);
             }
         } catch (Exception e) {
@@ -41,7 +41,7 @@ public class AdministratorDAO extends DataHelperSQLite implements IDAO<Administr
     }
 
     @Override
-    public boolean create(AdministratorDTO entity) throws Exception {
+    public boolean create(UserAdminDTO entity) throws Exception {
         String query = "INSERT INTO Administrator (IdUserType, UserName, Password) "
                 + "VALUES (?, ?, ?);";
         try {
@@ -58,7 +58,7 @@ public class AdministratorDAO extends DataHelperSQLite implements IDAO<Administr
     }
 
     @Override
-    public boolean update(AdministratorDTO entity) throws Exception {
+    public boolean update(UserAdminDTO entity) throws Exception {
         String query = "UPDATE Administrator SET UserName = ?, Password = ? "
                 + "WHERE idAdmin = ?;";
         try {
