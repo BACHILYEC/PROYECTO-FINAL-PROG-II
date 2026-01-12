@@ -12,7 +12,7 @@ public interface IDAO<T> {
 
     boolean update(T entity) throws Exception;
 
-    boolean changestatus(int id, String status) throws Exception;
+    boolean changestatus(int id, Boolean status) throws Exception;
 
     Integer getMaxReg() throws Exception;
 }

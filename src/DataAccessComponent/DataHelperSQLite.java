@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class DataHelperSQLite {
-    private static final String DBPathConnection = "jdbc:sqlite:DataBase/PruebaSql.sqlite";
+    private static final String DBPathConnection = "jdbc:sqlite:DataBase/triv.sqlite";
     private static Connection conn = null;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
