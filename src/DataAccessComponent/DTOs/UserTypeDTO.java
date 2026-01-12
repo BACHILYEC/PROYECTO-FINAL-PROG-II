@@ -1,15 +1,17 @@
-package DataAccessComponent.DTO;
+package DataAccessComponent.DTOs;
 
 public class UserTypeDTO {
     private Integer IdUserType;
     private String Name;
     private String Description;
     private String CreationDate;
-    private String ModificateDate; 
+    private String ModificateDate;
 
-    public UserTypeDTO() {}
+    public UserTypeDTO() {
+    }
 
-    public UserTypeDTO(Integer idUserType, String name, String description, String creationDate, String modificateDate) {
+    public UserTypeDTO(Integer idUserType, String name, String description, String creationDate,
+            String modificateDate) {
         IdUserType = idUserType;
         Name = name;
         Description = description;
@@ -60,10 +62,10 @@ public class UserTypeDTO {
     @Override
     public String toString() {
         return getClass().getName()
-        + "\n IdUserType: " + getIdUserType()
-        + "\n Name: " + getName()
-        + "\n Description: " + getDescription()
-        + "\n CreationDate: " + getCreationDate()
-        + "\n ModificateDate: " + getModificateDate();
-    } 
+                + "\n IdUserType: " + getIdUserType()
+                + "\n Name: " + getName()
+                + "\n Description: " + getDescription()
+                + "\n CreationDate: " + getCreationDate()
+                + "\n ModificateDate: " + getModificateDate();
+    }
 }

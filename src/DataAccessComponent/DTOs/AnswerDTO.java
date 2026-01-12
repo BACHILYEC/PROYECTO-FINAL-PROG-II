@@ -1,4 +1,4 @@
-package DataAccessComponent.DTO;
+package DataAccessComponent.DTOs;
 
 public class AnswerDTO {
 

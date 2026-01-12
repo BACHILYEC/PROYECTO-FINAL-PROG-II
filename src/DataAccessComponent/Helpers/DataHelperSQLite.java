@@ -1,4 +1,4 @@
-package DataAccessComponent;
+package DataAccessComponent.Helpers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public abstract class DataHelperSQLite {
-    private static final String DBPathConnection = "jdbc:sqlite:DataBase/triv.sqlite";
+    private static final String DBPathConnection = "jdbc:sqlite:src\\Storage\\Database\\triv.sqlite";
     private static Connection conn = null;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

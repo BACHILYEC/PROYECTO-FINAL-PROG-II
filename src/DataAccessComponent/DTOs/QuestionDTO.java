@@ -1,4 +1,4 @@
-package DataAccessComponent.DTO;
+package DataAccessComponent.DTOs;
 
 public class QuestionDTO {
     private Integer IdQuestion;
@@ -7,9 +7,10 @@ public class QuestionDTO {
     private String CreationDate;
     private String ModificateDate;
 
-    public QuestionDTO() {}
+    public QuestionDTO() {
+    }
 
-    public QuestionDTO( String Question) {
+    public QuestionDTO(String Question) {
         this.Question = Question;
 
     }
@@ -69,15 +70,15 @@ public class QuestionDTO {
     public void setModificateDate(String ModificateDate) {
         this.ModificateDate = ModificateDate;
     }
-    
+
     @Override
     public String toString() {
         return getClass().getName()
-        + "\n IdQuestion: " + getIdQuestion()
-        + "\n IdCategory: " + getIdCategory()
-        + "\n Question: " + getQuestion()
-        + "\n CreationDate: " + getCreationDate()
-        + "\n ModificateDate: " + getModificateDate();
+                + "\n IdQuestion: " + getIdQuestion()
+                + "\n IdCategory: " + getIdCategory()
+                + "\n Question: " + getQuestion()
+                + "\n CreationDate: " + getCreationDate()
+                + "\n ModificateDate: " + getModificateDate();
     }
-    
+
 }

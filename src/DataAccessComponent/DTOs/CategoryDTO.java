@@ -1,4 +1,4 @@
-package DataAccessComponent.DTO;
+package DataAccessComponent.DTOs;
 
 public class CategoryDTO {
     private Integer IdCategory;
@@ -6,8 +6,9 @@ public class CategoryDTO {
     private String Description;
     private String CreationDate;
     private String ModificateDate;
-    
-    public CategoryDTO() {}
+
+    public CategoryDTO() {
+    }
 
     public CategoryDTO(Integer idCategory, String name, String description) {
         IdCategory = idCategory;
@@ -67,10 +68,10 @@ public class CategoryDTO {
     @Override
     public String toString() {
         return getClass().getName()
-        + "\n IdCategory: " + getIdCategory()
-        + "\n Name: " + getName()
-        + "\n Description: " + getDescription()
-        + "\n CreationDate: " + getCreationDate()
-        + "\n ModificateDate: " + getModificateDate();
+                + "\n IdCategory: " + getIdCategory()
+                + "\n Name: " + getName()
+                + "\n Description: " + getDescription()
+                + "\n CreationDate: " + getCreationDate()
+                + "\n ModificateDate: " + getModificateDate();
     }
 }

@@ -1,4 +1,4 @@
-package DataAccessComponent.DTO;
+package DataAccessComponent.DTOs;
 
 public class LeaderBoardDTO {
     private Integer IdLeaderBoard;
@@ -7,7 +7,8 @@ public class LeaderBoardDTO {
     private String CreationDate;
     private String ModificateDate;
 
-    public LeaderBoardDTO () {}
+    public LeaderBoardDTO() {
+    }
 
     public LeaderBoardDTO(Integer idLeaderBoard, Integer idPlayer, Integer idCategory, String creationDate,
             String modificateDate) {
@@ -58,14 +59,13 @@ public class LeaderBoardDTO {
         this.ModificateDate = ModificateDate;
     }
 
-
     @Override
     public String toString() {
         return getClass().getName()
-        + "\n IdLeaderBoard: " + getIdLeaderBoard()
-        + "\n IdPlayer: " + getIdPlayer()
-        + "\n IdCategory: " + getIdCategory()
-        + "\n CreationDate: " + getCreationDate()
-        + "\n ModificateDate: " + getModificateDate();
+                + "\n IdLeaderBoard: " + getIdLeaderBoard()
+                + "\n IdPlayer: " + getIdPlayer()
+                + "\n IdCategory: " + getIdCategory()
+                + "\n CreationDate: " + getCreationDate()
+                + "\n ModificateDate: " + getModificateDate();
     }
 }

@@ -1,4 +1,4 @@
--- database: ../Database/triv.sqlite
+-- database: ../Database\triv.sqlite
 /*
 -------------------------------------------
 (©) 2k24 EPN-FIS, ALL rights reserved.

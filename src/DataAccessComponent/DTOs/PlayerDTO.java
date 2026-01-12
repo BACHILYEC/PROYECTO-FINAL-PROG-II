@@ -1,4 +1,4 @@
-package DataAccessComponent.DTO;
+package DataAccessComponent.DTOs;
 
 public class PlayerDTO {
     private Integer IdPlayer;
@@ -8,8 +8,8 @@ public class PlayerDTO {
     private String CreationDate;
     private String ModificateDate;
 
-    public PlayerDTO () {}
-    
+    public PlayerDTO() {
+    }
 
     public PlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score) {
         IdPlayer = idPlayer;
@@ -23,8 +23,6 @@ public class PlayerDTO {
         Name = name;
         Score = score;
     }
-
-
 
     public PlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate,
             String modificateDate) {
@@ -87,11 +85,11 @@ public class PlayerDTO {
     @Override
     public String toString() {
         return getClass().getName()
-        + "\n IdPlayer: " + getIdPlayer()
-        + "\n IdUserType: " + getIdUserType()
-        + "\n Name: " + getName()
-        + "\n Score: " + getScore()
-        + "\n CreationDate: " + getCreationDate()
-        + "\n ModificateDate: " + getModificateDate();
+                + "\n IdPlayer: " + getIdPlayer()
+                + "\n IdUserType: " + getIdUserType()
+                + "\n Name: " + getName()
+                + "\n Score: " + getScore()
+                + "\n CreationDate: " + getCreationDate()
+                + "\n ModificateDate: " + getModificateDate();
     }
 }

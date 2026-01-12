@@ -40,7 +40,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
     @Override
     public List<AnswerDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idAnswer, idQuestion, Answer FROM Answer WHERE idQuestion = ? ;";
+        String query = "SELECT idAnswer, idQuestion, Answer FROM Answer;";
         List<AnswerDTO> list = new ArrayList<>();
         try {
             Connection conn = openConnection();
@@ -57,7 +57,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
         return list;
     }
 
-    public List<AnswerDTO> readAllanswers(boolean status, int id) throws Exception {
+    public List<AnswerDTO> readAllcorrectanswers(boolean status, int id) throws Exception {
         String query = "SELECT idAnswer, idQuestion, Answer FROM Answer WHERE idQuestion = '" + id + "';";
         List<AnswerDTO> list = new ArrayList<>();
         try {
