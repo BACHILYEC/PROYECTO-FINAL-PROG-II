@@ -13,13 +13,13 @@ public class AdministratorDTO {
     }
 
     public AdministratorDTO(Integer idAdministrator, Integer idUserType, String userName, String password,
-            String creationDate, String LastLogin) {
+            String creationDate, String lastLogin) {
         setIdAdministrator(idAdministrator);
         setIdUserType(idUserType);
         setUserName(userName);
         setPassword(password);
         setCreationDate(creationDate);
-        setLastLogin(LastLogin);
+        setLastLogin(lastLogin);
     }
 
     public AdministratorDTO(Integer idAdministrator, String userName, String lastLogin) {
