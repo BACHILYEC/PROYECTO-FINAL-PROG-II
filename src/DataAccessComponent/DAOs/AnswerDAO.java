@@ -21,15 +21,17 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
         return null;
     }
 
-    public AnswerDTO readBy(Boolean CorrectAns) throws Exception {
-        String query = "SELECT idAnswer, idQuestion, Answer, CorrectAns FROM Answer WHERE CorrectAns = '1';";
+    public AnswerDTO readCorrectAns(int idQuestion) throws Exception {
+        String query = "SELECT idAnswer, idQuestion, Answer, CorrectAns, Status FROM Answer WHERE CorrectAns = '1'"
+                + " AND idQuestion = '"
+                + idQuestion + "';";
         AnswerDTO ans1 = new AnswerDTO();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                ans1 = new AnswerDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
+                ans1 = new AnswerDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5));
             }
 
         } catch (Exception e) {
@@ -40,7 +42,13 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
     @Override
     public List<AnswerDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idAnswer, idQuestion, Answer FROM Answer;";
+        String sta;
+        if (status) {
+            sta = "Activo";
+        } else {
+            sta = "Inactivo";
+        }
+        String query = "SELECT idAnswer, idQuestion, Answer FROM Answer WHERE Status = '" + sta + "';";
         List<AnswerDTO> list = new ArrayList<>();
         try {
             Connection conn = openConnection();
@@ -57,15 +65,16 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
         return list;
     }
 
-    public List<AnswerDTO> readAllcorrectanswers(boolean status, int id) throws Exception {
-        String query = "SELECT idAnswer, idQuestion, Answer FROM Answer WHERE idQuestion = '" + id + "';";
+    public List<AnswerDTO> readAllcorrectanswers(boolean status, int CorrectAnswer) throws Exception {
+        String query = "SELECT idAnswer, idQuestion, Answer, CorrectAns FROM Answer WHERE CorrectAns = '"
+                + CorrectAnswer + "';";
         List<AnswerDTO> list = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                AnswerDTO ans1 = new AnswerDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
+                AnswerDTO ans1 = new AnswerDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4));
                 list.add(ans1);
             }
 

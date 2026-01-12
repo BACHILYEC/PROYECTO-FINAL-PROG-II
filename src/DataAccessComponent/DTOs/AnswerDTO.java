@@ -8,6 +8,19 @@ public class AnswerDTO {
         Answer = answer;
     }
 
+    public AnswerDTO(Integer idAnswer, Integer idQuestion, String answer, Integer correctAnswer, String status) {
+        IdAnswer = idAnswer;
+        IdQuestion = idQuestion;
+        Answer = answer;
+        CorrectAnswer = correctAnswer;
+        Status = status;
+    }
+
+    public AnswerDTO(Integer idAnswer, String answer) {
+        IdAnswer = idAnswer;
+        Answer = answer;
+    }
+
     private Integer IdAnswer;
     private Integer IdQuestion;
     private String Answer;
