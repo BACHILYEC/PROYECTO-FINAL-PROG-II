@@ -11,16 +11,10 @@ import java.sql.Statement;
 import DataAccessComponent.DTO.QuestionDTO;
 
 public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
-
-    @Override
-    public List<QuestionDTO> readBy(String name) throws Exception {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
-    }
-
+    
     @Override
     public List<QuestionDTO> readAllstatus(boolean status) throws Exception {
-
+        
         String query = "SELECT idQuestion, idCategory, Question, CreationDate, ModificateDate FROM Question";
         if (status) {
             query += " WHERE Status = 'Activo';";
@@ -35,17 +29,17 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 question.add(questionDTO);
             }
         } catch (Exception e) {
-
+            
             throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
         }
         return question;
     }
-
+    
     @Override
     public boolean create(QuestionDTO entity) throws Exception {
         
         String query = "INSERT INTO Question (idQuestion, Question) "
-                + "VALUES (?, ?);";
+        + "VALUES (?, ?);";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -57,12 +51,12 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             throw new UnsupportedOperationException("Unimplemented method 'create'");
         }
     }
-
+    
     @Override
     public boolean update(QuestionDTO entity) throws Exception {
         
         String query = "UPDATE Question SET Question = ? "
-                + "WHERE idQuestion = ?;";
+        + "WHERE idQuestion = ?;";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -74,7 +68,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             throw new UnsupportedOperationException("Unimplemented method 'update'");
         }
     }
-
+    
     @Override
     public boolean changestatus(int id, Boolean status) throws Exception {
         
@@ -96,7 +90,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
         }
     }
-
+    
     @Override
     public Integer getMaxReg() throws Exception {
         
@@ -112,6 +106,45 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
         }
         return 0;
     }
+    
+    @Override
+    public List<QuestionDTO> readBy(String name) throws Exception {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+    }
+    
+    public List<QuestionDTO> readAllQuestion(Integer id) throws Exception {
+        
+        String query = "SELECT Question FROM Question WHERE idCategory = " + id.toString() + ";";
 
+        List<QuestionDTO> question = new ArrayList<>();
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                QuestionDTO questionDTO = new QuestionDTO(rs.getString(1));
+                question.add(questionDTO);
+            }
+        } catch (Exception e) {
+        }
+        return question;
+    }
 
+    public QuestionDTO readByQuestion(Integer id) throws Exception {
+        
+        String query = "SELECT idQuestion, idCategory, Question FROM Question WHERE idQuestion = " + id.toString() + ";";
+
+        QuestionDTO questionDTO = new QuestionDTO();
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                questionDTO = new QuestionDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
+            }
+        } catch (Exception e) {
+        }
+        return questionDTO;
+    }
 }
