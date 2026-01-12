@@ -1,7 +1,6 @@
 
-package DataAccessComponent;
+package DataAccessComponent.DAOs;
 
-import DataAccessComponent.DTO.CategoryDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import DataAccessComponent.DTOs.CategoryDTO;
+
+import DataAccessComponent.Helpers.DataHelperSQLite;
+import DataAccessComponent.Interfaces.IDAO;
 
 public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
-    
+
     @Override
     public List<CategoryDTO> readBy(String name) throws Exception {
 
@@ -63,7 +66,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getName());
-            pstmt.setString(2,  entity.getDescription());
+            pstmt.setString(2, entity.getDescription());
             pstmt.setInt(3, entity.getIdCategory());
             pstmt.executeUpdate();
             return true;

@@ -1,57 +1,55 @@
-package DataAccessComponent;
+package DataAccessComponent.DAOs;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import DataAccessComponent.DTO.PlayerDTO;
-
+import DataAccessComponent.Helpers.DataHelperSQLite;
+import DataAccessComponent.Interfaces.IDAO;
+import DataAccessComponent.DTOs.UserTypeDTO;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-
-public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO>{
+public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
 
     @Override
-    public List<PlayerDTO> readBy(String name) throws Exception {
-        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+    public List<UserTypeDTO> readBy(String name) throws Exception {
+        return null;
     }
 
     @Override
-    public List<PlayerDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idPlayer, Name, Score FROM Player";
+    public List<UserTypeDTO> readAllstatus(boolean status) throws Exception {
+        String query = "SELECT IdUserType, Name, Description, CreationDate, ModificateDate FROM UserType";
         if (status) {
             query += " WHERE Status = 'Activo';";
         }
-        List<PlayerDTO> players = new ArrayList<>();
+        List<UserTypeDTO> userTypes = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                PlayerDTO player = new PlayerDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
-                players.add(player);
+                UserTypeDTO userType = new UserTypeDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5));
+                userTypes.add(userType);
             }
         } catch (Exception e) {
-
             throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
         }
-        return players;
+        return userTypes;
     }
 
     @Override
-    public boolean create(PlayerDTO entity) throws Exception {
-        String query = "INSERT INTO Player (IdUserType, Name, Score) "
-                + "VALUES (?, ?, ?);";
+    public boolean create(UserTypeDTO entity) throws Exception {
+        String query = "INSERT INTO UserType (Name, Description) "
+                + "VALUES (?, ?);";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setInt(1, entity.getIdUserType());
-            pstmt.setString(2, entity.getName());
-            pstmt.setInt(3, entity.getScore());
+            pstmt.setString(1, entity.getName());
+            pstmt.setString(2, entity.getDescription());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -60,15 +58,15 @@ public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO>{
     }
 
     @Override
-    public boolean update(PlayerDTO entity) throws Exception {
-        String query = "UPDATE Player SET Name = ?, Score = ? "
-                + "WHERE idPlayer = ?;";
+    public boolean update(UserTypeDTO entity) throws Exception {
+        String query = "UPDATE UserType SET Name = ?, Description = ?, ModificateDate = ? WHERE IdUserType = ?;";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getName());
-            pstmt.setInt(2, entity.getScore());
-            pstmt.setInt(3, entity.getIdPlayer());
+            pstmt.setString(2, entity.getDescription());
+            pstmt.setString(3, getDataTimeNow());
+            pstmt.setInt(4, entity.getIdUserType());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -78,7 +76,7 @@ public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO>{
 
     @Override
     public boolean changestatus(int id, Boolean status) throws Exception {
-        String query = "UPDATE Player SET Status = ? WHERE idPlayer = ?;";
+        String query = "UPDATE UserType SET Status = ? WHERE IdUserType = ?;";
         String sta;
         if (status) {
             sta = "Activo";
@@ -99,7 +97,8 @@ public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO>{
 
     @Override
     public Integer getMaxReg() throws Exception {
-        String query = "SELECT COUNT(*) TotalReg FROM Player WHERE Status = 'Activo';";
+        String query = "SELECT COUNT(*) TotalReg FROM UserType" +
+                " WHERE Estado = 'Activo';";
         try {
             Connection conn = openConnection();
             Statement pstmt = conn.createStatement();
@@ -111,6 +110,4 @@ public class PlayerDAO extends DataHelperSQLite implements IDAO<PlayerDTO>{
         }
         return 0;
     }
-
-
 }

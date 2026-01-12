@@ -1,53 +1,55 @@
-package DataAccessComponent;
+package DataAccessComponent.DAOs;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
+import DataAccessComponent.Helpers.DataHelperSQLite;
+import DataAccessComponent.Interfaces.IDAO;
+import DataAccessComponent.DTOs.AdministratorDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import DataAccessComponent.DTO.UserTypeDTO;
-
-public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
+public class AdministratorDAO extends DataHelperSQLite implements IDAO<AdministratorDTO> {
 
     @Override
-    public List<UserTypeDTO> readBy(String name) throws Exception {
-        return null;
+    public List<AdministratorDTO> readBy(String name) throws Exception {
+        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
     }
 
     @Override
-    public List<UserTypeDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT IdUserType, Name, Description, CreationDate, ModificateDate FROM UserType";
+    public List<AdministratorDTO> readAllstatus(boolean status) throws Exception {
+        String query = "SELECT idAdmin, UserName, LastLogin FROM Administrator";
         if (status) {
             query += " WHERE Status = 'Activo';";
         }
-        List<UserTypeDTO> userTypes = new ArrayList<>();
+        List<AdministratorDTO> administrators = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                UserTypeDTO userType = new UserTypeDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5));
-                userTypes.add(userType);
+                AdministratorDTO admin = new AdministratorDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
+                administrators.add(admin);
             }
         } catch (Exception e) {
+
             throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
         }
-        return userTypes;
+        return administrators;
     }
 
     @Override
-    public boolean create(UserTypeDTO entity) throws Exception {
-        String query = "INSERT INTO UserType (Name, Description) "
-                + "VALUES (?, ?);";
+    public boolean create(AdministratorDTO entity) throws Exception {
+        String query = "INSERT INTO Administrator (IdUserType, UserName, Password) "
+                + "VALUES (?, ?, ?);";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, entity.getName());
-            pstmt.setString(2, entity.getDescription());
+            pstmt.setInt(1, entity.getIdUserType());
+            pstmt.setString(2, entity.getUserName());
+            pstmt.setString(3, entity.getPassword());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -56,15 +58,15 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     }
 
     @Override
-    public boolean update(UserTypeDTO entity) throws Exception {
-        String query = "UPDATE UserType SET Name = ?, Description = ?, ModificateDate = ? WHERE IdUserType = ?;";
+    public boolean update(AdministratorDTO entity) throws Exception {
+        String query = "UPDATE Administrator SET UserName = ?, Password = ? "
+                + "WHERE idAdmin = ?;";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, entity.getName());
-            pstmt.setString(2, entity.getDescription());
-            pstmt.setString(3, getDataTimeNow());
-            pstmt.setInt(4, entity.getIdUserType());
+            pstmt.setString(1, entity.getUserName());
+            pstmt.setString(2, entity.getPassword());
+            pstmt.setInt(3, entity.getIdAdministrator());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -74,7 +76,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
 
     @Override
     public boolean changestatus(int id, Boolean status) throws Exception {
-        String query = "UPDATE UserType SET Status = ? WHERE IdUserType = ?;";
+        String query = "UPDATE Administrator SET Status = ? WHERE idAdmin = ?;";
         String sta;
         if (status) {
             sta = "Activo";
@@ -95,8 +97,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
 
     @Override
     public Integer getMaxReg() throws Exception {
-        String query = "SELECT COUNT(*) TotalReg FROM UserType" +
-                " WHERE Estado = 'Activo';";
+        String query = "SELECT COUNT(*) TotalReg FROM Administrator WHERE Status = 'Activo';";
         try {
             Connection conn = openConnection();
             Statement pstmt = conn.createStatement();

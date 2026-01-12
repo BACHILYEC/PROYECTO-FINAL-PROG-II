@@ -1,4 +1,4 @@
-package DataAccessComponent;
+package DataAccessComponent.DAOs;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import DataAccessComponent.DTOs.AnswerDTO;
 
-import DataAccessComponent.DTO.AnswerDTO;
+import DataAccessComponent.Helpers.DataHelperSQLite;
+import DataAccessComponent.Interfaces.IDAO;
 
 public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
