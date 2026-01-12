@@ -9,6 +9,12 @@ public class CategoryDTO {
     
     public CategoryDTO() {}
 
+    public CategoryDTO(Integer idCategory, String name, String description) {
+        IdCategory = idCategory;
+        Name = name;
+        Description = description;
+    }
+
     public CategoryDTO(Integer idCategory, String name, String description, String creationDate,
             String modificateDate) {
         IdCategory = idCategory;
