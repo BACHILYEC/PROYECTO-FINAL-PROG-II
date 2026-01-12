@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS Answer;
 DROP TABLE IF EXISTS Question;
 DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS LeaderBoard;
-DROP TABLE IF EXISTS Admin;
+DROP TABLE IF EXISTS Administrator;
 DROP TABLE IF EXISTS Player;
 DROP TABLE IF EXISTS UserType;
 
@@ -29,14 +29,14 @@ CREATE TABLE Player(
 
 );
 
-CREATE TABLE Admin(
+CREATE TABLE Administrator(
     idAdmin INTEGER PRIMARY KEY AUTOINCREMENT
     ,idUserType INTEGER REFERENCES UserType(idUserType)
     ,UserName VARCHAR(50) NOT NULL UNIQUE
     ,Password VARCHAR(20) NOT NULL UNIQUE
     ,Status VARCHAR(10) NOT NULL DEFAULT 'Activo'
     ,CreationDate DATETIME NOT NULL DEFAULT(datetime('now','localtime'))
-    ,ModificateDate DATETIME DEFAULT NULL
+    ,LastLogin DATETIME DEFAULT NULL
 
 );
 
