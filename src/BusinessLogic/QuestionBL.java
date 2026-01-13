@@ -38,9 +38,9 @@ public class QuestionBL {
         return selectedQuestions;
     }
 
-    private boolean isAlreadyInList(List<QuestionDTO> list, QuestionDTO newQ) {
-        for (QuestionDTO question : list) {
-            if (question.getIdQuestion().equals(newQ.getIdQuestion())) {
+    private boolean isAlreadyInList(List<QuestionDTO> QuestionList, QuestionDTO newQuestion) {
+        for (QuestionDTO question : QuestionList) {
+            if (question.getIdQuestion().equals(newQuestion.getIdQuestion())) {
                 return true;
             }
         }
