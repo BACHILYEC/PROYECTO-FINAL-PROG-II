@@ -30,7 +30,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                UserAdminDTO admin = new UserAdminDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
+                UserAdminDTO admin = new UserAdminDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
                 administrators.add(admin);
             }
         } catch (Exception e) {

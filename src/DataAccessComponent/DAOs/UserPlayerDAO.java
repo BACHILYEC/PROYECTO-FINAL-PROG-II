@@ -112,14 +112,16 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     public UserPlayerDTO readByName(String username) throws Exception {
         UserPlayerDTO userPlayerDTO = null;
+
         String query = "SELECT * FROM UserPlayer WHERE name = ?";
-        try (java.sql.Connection conn = getConnection();
-             java.sql.PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+        try (Connection conn = openConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setString(1, username);
-            try (java.sql.ResultSet rs = pstmt.executeQuery()) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     userPlayerDTO = new UserPlayerDTO();
-                    userPlayerDTO.setIdUserPlayer(rs.getInt("idUserPlayer"));
+                    userPlayerDTO.setIdPlayer(rs.getInt("idUserPlayer"));
                     userPlayerDTO.setIdUserType(rs.getInt("idUserType"));
                     userPlayerDTO.setName(rs.getString("name"));
                     userPlayerDTO.setScore(rs.getInt("score"));
