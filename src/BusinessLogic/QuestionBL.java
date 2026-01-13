@@ -29,18 +29,18 @@ public class QuestionBL {
 
         while (selectedQuestions.size() < goal) {
             int idRandom = random.nextInt(totalRecords) + 1;
-            QuestionDTO q = QuestionDAO.readByQuestion(idRandom);
+            QuestionDTO question = QuestionDAO.readByQuestion(idRandom);
 
-            if (q != null && !isAlreadyInList(selectedQuestions, q)) {
-                selectedQuestions.add(q);
+            if (question != null && !isAlreadyInList(selectedQuestions, question)) {
+                selectedQuestions.add(question);
             }
         }
         return selectedQuestions;
     }
 
     private boolean isAlreadyInList(List<QuestionDTO> list, QuestionDTO newQ) {
-        for (QuestionDTO q : list) {
-            if (q.getIdQuestion().equals(newQ.getIdQuestion())) {
+        for (QuestionDTO question : list) {
+            if (question.getIdQuestion().equals(newQ.getIdQuestion())) {
                 return true;
             }
         }
