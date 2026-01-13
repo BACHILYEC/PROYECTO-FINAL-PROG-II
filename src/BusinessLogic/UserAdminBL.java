@@ -9,6 +9,7 @@ public class UserAdminBL {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         for (UserAdminDTO dto : userAdminDAO.readAllstatus(true)) {
             if (dto.getUserName().equals(username) && dto.getPassword().equals(password)) {
+                userAdminDAO.update(dto);
                 return true;
             }
         }
