@@ -16,6 +16,14 @@ import DataAccessComponent.Interfaces.IDAO;
 
 public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
+    public boolean compareAnswer(AnswerDTO answer, AnswerDTO selectanswer) {
+        if (answer.getAnswer().equals(selectanswer.getAnswer())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public List<AnswerDTO> readBy(String name) throws Exception {
         return null;
@@ -38,6 +46,30 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             throw new UnsupportedOperationException("Unimplemented method 'readBy'");
         }
         return ans1;
+    }
+
+    public List<AnswerDTO> readOptions(int question, Boolean status) {
+        String sta;
+        if (status) {
+            sta = "Activo";
+        } else {
+            sta = "Inactivo";
+        }
+        String query = "SELECT Answer FROM Answer WHERE idQuestion = '" + question + "' AND Status = '" + sta + "';";
+        List<AnswerDTO> list = new ArrayList<>();
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                AnswerDTO ans1 = new AnswerDTO(rs.getString(1));
+                list.add(ans1);
+            }
+
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+        }
+        return list;
     }
 
     @Override

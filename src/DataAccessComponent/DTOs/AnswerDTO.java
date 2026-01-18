@@ -29,6 +29,10 @@ public class AnswerDTO {
     private String ModificateDate;
     private String Status;
 
+    public AnswerDTO(String answer) {
+        Answer = answer;
+    }
+
     public AnswerDTO(Integer idAnswer, Integer idQuestion, String answer, Integer correctAnswer) {
         IdAnswer = idAnswer;
         IdQuestion = idQuestion;
