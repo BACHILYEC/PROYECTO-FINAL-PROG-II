@@ -10,6 +10,8 @@ import DataAccessComponent.DTOs.UserPlayerDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDTO> {
 
@@ -20,7 +22,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public List<UserPlayerDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idPlayer, idUserType, Name, Score FROM UserPlayer";
+        String query = "SELECT idPlayer, idUserType, Name, Score, Status, ModificateDate, CreationDate FROM UserPlayer";
         if (status) {
             query += " WHERE Status = 'Activo'";
         }
@@ -36,6 +38,9 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                 player.setIdUserType(rs.getInt("idUserType"));
                 player.setName(rs.getString("Name"));
                 player.setScore(rs.getInt("Score"));
+                player.setStatus(rs.getString("Status"));
+                player.setModificateDate(rs.getString("ModificateDate"));
+                player.setCreationDate(rs.getString("CreationDate"));
                 players.add(player);
             }
             rs.close();
@@ -50,14 +55,18 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public boolean create(UserPlayerDTO entity) throws Exception {
-        String query = "INSERT INTO UserPlayer (IdUserType, Name, Score) "
-                + "VALUES (?, ?, ?);";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String query = "INSERT INTO UserPlayer (IdUserType, Name, Score, CreationDate, ModificateDate) "
+                + "VALUES (?, ?, ?, ?, ?);";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, entity.getIdUserType());
             pstmt.setString(2, entity.getName());
             pstmt.setInt(3, entity.getScore());
+            pstmt.setString(4, dtf.format(now).toString());
+            pstmt.setString(5, dtf.format(now).toString());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -67,14 +76,19 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public boolean update(UserPlayerDTO entity) throws Exception {
-        String query = "UPDATE UserPlayer SET Name = ?, Score = ? "
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        String query = "UPDATE UserPlayer SET Name = ?, Score = ?, ModificateDate = ? "
                 + "WHERE idPlayer = ?;";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getName());
             pstmt.setInt(2, entity.getScore());
-            pstmt.setInt(3, entity.getIdPlayer());
+            pstmt.setString(3, dtf.format(now).toString());
+            pstmt.setInt(4, entity.getIdPlayer());
+            
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {

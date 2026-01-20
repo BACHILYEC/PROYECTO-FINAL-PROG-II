@@ -3,8 +3,11 @@ package DataAccessComponent.DTOs;
 public class UserPlayerDTO {
     private Integer IdPlayer;
     private Integer IdUserType;
-    private String Name;
+    private String  Name;
     private Integer Score;
+    private String  Status;
+
+
     private String CreationDate;
     private String ModificateDate;
 
@@ -66,6 +69,14 @@ public class UserPlayerDTO {
         this.Score = Score;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
+
     public String getCreationDate() {
         return CreationDate;
     }
@@ -89,6 +100,7 @@ public class UserPlayerDTO {
                 + "\n IdUserType: " + getIdUserType()
                 + "\n Name: " + getName()
                 + "\n Score: " + getScore()
+                + "\n Status: " + getStatus()
                 + "\n CreationDate: " + getCreationDate()
                 + "\n ModificateDate: " + getModificateDate();
     }
