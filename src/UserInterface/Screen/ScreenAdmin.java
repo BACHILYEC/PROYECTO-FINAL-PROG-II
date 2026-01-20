@@ -18,6 +18,7 @@ public class ScreenAdmin {
         JPanel panel = new JPanel();
         Color tittleColorPanel = new Color(173, 160, 219);
         Color PanelButton = new Color(199, 186, 212);
+        Color colorButton = new Color(177, 151, 204);
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
         Font exitButtFont = new Font("Comic Sans MS", Font.BOLD, 18);
         Font buttonFont = new Font("Comic Sans MS", Font.PLAIN, 16);
@@ -35,7 +36,15 @@ public class ScreenAdmin {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
         Dimension boton_size = new Dimension(250, 30);
         JButton Exit = ReusableMethods.Button_Exit("Salir", boton_size);
+        Exit.setFont(buttonFont);
+        Exit.setBorderPainted(false);
+        Exit.setBackground(Color.WHITE);
         JButton GoToBack = new JButton("Regresar");
+        GoToBack.setFont(buttonFont);
+        GoToBack.setPreferredSize(boton_size);
+        GoToBack.setBorderPainted(false);
+        GoToBack.setFocusPainted(false);
+        GoToBack.setBackground(Color.WHITE);
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
