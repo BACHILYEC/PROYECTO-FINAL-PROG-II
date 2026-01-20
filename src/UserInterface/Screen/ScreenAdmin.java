@@ -7,9 +7,13 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DataAccessComponent.DAOs.UserPlayerDAO;
+import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 
@@ -52,31 +56,31 @@ public class ScreenAdmin {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }
             String index = buttonLabels[i];
-<<<<<<< HEAD
-             boton.addActionListener(e -> {
-              switch (index) {
-                case "Mostrar Datos": {
-                    //   ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
-                      break;
-                }
-                case "Crear Datos": {
-                    //   ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
-                      break;
-                }
-                case "Actualizar Datos": {
-                    //   ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
-                break;
-                }
-                case "Buscar Jugador": {
-                    //   ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
+
+            //  boton.addActionListener(e -> {
+            //   switch (index) {
+            //     case "Mostrar Datos": {
+            //         //   ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
+            //           break;
+            //     }
+            //     case "Crear Datos": {
+            //         //   ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
+            //           break;
+            //     }
+            //     case "Actualizar Datos": {
+            //         //   ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
+            //     break;
+            //     }
+            //     case "Buscar Jugador": {
+            //         //   ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
                     
-                break;
-                }
-              }
-            });
-=======
-            // boton.addActionListener(e -> {
-            // switch (index) {
+            //     break;
+            //     }
+            //   }
+            // });
+
+            boton.addActionListener(e -> {
+            switch (index) {
             // Isma case "Tabla De Jugadores": {
             // ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
             // break;
@@ -89,13 +93,133 @@ public class ScreenAdmin {
             // ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
             // break;
             // }
-            // mathias case "Buscar Jugador": {
-            // ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
-            // break;
-            // }
-            // }
-            // });
->>>>>>> d8d47870a216a73679c7cf709878d12544d246ea
+                case "Buscar Jugador": {
+                    String[] opciones = {"Buscar por Nombre", "Buscar por ID"};
+                    int seleccion = JOptionPane.showOptionDialog(
+                        null,
+                        "Seleccione el método de búsqueda:",
+                        "Buscar Jugador",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        opciones,
+                        opciones[0]
+                    );
+                    
+                    if (seleccion == 0) {
+                        try {
+                            String username = JOptionPane.showInputDialog("Ingrese el nombre del jugador:");
+                            
+                            if (username == null || username.trim().isEmpty()) {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    "Nombre inválido. Por favor ingrese un nombre válido.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE
+                                );
+                                break;
+                            }
+                            
+                            UserPlayerDAO playerDAO = new UserPlayerDAO();
+                            UserPlayerDTO playerDTO = playerDAO.readByName(username);
+                            
+                            if (playerDTO != null) {
+                                String mensaje = "¡Jugador encontrado!\n\n" +
+                                                 "ID: " + playerDTO.getIdPlayer() + "\n" +
+                                                 "Nombre: " + playerDTO.getName() + "\n" +
+                                                 "Score: " + playerDTO.getScore();
+                                
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    mensaje,
+                                    "Jugador Encontrado",
+                                    JOptionPane.INFORMATION_MESSAGE
+                                );
+                            } else {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    "No se encontró ningún jugador con el nombre: " + username,
+                                    "Jugador No Encontrado",
+                                    JOptionPane.WARNING_MESSAGE
+                                );
+                            }
+                            
+                        } catch (Exception err) {
+                            JOptionPane.showMessageDialog(
+                                null,
+                                "Error al buscar el jugador: " + err.getMessage(),
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                            err.printStackTrace();
+                        }
+                    } 
+
+                    else if (seleccion == 1) {
+                        try {
+                            String idInput = JOptionPane.showInputDialog("Ingrese el ID del jugador:");
+                            
+                            if (idInput == null || idInput.trim().isEmpty()) {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    "ID inválido. Por favor ingrese un ID válido.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE
+                                );
+                                break;
+                            }
+
+                            int playerId;
+                            try {
+                                playerId = Integer.parseInt(idInput.trim());
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    "El ID debe ser un número válido.",
+                                    "Error",
+                                    JOptionPane.ERROR_MESSAGE
+                                );
+                                break;
+                            }
+                            
+                            UserPlayerDAO playerDAO = new UserPlayerDAO();
+                            UserPlayerDTO playerDTO = playerDAO.readById(playerId);
+                            
+                            if (playerDTO != null) {
+                                String mensaje = "¡Jugador encontrado!\n\n" +
+                                                 "ID: " + playerDTO.getIdPlayer() + "\n" +
+                                                 "Nombre: " + playerDTO.getName() + "\n" +
+                                                 "Score: " + playerDTO.getScore();
+                                
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    mensaje,
+                                    "Jugador Encontrado",
+                                    JOptionPane.INFORMATION_MESSAGE
+                                );
+                            } else {
+                                JOptionPane.showMessageDialog(
+                                    null,
+                                    "No se encontró ningún jugador con el ID: " + playerId,
+                                    "Jugador No Encontrado",
+                                    JOptionPane.WARNING_MESSAGE
+                                );
+                            }
+                            
+                        } catch (Exception err) {
+                            JOptionPane.showMessageDialog(
+                                null,
+                                "Error al buscar el jugador: " + err.getMessage(),
+                                "Error",
+                                JOptionPane.ERROR_MESSAGE
+                            );
+                            err.printStackTrace();
+                        }
+                    }
+                    break;
+                }
+             }
+            });
         }
         JPanel buttonsaux = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonsaux.setFont(exitButtFont);

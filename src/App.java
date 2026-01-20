@@ -1,4 +1,6 @@
 
+import DataAccessComponent.DAOs.UserPlayerDAO;
+import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Screen.MainMenu;
 
 public class App {

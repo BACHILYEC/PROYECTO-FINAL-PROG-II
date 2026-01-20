@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
+import DataAccessComponent.DTOs.QuestionDTO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -111,23 +112,58 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     public UserPlayerDTO readByName(String username) throws Exception {
-        UserPlayerDTO userPlayerDTO = null;
+        UserPlayerDTO userPlayerDTO = null; 
 
-        String query = "SELECT * FROM UserPlayer WHERE name = ?";
+        String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate FROM UserPlayer WHERE Name = ?;";
 
-        try (Connection conn = openConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query); 
             pstmt.setString(1, username);
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    userPlayerDTO = new UserPlayerDTO();
-                    userPlayerDTO.setIdPlayer(rs.getInt("idUserPlayer"));
-                    userPlayerDTO.setIdUserType(rs.getInt("idUserType"));
-                    userPlayerDTO.setName(rs.getString("name"));
-                    userPlayerDTO.setScore(rs.getInt("score"));
-                }
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userPlayerDTO = new UserPlayerDTO(
+                    rs.getInt(1), 
+                    rs.getInt(2), 
+                    rs.getString(3), 
+                    rs.getInt(4),
+                    rs.getString(5)
+                );
             }
+        } catch(Exception e) {
+            System.out.println("Error en la consulta: " + e.getMessage());
         }
+
+        return userPlayerDTO;
+    }
+
+    public UserPlayerDTO readById(int id) throws Exception {
+        UserPlayerDTO userPlayerDTO = null; 
+        
+        String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate FROM UserPlayer WHERE idPlayer = ?;";
+        
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query); 
+            pstmt.setInt(1, id);
+        
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                userPlayerDTO = new UserPlayerDTO(
+                    rs.getInt(1), 
+                    rs.getInt(2), 
+                    rs.getString(3), 
+                    rs.getInt(4),
+                    rs.getString(5)
+                );
+            }
+        } catch(Exception e) {
+            System.out.println("Error en la consulta: " + e.getMessage());
+        }
+        
         return userPlayerDTO;
     }
 
