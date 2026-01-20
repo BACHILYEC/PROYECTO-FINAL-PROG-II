@@ -78,3 +78,9 @@ CREATE TABLE Answer (
     ,CreationDate DATETIME NOT NULL DEFAULT(datetime('now','localtime'))
     ,ModificateDate DATETIME DEFAULT NULL
 );
+
+-- INSERT INTO UserPlayer (idUserType, Name, Score) 
+-- VALUES (1, 'PlayerOne', 1500);
+
+-- INSERT INTO UserPlayer (idUserType, Name, Score) 
+-- VALUES (2, 'ShadowHunter', 2350);

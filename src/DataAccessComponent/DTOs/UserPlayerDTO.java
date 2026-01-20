@@ -27,6 +27,14 @@ public class UserPlayerDTO {
         Score = score;
     }
 
+    public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate) {
+        IdPlayer = idPlayer;
+        IdUserType = idUserType;
+        Name = name;
+        Score = score;
+        CreationDate = creationDate;
+    }
+
     public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate,
             String modificateDate) {
         IdPlayer = idPlayer;

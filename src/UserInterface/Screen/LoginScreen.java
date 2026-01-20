@@ -7,16 +7,15 @@ import javax.swing.*;
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
 import UserInterface.Utility.ImageBackgroundPanel;
-import UserInterface.Utility.ReusableMethods;
 
 public class LoginScreen {
-    public static JPanel loginPanel(JFrame mainFrame) {
+    public static JPanel loginPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JLabel tittle = new JLabel("Liminalis", SwingConstants.CENTER);
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
         Color tittleColorPanel = new Color(173, 160, 219);
-        Color PanelButton = new Color(199, 186, 212);
+        Color PanelButton = new Color(156, 130, 189);
         tittle.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tittle.setOpaque(true);
         tittle.setBackground(tittleColorPanel);
@@ -71,7 +70,8 @@ public class LoginScreen {
                     try {
                         UserAdminDTO dto = dao.readByName(username);
                         if (dto.getPassword().equals(password)) {
-                            ReusableMethods.setContentPane(ScreenAdmin.MenuAdmin(), mainFrame);
+
+                            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                             return;
                         }
                     } catch (Exception e) {

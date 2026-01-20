@@ -18,6 +18,7 @@ import DataAccessComponent.DTOs.UserAdminDTO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 
 public class ReusableMethods {
+
     public static JScrollPane createTableAdmin(String[] columnNames, JPanel panel, Boolean status) {
 
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
@@ -95,4 +96,7 @@ public class ReusableMethods {
         button.setMaximumSize(size);
         return button;
     }
+
+    
+
 }
