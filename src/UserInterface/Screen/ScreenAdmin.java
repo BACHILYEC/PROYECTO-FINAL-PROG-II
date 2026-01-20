@@ -52,6 +52,7 @@ public class ScreenAdmin {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }
             String index = buttonLabels[i];
+<<<<<<< HEAD
              boton.addActionListener(e -> {
               switch (index) {
                 case "Mostrar Datos": {
@@ -73,6 +74,28 @@ public class ScreenAdmin {
                 }
               }
             });
+=======
+            // boton.addActionListener(e -> {
+            // switch (index) {
+            // Isma case "Tabla De Jugadores": {
+            // ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
+            // break;
+            // }
+            // Heidy case "Agregar Jugador": {
+            // ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
+            // break;
+            // }
+            // Angela case "Modificar Jugador": {
+            // ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
+            // break;
+            // }
+            // mathias case "Buscar Jugador": {
+            // ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
+            // break;
+            // }
+            // }
+            // });
+>>>>>>> d8d47870a216a73679c7cf709878d12544d246ea
         }
         JPanel buttonsaux = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonsaux.setFont(exitButtFont);
