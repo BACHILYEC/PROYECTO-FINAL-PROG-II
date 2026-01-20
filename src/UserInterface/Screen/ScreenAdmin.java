@@ -54,19 +54,19 @@ public class ScreenAdmin {
             String index = buttonLabels[i];
             // boton.addActionListener(e -> {
             // switch (index) {
-            // case "Mostrar Datos": {
+            // Isma case "Tabla De Jugadores": {
             // ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
             // break;
             // }
-            // case "Crear Datos": {
+            // Heidy case "Agregar Jugador": {
             // ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
             // break;
             // }
-            // case "Actualizar Datos": {
+            // Angela case "Modificar Jugador": {
             // ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
             // break;
             // }
-            // case "Buscar Datos": {
+            // mathias case "Buscar Jugador": {
             // ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
             // break;
             // }
