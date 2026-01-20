@@ -1,4 +1,4 @@
-package UserInterface.MainMenu;
+package UserInterface.Screen;
 
 import java.awt.*;
 
@@ -59,12 +59,14 @@ public class MainMenu {
         leaderboardButton.setForeground(Color.black);
         leaderboardButton.setFont(buttonFont);
         leaderboardButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        String[] columnNames = { "Usuario", "Ultimo Acceso", "ID Administrador" };
         leaderboardButton.addActionListener(e -> {
-            JPanel adminsPanel = new JPanel();
-            JScrollPane tableScrollPane = ReusableMethods.createTable(columnNames, adminsPanel, true);
-            adminsPanel.add(tableScrollPane);
-            ReusableMethods.setContentPane(adminsPanel, mainFrame);
+            String[] columnNames = { "Usuario", "Score" };
+            JPanel panel = new JPanel();
+            JScrollPane tableScrollPane = ReusableMethods.createTableAdmin(columnNames, panel, true);
+            panel.setLayout(new BorderLayout());
+            panel.add(tableScrollPane, BorderLayout.CENTER);
+            JOptionPane.showMessageDialog(mainFrame, panel, "Marcador De Jugadores",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
         JButton exitButton = new JButton("Salir");
         exitButton.setPreferredSize(buttonSecondSize);
@@ -78,6 +80,9 @@ public class MainMenu {
         accessAdmin.setForeground(Color.black);
         accessAdmin.setFont(buttonFont);
         accessAdmin.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        accessAdmin.addActionListener(e -> {
+            ReusableMethods.setContentPane(LoginScreen.loginPanel(), mainFrame);
+        });
         buttonssecond.add(leaderboardButton);
         buttonssecond.add(accessAdmin);
         buttonssecond.add(exitButton);

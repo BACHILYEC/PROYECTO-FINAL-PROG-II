@@ -12,7 +12,8 @@ import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
 
 public class ReusableMethods {
-    public static JScrollPane createTable(String[] columnNames, JPanel panel, Boolean status) {
+    public static JScrollPane createTableAdmin(String[] columnNames, JPanel panel, Boolean status) {
+
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
         JTable data = new JTable(model) {
             @Override
@@ -21,8 +22,9 @@ public class ReusableMethods {
             }
         };
         TableColumnModel columnModel = data.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(80);
-        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(2).setPreferredWidth(100);
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
         UserAdminDAO dao = new UserAdminDAO();
@@ -41,7 +43,6 @@ public class ReusableMethods {
 
     public static void setContentPane(JPanel panel, JFrame frame) {
         frame.setContentPane(panel);
-        frame.pack();
         frame.setLocationRelativeTo(null);
         frame.revalidate();
         frame.repaint();
