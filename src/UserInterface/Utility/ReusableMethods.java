@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -44,13 +43,6 @@ public class ReusableMethods {
             JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage());
         }
         return scrollPane;
-    }
-
-    public static void setContentPane(JPanel panel, JFrame frame) {
-        frame.setContentPane(panel);
-        frame.setLocationRelativeTo(null);
-        frame.revalidate();
-        frame.repaint();
     }
 
     public static JButton Button_Exit(String text, Dimension size) {
