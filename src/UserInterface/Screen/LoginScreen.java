@@ -10,7 +10,7 @@ import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 
 public class LoginScreen {
-    public static JPanel loginPanel(JFrame mainFrame) {
+    public static JPanel loginPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JLabel tittle = new JLabel("Liminalis", SwingConstants.CENTER);
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
@@ -72,7 +72,7 @@ public class LoginScreen {
                         UserAdminDTO dto = dao.readByName(username);
                         if (dto.getPassword().equals(password)) {
                             JOptionPane.showMessageDialog(mainPanel, "Acceso Permitido");
-                            ReusableMethods.setContentPane(ScreenAdmin.MenuAdmin(), mainFrame);
+                            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                             return;
                         }
                     } catch (Exception e) {

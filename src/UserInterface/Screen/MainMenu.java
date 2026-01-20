@@ -7,8 +7,7 @@ import javax.swing.*;
 import UserInterface.Utility.ReusableMethods;
 
 public class MainMenu {
-    public static void gameMenu() {
-        JFrame mainFrame = new JFrame("Liminalis");
+    public static JPanel gameMenu() {
         JPanel main = new JPanel(new BorderLayout());
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
         Font buttonFont = new Font("Comic Sans MS", Font.PLAIN, 18);
@@ -65,7 +64,7 @@ public class MainMenu {
             JScrollPane tableScrollPane = ReusableMethods.createTableAdmin(columnNames, panel, true);
             panel.setLayout(new BorderLayout());
             panel.add(tableScrollPane, BorderLayout.CENTER);
-            JOptionPane.showMessageDialog(mainFrame, panel, "Marcador De Jugadores",
+            JOptionPane.showMessageDialog(panel, panel, "Marcador De Jugadores",
                     JOptionPane.INFORMATION_MESSAGE);
         });
         JButton exitButton = new JButton("Salir");
@@ -84,7 +83,7 @@ public class MainMenu {
         accessAdmin.setFont(buttonFont);
         accessAdmin.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         accessAdmin.addActionListener(e -> {
-            ReusableMethods.setContentPane(LoginScreen.loginPanel(mainFrame), mainFrame);
+            MainFrame.setContentPane(LoginScreen.loginPanel());
         });
         buttonssecond.add(leaderboardButton);
         buttonssecond.add(accessAdmin);
@@ -92,11 +91,7 @@ public class MainMenu {
         southPanel.add(buttonPlay);
         southPanel.add(buttonssecond);
         main.add(southPanel, BorderLayout.SOUTH);
-        mainFrame.add(main);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(600, 600);
-        mainFrame.setLocationRelativeTo(null);
-        mainFrame.setVisible(true);
+        return main;
 
     }
 }

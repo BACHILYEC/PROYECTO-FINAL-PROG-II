@@ -37,7 +37,7 @@ public class ScreenAdmin {
         JButton Exit = ReusableMethods.Button_Exit("Salir", boton_size);
         JButton GoToBack = new JButton("Regresar");
         GoToBack.addActionListener(e -> {
-            MainMenu.gameMenu();
+            MainFrame.setContentPane(MainMenu.gameMenu());
         });
         String[] buttonLabels = { "Tabla De Jugadores", "Agregar Jugador", "Modificar Jugador", "Buscar Jugador" };
         for (int i = 0; i < buttonLabels.length; i++) {

@@ -45,13 +45,6 @@ public class ReusableMethods {
         return scrollPane;
     }
 
-    public static void setContentPane(JPanel panel, JFrame frame) {
-        frame.setContentPane(panel);
-        frame.setLocationRelativeTo(null);
-        frame.revalidate();
-        frame.repaint();
-    }
-
     public static JButton Button_Exit(String text, Dimension size) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
