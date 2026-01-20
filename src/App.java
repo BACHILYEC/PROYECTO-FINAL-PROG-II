@@ -1,5 +1,3 @@
-import DataAccessComponent.DAOs.AnswerDAO;
-import DataAccessComponent.DTOs.AnswerDTO;
 import UserInterface.MainMenu.MainMenu;
 
 public class App {
