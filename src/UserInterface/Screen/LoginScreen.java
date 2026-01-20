@@ -71,7 +71,6 @@ public class LoginScreen {
                     try {
                         UserAdminDTO dto = dao.readByName(username);
                         if (dto.getPassword().equals(password)) {
-                            JOptionPane.showMessageDialog(mainPanel, "Acceso Permitido");
                             ReusableMethods.setContentPane(ScreenAdmin.MenuAdmin(), mainFrame);
                             return;
                         }

@@ -13,7 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 import DataAccessComponent.DAOs.UserAdminDAO;
+import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
+import DataAccessComponent.DTOs.UserPlayerDTO;
 
 public class ReusableMethods {
     public static JScrollPane createTableAdmin(String[] columnNames, JPanel panel, Boolean status) {
@@ -35,6 +37,34 @@ public class ReusableMethods {
         try {
             for (UserAdminDTO dto : dao.readAllstatus(status)) {
                 String[] row = { dto.getUserName(), dto.getLastLogin(), dto.getIdAdministrator().toString() };
+                model.addRow(row);
+            }
+        } catch (
+
+        Exception ex) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage());
+        }
+        return scrollPane;
+    }
+
+    public static JScrollPane createTableUser(String[] columnNames, JPanel panel, Boolean status) {
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        JTable data = new JTable(model) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        TableColumnModel columnModel = data.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(150);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        JScrollPane scrollPane = new JScrollPane(data);
+        model.setRowCount(0);
+        UserPlayerDAO dao = new UserPlayerDAO();
+        try {
+            for (UserPlayerDTO dto : dao.readAllstatus(status)) {
+                String[] row = { dto.getName(), dto.getScore().toString() };
                 model.addRow(row);
             }
         } catch (

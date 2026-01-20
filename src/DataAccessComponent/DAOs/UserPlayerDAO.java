@@ -20,29 +20,37 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public List<UserPlayerDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idPlayer, Name, Score FROM Player";
+        String query = "SELECT idPlayer, idUserType, Name, Score FROM UserPlayer";
         if (status) {
-            query += " WHERE Status = 'Activo';";
+            query += " WHERE Status = 'Activo'";
         }
+        query += ";";
         List<UserPlayerDTO> players = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                UserPlayerDTO player = new UserPlayerDTO(rs.getInt(1), rs.getString(2), rs.getInt(3));
+                UserPlayerDTO player = new UserPlayerDTO();
+                player.setIdPlayer(rs.getInt("idPlayer"));
+                player.setIdUserType(rs.getInt("idUserType"));
+                player.setName(rs.getString("Name"));
+                player.setScore(rs.getInt("Score"));
                 players.add(player);
             }
+            rs.close();
+            pstmt.close();
+            conn.close();
         } catch (Exception e) {
-
-            throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
+            e.printStackTrace();
+            throw e;
         }
         return players;
     }
 
     @Override
     public boolean create(UserPlayerDTO entity) throws Exception {
-        String query = "INSERT INTO Player (IdUserType, Name, Score) "
+        String query = "INSERT INTO UserPlayer (IdUserType, Name, Score) "
                 + "VALUES (?, ?, ?);";
         try {
             Connection conn = openConnection();
@@ -59,7 +67,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public boolean update(UserPlayerDTO entity) throws Exception {
-        String query = "UPDATE Player SET Name = ?, Score = ? "
+        String query = "UPDATE UserPlayer SET Name = ?, Score = ? "
                 + "WHERE idPlayer = ?;";
         try {
             Connection conn = openConnection();
@@ -76,7 +84,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public boolean changestatus(int id, Boolean status) throws Exception {
-        String query = "UPDATE Player SET Status = ? WHERE idPlayer = ?;";
+        String query = "UPDATE UserPlayer SET Status = ? WHERE idPlayer = ?;";
         String sta;
         if (status) {
             sta = "Activo";
@@ -97,7 +105,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public Integer getMaxReg() throws Exception {
-        String query = "SELECT COUNT(*) TotalReg FROM Player WHERE Status = 'Activo';";
+        String query = "SELECT COUNT(*) TotalReg FROM UserPlayer WHERE Status = 'Activo';";
         try {
             Connection conn = openConnection();
             Statement pstmt = conn.createStatement();

@@ -23,6 +23,16 @@ INSERT INTO UserAdmin
    ,(   2                ,'KarliBoo'           ,'iCarly'           );
 
 
+
+INSERT INTO UserPlayer
+    (   idUserType       ,Name              ,Score          ) VALUES
+    (   1                ,'PlayerOne'       ,1500           )
+   ,(   1                ,'GamerGirl'       ,2000           )
+   ,(   1                ,'Speedster'       ,1800           )
+   ,(   1                ,'QuizMaster'      ,2200           )
+   ,(   1                ,'Brainiac'        ,2500           );
+
+
 INSERT INTO Category
     (   Name             ,Description                              ) VALUES
     (   'Cultura General','Preguntas de cultura general'           )

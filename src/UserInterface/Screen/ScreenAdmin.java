@@ -7,7 +7,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -52,12 +54,18 @@ public class ScreenAdmin {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }
             String index = buttonLabels[i];
-            // boton.addActionListener(e -> {
-            // switch (index) {
-            // Isma case "Tabla De Jugadores": {
-            // ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
-            // break;
-            // }
+            boton.addActionListener(e -> {
+            switch (index) {
+            case "Tabla De Jugadores": {
+                String[] columnNames = { "Usuario", "Score" };
+                JPanel pan = new JPanel();
+                JScrollPane tableScrollPane = ReusableMethods.createTableUser(columnNames, pan, true);
+                pan.setLayout(new BorderLayout());
+                pan.add(tableScrollPane, BorderLayout.CENTER);
+                JOptionPane.showMessageDialog(panel, pan, "Tabla De Jugadores",
+                        JOptionPane.INFORMATION_MESSAGE);
+            break;
+            }
             // Heidy case "Agregar Jugador": {
             // ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
             // break;
@@ -70,8 +78,9 @@ public class ScreenAdmin {
             // ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
             // break;
             // }
-            // }
-            // });
+            }
+        });
+
         }
         JPanel buttonsaux = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonsaux.setFont(exitButtFont);
