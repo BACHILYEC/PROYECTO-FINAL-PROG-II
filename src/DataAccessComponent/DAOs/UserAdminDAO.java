@@ -18,6 +18,22 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
         throw new UnsupportedOperationException("Unimplemented method 'readBy'");
     }
 
+    public UserAdminDTO readByName(String name) throws Exception {
+        String query = "SELECT Password FROM UserAdmin WHERE UserName = '" + name + "';";
+        UserAdminDTO admin = new UserAdminDTO();
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                admin = new UserAdminDTO(rs.getString(1));
+            }
+        } catch (Exception e) {
+            throw new UnsupportedOperationException("Unimplemented method 'readByName'");
+        }
+        return admin;
+    }
+
     @Override
     public List<UserAdminDTO> readAllstatus(boolean status) throws Exception {
         String query = "SELECT idAdmin, UserName, Password, LastLogin FROM UserAdmin";

@@ -22,7 +22,7 @@ public class MainMenu {
         tittle.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         tittle.setOpaque(true);
         tittle.setBackground(tittleColorPanel);
-        tittle.setForeground(Color.WHITE);
+        tittle.setForeground(Color.BLACK);
         tittle.setFont(tittlefont);
         ImageIcon Backgroundicon = new ImageIcon("src\\UserInterface\\Resources\\LittleBackground.png");
         Image iconGame = Backgroundicon.getImage().getScaledInstance(700, 464, Image.SCALE_SMOOTH);
@@ -74,6 +74,9 @@ public class MainMenu {
         exitButton.setForeground(Color.black);
         exitButton.setFont(buttonFont);
         exitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        exitButton.addActionListener(e -> {
+            System.exit(0);
+        });
         JButton accessAdmin = new JButton("Acceso Admin");
         accessAdmin.setPreferredSize(buttonSecondSize);
         accessAdmin.setBackground(colorsecondButton);
@@ -81,7 +84,7 @@ public class MainMenu {
         accessAdmin.setFont(buttonFont);
         accessAdmin.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         accessAdmin.addActionListener(e -> {
-            ReusableMethods.setContentPane(LoginScreen.loginPanel(), mainFrame);
+            ReusableMethods.setContentPane(LoginScreen.loginPanel(mainFrame), mainFrame);
         });
         buttonssecond.add(leaderboardButton);
         buttonssecond.add(accessAdmin);

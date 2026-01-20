@@ -9,6 +9,10 @@ public class UserAdminDTO {
     private String CreationDate;
     private String LastLogin;
 
+    public UserAdminDTO(String password) {
+        Password = password;
+    }
+
     public UserAdminDTO() {
     }
 
