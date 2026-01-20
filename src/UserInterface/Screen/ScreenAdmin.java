@@ -52,26 +52,27 @@ public class ScreenAdmin {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }
             String index = buttonLabels[i];
-            // boton.addActionListener(e -> {
-            // switch (index) {
-            // case "Mostrar Datos": {
-            // ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
-            // break;
-            // }
-            // case "Crear Datos": {
-            // ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
-            // break;
-            // }
-            // case "Actualizar Datos": {
-            // ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
-            // break;
-            // }
-            // case "Buscar Datos": {
-            // ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
-            // break;
-            // }
-            // }
-            // });
+             boton.addActionListener(e -> {
+              switch (index) {
+                case "Mostrar Datos": {
+                    //   ReusableMethods.setContentPane(ScreenData.showData(frame), frame);
+                      break;
+                }
+                case "Crear Datos": {
+                    //   ReusableMethods.setContentPane(ScreenData.createData(frame), frame);
+                      break;
+                }
+                case "Actualizar Datos": {
+                    //   ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
+                break;
+                }
+                case "Buscar Jugador": {
+                    //   ReusableMethods.setContentPane(ScreenData.searchData(frame), frame);
+                    
+                break;
+                }
+              }
+            });
         }
         JPanel buttonsaux = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonsaux.setFont(exitButtFont);
