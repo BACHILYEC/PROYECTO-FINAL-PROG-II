@@ -9,7 +9,7 @@ public class ImageBackgroundPanel extends JPanel {
 
     public ImageBackgroundPanel(String imagePath) {
         this.backgroundImage = new ImageIcon(imagePath).getImage();
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // para tus campos
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
     @Override
