@@ -26,14 +26,14 @@ public abstract class DataHelperSQLite {
         return conn;
     }
 
-    protected static void closeConnection() throws Exception {
-        try {
-            if (conn != null)
-                conn.close();
-        } catch (Exception e) {
-            throw e;
-        }
-    }
+    // protected static void closeConnection() throws Exception {
+    //     try {
+    //         if (conn != null)
+    //             conn.close();
+    //     } catch (Exception e) {
+    //         throw e;
+    //     }
+    // }
 
     protected String getDataTimeNow() {
         return dtf.format(now).toString();

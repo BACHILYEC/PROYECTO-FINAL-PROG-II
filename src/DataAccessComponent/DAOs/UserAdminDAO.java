@@ -28,8 +28,9 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             if (rs.next()) {
                 admin = new UserAdminDTO(rs.getString(1));
             }
+            // conn.close();
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'readByName'");
+            e.printStackTrace();
         }
         return admin;
     }
@@ -50,7 +51,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
                 administrators.add(admin);
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
             throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
         }
         return administrators;
@@ -58,7 +59,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
 
     @Override
     public boolean create(UserAdminDTO entity) throws Exception {
-        String query = "INSERT INTO Administrator (IdUserType, UserName, Password) "
+        String query = "INSERT INTO UserAdmin (IdUserType, UserName, Password) "
                 + "VALUES (?, ?, ?);";
         try {
             Connection conn = openConnection();
@@ -75,7 +76,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
 
     @Override
     public boolean update(UserAdminDTO entity) throws Exception {
-        String query = "UPDATE Administrator SET UserName = ?, Password = ? "
+        String query = "UPDATE UserAdmin SET UserName = ?, Password = ? "
                 + "WHERE idAdmin = ?;";
         try {
             Connection conn = openConnection();
@@ -86,13 +87,14 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'update'");
+            e.printStackTrace();
+            return false;
         }
     }
 
     @Override
     public boolean changestatus(int id, Boolean status) throws Exception {
-        String query = "UPDATE Administrator SET Status = ? WHERE idAdmin = ?;";
+        String query = "UPDATE UserAdmin SET Status = ? WHERE idAdmin = ?;";
         String sta;
         if (status) {
             sta = "Activo";
@@ -113,7 +115,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
 
     @Override
     public Integer getMaxReg() throws Exception {
-        String query = "SELECT COUNT(*) TotalReg FROM Administrator WHERE Status = 'Activo';";
+        String query = "SELECT COUNT(*) TotalReg FROM UserAdmin WHERE Status = 'Activo';";
         try {
             Connection conn = openConnection();
             Statement pstmt = conn.createStatement();

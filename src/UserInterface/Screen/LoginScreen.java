@@ -6,21 +6,14 @@ import javax.swing.*;
 
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
+import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class LoginScreen {
     public static JPanel loginPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JLabel tittle = new JLabel("Liminalis", SwingConstants.CENTER);
-        Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
+        JLabel tittle = AppConfig.tittleConfig();
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
-        Color tittleColorPanel = new Color(173, 160, 219);
-        Color PanelButton = new Color(156, 130, 189);
-        tittle.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        tittle.setOpaque(true);
-        tittle.setBackground(tittleColorPanel);
-        tittle.setForeground(Color.BLACK);
-        tittle.setFont(tittlefont);
         JPanel Textmain = new JPanel(new BorderLayout());
         ImageBackgroundPanel GetCredencials = new ImageBackgroundPanel(
                 "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
@@ -35,9 +28,9 @@ public class LoginScreen {
         JPasswordField passwordField = new JPasswordField(10);
         JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         passwordPanel.setOpaque(false);
-        passwordPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
         JLabel passwordLabel = new JLabel("Password:");
         passwordLabel.setFont(login);
+        passwordPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordField);
         GetCredencials.add(Box.createVerticalGlue());
@@ -46,17 +39,9 @@ public class LoginScreen {
         GetCredencials.add(passwordPanel);
         Textmain.add(GetCredencials, BorderLayout.CENTER);
         mainPanel.add(tittle, BorderLayout.NORTH);
-        mainPanel.add(Textmain, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        JButton loginButton = new JButton("Login");
-        loginButton.setFocusPainted(false);
-        Font buttonFont = new Font("Comic Sans MS", Font.PLAIN, 18);
-        loginButton.setOpaque(true);
-        loginButton.setBackground(Color.WHITE);
-        loginButton.setFont(buttonFont);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 50, 10));
-        buttonPanel.setOpaque(true);
-        buttonPanel.setBackground(PanelButton);
+        buttonPanel.setBackground(AppConfig.ButtonPrimaryPanel());
+        JButton loginButton = AppConfig.createButton("Login", AppConfig.ButtonPrimary(), 200, 50);
         buttonPanel.add(loginButton);
         loginButton.addActionListener(a -> {
             UserAdminDAO dao = new UserAdminDAO();
@@ -76,6 +61,7 @@ public class LoginScreen {
                         }
                     } catch (Exception e) {
                         JOptionPane.showMessageDialog(mainPanel, "Usuario o contraseña incorrectos.");
+                        e.printStackTrace();
                         usernameField.setText("");
                         passwordField.setText("");
                     }
@@ -84,15 +70,19 @@ public class LoginScreen {
                 JOptionPane.showMessageDialog(mainPanel, "Error: " + e.getMessage());
             }
         });
-        JButton GoToBack = new JButton("Regresar");
-        GoToBack.setOpaque(true);
-        GoToBack.setBackground(Color.WHITE);
-        GoToBack.setFont(buttonFont);
+        JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanelBack.setBackground(AppConfig.ButtonSecondaryPanel());
+        JButton GoToBack = AppConfig.createButton("Regresar", AppConfig.ButtonSecondary(), 150, 40);
+        buttonPanelBack.add(GoToBack);
         GoToBack.addActionListener(e -> {
-            MainMenu.gameMenu();
+            MainFrame.setContentPane(MainMenu.gameMenu());
         });
-        buttonPanel.add(GoToBack);
-        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.add(Textmain);
+        centerPanel.add(buttonPanel);
+        centerPanel.add(buttonPanelBack);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
         return mainPanel;
     }
 }

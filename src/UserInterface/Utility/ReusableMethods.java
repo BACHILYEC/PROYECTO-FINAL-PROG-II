@@ -67,9 +67,11 @@ public class ReusableMethods {
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
         UserPlayerDAO dao = new UserPlayerDAO();
+
         try {
             for (UserPlayerDTO dto : dao.readAllstatus(status)) {
-                String[] row = { dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(), dto.getModificateDate() };
+                String[] row = { dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
+                        dto.getModificateDate() };
                 model.addRow(row);
             }
         } catch (
@@ -96,7 +98,5 @@ public class ReusableMethods {
         button.setMaximumSize(size);
         return button;
     }
-
-    
 
 }

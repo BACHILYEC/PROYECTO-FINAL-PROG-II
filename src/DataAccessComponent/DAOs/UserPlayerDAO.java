@@ -46,7 +46,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             }
             rs.close();
             pstmt.close();
-            conn.close();
+            // conn.close();
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -89,7 +89,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.setInt(2, entity.getScore());
             pstmt.setString(3, dtf.format(now).toString());
             pstmt.setInt(4, entity.getIdPlayer());
-            
+
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -134,27 +134,26 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     public UserPlayerDTO readByName(String username) throws Exception {
-        UserPlayerDTO userPlayerDTO = null; 
+        UserPlayerDTO userPlayerDTO = null;
 
         String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate FROM UserPlayer WHERE Name = ?;";
 
         try {
             Connection conn = openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query); 
+            PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, username);
 
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 userPlayerDTO = new UserPlayerDTO(
-                    rs.getInt(1), 
-                    rs.getInt(2), 
-                    rs.getString(3), 
-                    rs.getInt(4),
-                    rs.getString(5)
-                );
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Error en la consulta: " + e.getMessage());
         }
 
@@ -162,30 +161,29 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     public UserPlayerDTO readById(int id) throws Exception {
-        UserPlayerDTO userPlayerDTO = null; 
-        
+        UserPlayerDTO userPlayerDTO = null;
+
         String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate FROM UserPlayer WHERE idPlayer = ?;";
-        
+
         try {
             Connection conn = openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query); 
+            PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, id);
-        
+
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 userPlayerDTO = new UserPlayerDTO(
-                    rs.getInt(1), 
-                    rs.getInt(2), 
-                    rs.getString(3), 
-                    rs.getInt(4),
-                    rs.getString(5)
-                );
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("Error en la consulta: " + e.getMessage());
         }
-        
+
         return userPlayerDTO;
     }
 

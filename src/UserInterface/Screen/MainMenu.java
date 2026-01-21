@@ -4,25 +4,13 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ReusableMethods;
 
 public class MainMenu {
     public static JPanel gameMenu() {
         JPanel main = new JPanel(new BorderLayout());
-        Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
-        Font buttonFont = new Font("Comic Sans MS", Font.PLAIN, 18);
-        Color tittleColorPanel = new Color(173, 160, 219);
-        Color iconColorPanel = new Color(255, 255, 255);
-        Color playColorPanel = new Color(156, 130, 189);
-        Color secondColorPanel = new Color(199, 186, 212);
-        Color colorplayButton = new Color(217, 163, 187);
-        Color colorsecondButton = new Color(177, 151, 204);
-        JLabel tittle = new JLabel("Liminalis", SwingConstants.CENTER);
-        tittle.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        tittle.setOpaque(true);
-        tittle.setBackground(tittleColorPanel);
-        tittle.setForeground(Color.BLACK);
-        tittle.setFont(tittlefont);
+        JLabel tittle = AppConfig.tittleConfig();
         ImageIcon Backgroundicon = new ImageIcon("src\\UserInterface\\Resources\\LittleBackground.png");
         Image iconGame = Backgroundicon.getImage().getScaledInstance(700, 464, Image.SCALE_SMOOTH);
         Backgroundicon = new ImageIcon(iconGame);
@@ -30,34 +18,20 @@ public class MainMenu {
         JLabel iconLabel = new JLabel(Backgroundicon);
         iconLabel.setOpaque(false);
         iconLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        iconLabel.setBackground(iconColorPanel);
         main.add(iconLabel, BorderLayout.CENTER);
         JPanel southPanel = new JPanel();
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
         JPanel buttonPlay = new JPanel();
         buttonPlay.setOpaque(true);
-        buttonPlay.setBackground(playColorPanel);
+        buttonPlay.setBackground(AppConfig.ButtonPrimaryPanel());
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        JButton playButton = new JButton("JUGAR");
-        playButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-        playButton.setBackground(colorplayButton);
-        playButton.setForeground(Color.black);
-        playButton.setFont(buttonFont);
-        playButton.setFocusPainted(false);
-        Dimension buttonPlaySize = new Dimension(200, 50);
-        playButton.setPreferredSize(buttonPlaySize);
+        JButton playButton = AppConfig.createButton("Jugar", AppConfig.ButtonPrimary(), 200, 50);
         buttonPlay.add(playButton);
         JPanel buttonssecond = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonssecond.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonssecond.setOpaque(true);
-        buttonssecond.setBackground(secondColorPanel);
-        Dimension buttonSecondSize = new Dimension(150, 40);
-        JButton leaderboardButton = new JButton("Ver Marcador");
-        leaderboardButton.setPreferredSize(buttonSecondSize);
-        leaderboardButton.setBackground(colorsecondButton);
-        leaderboardButton.setForeground(Color.black);
-        leaderboardButton.setFont(buttonFont);
-        leaderboardButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        buttonssecond.setBackground(AppConfig.ButtonSecondaryPanel());
+        JButton leaderboardButton = AppConfig.createButton("Marcador", AppConfig.ButtonSecondary(), 150, 40);
         leaderboardButton.addActionListener(e -> {
             String[] columnNames = { "Usuario", "Score" };
             JPanel panel = new JPanel();
@@ -67,21 +41,11 @@ public class MainMenu {
             JOptionPane.showMessageDialog(panel, panel, "Marcador De Jugadores",
                     JOptionPane.INFORMATION_MESSAGE);
         });
-        JButton exitButton = new JButton("Salir");
-        exitButton.setPreferredSize(buttonSecondSize);
-        exitButton.setBackground(colorsecondButton);
-        exitButton.setForeground(Color.black);
-        exitButton.setFont(buttonFont);
-        exitButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        JButton exitButton = AppConfig.createButton("Salir", AppConfig.ButtonSecondary(), 150, 40);
         exitButton.addActionListener(e -> {
             System.exit(0);
         });
-        JButton accessAdmin = new JButton("Acceso Admin");
-        accessAdmin.setPreferredSize(buttonSecondSize);
-        accessAdmin.setBackground(colorsecondButton);
-        accessAdmin.setForeground(Color.black);
-        accessAdmin.setFont(buttonFont);
-        accessAdmin.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        JButton accessAdmin = AppConfig.createButton("Acceso Admin", AppConfig.ButtonSecondary(), 150, 40);
         accessAdmin.addActionListener(e -> {
             MainFrame.setContentPane(LoginScreen.loginPanel());
         });
