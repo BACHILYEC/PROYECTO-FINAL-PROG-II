@@ -32,6 +32,10 @@ public class AppConfig {
         return new Color(177, 151, 204);
     }
 
+    public static Color keyboardButtons() {
+        return new Color(200, 222, 230);
+    }
+
     public static JButton createButton(String text, Color backgroundColor, int a, int b) {
         JButton button = new JButton(text);
         button.setPreferredSize(new Dimension(a, b));

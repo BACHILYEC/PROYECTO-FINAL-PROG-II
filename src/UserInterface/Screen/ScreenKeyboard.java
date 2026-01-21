@@ -1,0 +1,86 @@
+package UserInterface.Screen;
+
+import javax.swing.*;
+
+import UserInterface.Utility.AppConfig;
+import UserInterface.Utility.ImageBackgroundPanel;
+
+import java.awt.*;
+
+public class ScreenKeyboard {
+    private String[] keys = {
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+            "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P",
+            "A", "S", "D", "F", "G", "H", "J", "K", "L", "ENTER",
+            "Z", "X", "C", "V", "B", "N", "M", "<--", "ESPACIO", "Mayus"
+    };
+    private Boolean mayus = false;
+
+    public JPanel keyboard() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel CenterPanel = new JPanel(new BorderLayout());
+        JPanel panelKeyboard = new JPanel(new GridLayout(4, 10, 5, 5));
+        ImageBackgroundPanel userName = new ImageBackgroundPanel(
+                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+        JPanel usernamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        usernamePanel.setOpaque(false);
+        JLabel tittle = AppConfig.tittleConfig();
+        mainPanel.add(tittle, BorderLayout.NORTH);
+        final String[] key = { "" };
+        JTextField inputKey = new JTextField(10);
+        JLabel usernameInput = new JLabel("NickName: ");
+        usernamePanel.add(usernameInput);
+        usernamePanel.add(inputKey);
+        userName.add(usernamePanel);
+        for (int i = 0; i < keys.length; i++) {
+            if (keys[i].equals("ESPACIO")) {
+                JButton button = AppConfig.createButton("ESPACIO", AppConfig.ButtonPrimary(), 40, 40);
+                button.addActionListener(e -> {
+                    key[0] += " ";
+                    inputKey.setText(key[0]);
+                });
+                panelKeyboard.add(button);
+            } else if (keys[i].equals("ENTER")) {
+                JButton button = AppConfig.createButton("ENTER", AppConfig.ButtonPrimary(), 40, 40);
+                panelKeyboard.add(button);
+                button.addActionListener(e -> {
+                    return;
+                });
+            } else if (keys[i].equals("Mayus")) {
+                JButton button = AppConfig.createButton("Mayus", AppConfig.ButtonPrimary(), 40, 40);
+                panelKeyboard.add(button);
+                button.addActionListener(e -> {
+                    mayus = !mayus;
+                });
+            } else if (keys[i].equals("<--")) {
+                JButton button = AppConfig.createButton("<--", AppConfig.ButtonPrimary(), 40, 40);
+                panelKeyboard.add(button);
+                button.addActionListener(e -> {
+                    if (key[0].length() > 0) {
+                        key[0] = key[0].substring(0, key[0].length() - 1);
+                        inputKey.setText(key[0]);
+                    }
+                });
+            } else {
+                JButton button = AppConfig.createButton(keys[i], AppConfig.keyboardButtons(), 40, 40);
+                panelKeyboard.add(button);
+                final int Letter = i;
+                button.addActionListener(e -> {
+                    if (mayus) {
+                        keys[Letter] = keys[Letter].toUpperCase();
+                        key[0] += keys[Letter];
+                        inputKey.setText(key[0]);
+                    } else {
+                        keys[Letter] = keys[Letter].toLowerCase();
+                        key[0] += keys[Letter];
+                        inputKey.setText(key[0]);
+                    }
+                });
+            }
+        }
+        CenterPanel.add(userName, BorderLayout.CENTER);
+        CenterPanel.add(panelKeyboard, BorderLayout.SOUTH);
+        mainPanel.add(CenterPanel, BorderLayout.CENTER);
+        return mainPanel;
+    }
+}
