@@ -3,7 +3,6 @@ package UserInterface.Screen;
 import java.awt.*;
 
 import javax.swing.*;
-
 import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ReusableMethods;
 

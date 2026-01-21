@@ -38,7 +38,7 @@ public class AppConfig {
         button.setBackground(backgroundColor);
         button.setForeground(Color.black);
         button.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
         button.setFocusPainted(false);
         return button;
     }
