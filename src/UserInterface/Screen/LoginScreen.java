@@ -1,7 +1,7 @@
 package UserInterface.Screen;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 import DataAccessComponent.DAOs.UserAdminDAO;
@@ -10,6 +10,9 @@ import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class LoginScreen {
+    private static JComponent[] components;
+    private static int currentIndex = 0;
+
     public static JPanel loginPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JLabel tittle = AppConfig.tittleConfig();
@@ -79,10 +82,70 @@ public class LoginScreen {
         });
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        JPanel keyboard = new ScreenKeyboard().keyboard(usernameField);
         centerPanel.add(Textmain);
+        centerPanel.add(keyboard);
         centerPanel.add(buttonPanel);
         centerPanel.add(buttonPanelBack);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
+
+        components = new JComponent[] { usernameField, passwordField, loginButton,
+                GoToBack };
+        setupKeyBindings(keyboard);
         return mainPanel;
+    }
+
+    private static void setupKeyBindings(JPanel panel) {
+        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = panel.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "nextComponent");
+        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "nextComponent");
+        actionMap.put("nextComponent", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentIndex = (currentIndex + 1) % components.length;
+                focusComponent(currentIndex);
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("UP"), "prevComponent");
+        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "prevComponent");
+        actionMap.put("prevComponent", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentIndex = (currentIndex - 1 + components.length) % components.length;
+                focusComponent(currentIndex);
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("ENTER"), "activateComponent");
+        actionMap.put("activateComponent", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (components[currentIndex] instanceof JButton) {
+                    ((JButton) components[currentIndex]).doClick();
+                } else {
+
+                    currentIndex = (currentIndex + 1) % components.length;
+                    focusComponent(currentIndex);
+                }
+            }
+        });
+    }
+
+    private static void focusComponent(int index) {
+
+        for (JComponent component : components) {
+            if (component instanceof JButton) {
+                component.setBorder(BorderFactory.createEmptyBorder());
+            }
+        }
+
+        components[index].requestFocusInWindow();
+
+        if (components[index] instanceof JButton) {
+            components[index].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        }
     }
 }

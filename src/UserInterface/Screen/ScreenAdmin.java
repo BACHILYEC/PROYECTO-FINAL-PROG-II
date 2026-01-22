@@ -1,15 +1,21 @@
 package UserInterface.Screen;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.AppConfig;
@@ -17,6 +23,9 @@ import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 
 public class ScreenAdmin {
+    private static JButton[] buttons;
+    private static int currentIndex = 0;
+
     public static JPanel MenuAdmin() {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -35,12 +44,16 @@ public class ScreenAdmin {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
         String[] buttonLabels = { "Tabla De Jugadores", "Agregar Jugador", "Modificar Jugador", "Buscar Jugador" };
+        JButton[] mainButtons = new JButton[buttonLabels.length];
+
         for (int i = 0; i < buttonLabels.length; i++) {
             JButton boton = AppConfig.createButton(buttonLabels[i], AppConfig.ButtonPrimary(), 200, 50);
             boton.setMaximumSize(new Dimension(200, 75));
             boton.setAlignmentX(Component.LEFT_ALIGNMENT);
             buttonPanel.add(boton);
-            if (i - 1 < buttonLabels.length) {
+            mainButtons[i] = boton;
+
+            if (i < buttonLabels.length - 1) {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }
             String index = buttonLabels[i];
@@ -65,118 +78,7 @@ public class ScreenAdmin {
                     // break;
                     // }
                     case "Buscar Jugador": {
-                        String[] opciones = { "Buscar por Nombre", "Buscar por ID" };
-                        int seleccion = JOptionPane.showOptionDialog(
-                                null,
-                                "Seleccione el método de búsqueda:",
-                                "Buscar Jugador",
-                                JOptionPane.DEFAULT_OPTION,
-                                JOptionPane.QUESTION_MESSAGE,
-                                null,
-                                opciones,
-                                opciones[0]);
-
-                        if (seleccion == 0) {
-                            try {
-                                String username = JOptionPane.showInputDialog("Ingrese el nombre del jugador:");
-
-                                if (username == null || username.trim().isEmpty()) {
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            "Nombre inválido. Por favor ingrese un nombre válido.",
-                                            "Error",
-                                            JOptionPane.ERROR_MESSAGE);
-                                    break;
-                                }
-
-                                UserPlayerDAO playerDAO = new UserPlayerDAO();
-                                UserPlayerDTO playerDTO = playerDAO.readByName(username);
-
-                                if (playerDTO != null) {
-                                    String mensaje = "¡Jugador encontrado!\n\n" +
-                                            "ID: " + playerDTO.getIdPlayer() + "\n" +
-                                            "Nombre: " + playerDTO.getName() + "\n" +
-                                            "Score: " + playerDTO.getScore();
-
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            mensaje,
-                                            "Jugador Encontrado",
-                                            JOptionPane.INFORMATION_MESSAGE);
-                                } else {
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            "No se encontró ningún jugador con el nombre: " + username,
-                                            "Jugador No Encontrado",
-                                            JOptionPane.WARNING_MESSAGE);
-                                }
-
-                            } catch (Exception err) {
-                                JOptionPane.showMessageDialog(
-                                        null,
-                                        "Error al buscar el jugador: " + err.getMessage(),
-                                        "Error",
-                                        JOptionPane.ERROR_MESSAGE);
-                                err.printStackTrace();
-                            }
-                        }
-
-                        else if (seleccion == 1) {
-                            try {
-                                String idInput = JOptionPane.showInputDialog("Ingrese el ID del jugador:");
-
-                                if (idInput == null || idInput.trim().isEmpty()) {
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            "ID inválido. Por favor ingrese un ID válido.",
-                                            "Error",
-                                            JOptionPane.ERROR_MESSAGE);
-                                    break;
-                                }
-
-                                int playerId;
-                                try {
-                                    playerId = Integer.parseInt(idInput.trim());
-                                } catch (NumberFormatException ex) {
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            "El ID debe ser un número válido.",
-                                            "Error",
-                                            JOptionPane.ERROR_MESSAGE);
-                                    break;
-                                }
-
-                                UserPlayerDAO playerDAO = new UserPlayerDAO();
-                                UserPlayerDTO playerDTO = playerDAO.readById(playerId);
-
-                                if (playerDTO != null) {
-                                    String mensaje = "¡Jugador encontrado!\n\n" +
-                                            "ID: " + playerDTO.getIdPlayer() + "\n" +
-                                            "Nombre: " + playerDTO.getName() + "\n" +
-                                            "Score: " + playerDTO.getScore();
-
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            mensaje,
-                                            "Jugador Encontrado",
-                                            JOptionPane.INFORMATION_MESSAGE);
-                                } else {
-                                    JOptionPane.showMessageDialog(
-                                            null,
-                                            "No se encontró ningún jugador con el ID: " + playerId,
-                                            "Jugador No Encontrado",
-                                            JOptionPane.WARNING_MESSAGE);
-                                }
-
-                            } catch (Exception err) {
-                                JOptionPane.showMessageDialog(
-                                        null,
-                                        "Error al buscar el jugador: " + err.getMessage(),
-                                        "Error",
-                                        JOptionPane.ERROR_MESSAGE);
-                                err.printStackTrace();
-                            }
-                        }
+                        MainFrame.setContentPane(SearchPlayerScreen.searchPlayerPanel());
                         break;
                     }
                 }
@@ -188,6 +90,59 @@ public class ScreenAdmin {
         buttonsaux.add(GoToBack);
         panel.add(buttonsaux, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
+
+        buttons = new JButton[mainButtons.length + 2];
+        System.arraycopy(mainButtons, 0, buttons, 0, mainButtons.length);
+        buttons[mainButtons.length] = Exit;
+        buttons[mainButtons.length + 1] = GoToBack;
+
+        setupKeyBindings(panel);
+
+        highlightButton(currentIndex);
+
         return panel;
+    }
+
+    private static void setupKeyBindings(JPanel panel) {
+        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = panel.getActionMap();
+
+        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "nextButton");
+        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "nextButton");
+        actionMap.put("nextButton", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentIndex = (currentIndex + 1) % buttons.length;
+                highlightButton(currentIndex);
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("UP"), "prevButton");
+        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "prevButton");
+        actionMap.put("prevButton", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+                highlightButton(currentIndex);
+            }
+        });
+
+        inputMap.put(KeyStroke.getKeyStroke("ENTER"), "clickButton");
+        actionMap.put("clickButton", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buttons[currentIndex].doClick();
+            }
+        });
+    }
+
+    private static void highlightButton(int index) {
+
+        for (JButton button : buttons) {
+            button.setBorder(BorderFactory.createEmptyBorder());
+        }
+
+        buttons[index].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        buttons[index].requestFocusInWindow();
     }
 }

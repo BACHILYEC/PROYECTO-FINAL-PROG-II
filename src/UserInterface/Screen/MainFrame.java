@@ -9,7 +9,7 @@ public class MainFrame {
     public static void Frame() {
         frame = new JFrame("Liminalis");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
+        frame.setSize(900, 700);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(MainMenu.gameMenu());
         frame.setVisible(true);

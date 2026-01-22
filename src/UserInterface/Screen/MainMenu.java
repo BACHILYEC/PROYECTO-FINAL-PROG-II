@@ -1,12 +1,15 @@
 package UserInterface.Screen;
 
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
 import javax.swing.*;
 import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ReusableMethods;
 
 public class MainMenu {
+    private static JButton[] buttons;
+    private static int currentIndex = 0;
+
     public static JPanel gameMenu() {
         JPanel main = new JPanel(new BorderLayout());
         JLabel tittle = AppConfig.tittleConfig();
@@ -54,7 +57,62 @@ public class MainMenu {
         southPanel.add(buttonPlay);
         southPanel.add(buttonssecond);
         main.add(southPanel, BorderLayout.SOUTH);
-        return main;
 
+        
+        buttons = new JButton[] { playButton, leaderboardButton, accessAdmin, exitButton };
+
+        
+        setupKeyBindings(main);
+
+  
+        highlightButton(currentIndex);
+
+        return main;
+    }
+
+    private static void setupKeyBindings(JPanel panel) {
+        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        ActionMap actionMap = panel.getActionMap();
+
+       
+        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "nextButton");
+        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "nextButton");
+        actionMap.put("nextButton", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentIndex = (currentIndex + 1) % buttons.length;
+                highlightButton(currentIndex);
+            }
+        });
+
+        
+        inputMap.put(KeyStroke.getKeyStroke("UP"), "prevButton");
+        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "prevButton");
+        actionMap.put("prevButton", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+                highlightButton(currentIndex);
+            }
+        });
+
+       
+        inputMap.put(KeyStroke.getKeyStroke("ENTER"), "clickButton");
+        actionMap.put("clickButton", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                buttons[currentIndex].doClick();
+            }
+        });
+    }
+
+    private static void highlightButton(int index) {
+       
+        for (JButton button : buttons) {
+            button.setBorder(BorderFactory.createEmptyBorder());
+        }
+      
+        buttons[index].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        buttons[index].requestFocusInWindow();
     }
 }
