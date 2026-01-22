@@ -38,14 +38,10 @@ public class AppConfig {
         button.setBackground(backgroundColor);
         button.setForeground(Color.black);
         button.setFont(new Font("Comic Sans MS", Font.PLAIN, 18));
-<<<<<<< HEAD
         button.setBorder(
                 BorderFactory.createLineBorder(Color.BLACK, 1, true));
         button.setOpaque(true);
         button.setContentAreaFilled(true);
-=======
-        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
->>>>>>> ab29cd7c9c43ab414f79b8b1995310f97cba0c6f
         button.setFocusPainted(false);
         return button;
     }
