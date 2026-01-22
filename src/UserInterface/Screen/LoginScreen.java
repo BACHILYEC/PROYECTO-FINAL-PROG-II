@@ -79,6 +79,8 @@ public class LoginScreen {
         });
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        JPanel keyboard = new ScreenKeyboard().keyboard(usernameField);
+        Textmain.add(keyboard, BorderLayout.SOUTH);
         centerPanel.add(Textmain);
         centerPanel.add(buttonPanel);
         centerPanel.add(buttonPanelBack);

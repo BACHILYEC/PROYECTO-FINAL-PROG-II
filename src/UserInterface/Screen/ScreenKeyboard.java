@@ -3,7 +3,6 @@ package UserInterface.Screen;
 import javax.swing.*;
 
 import UserInterface.Utility.AppConfig;
-import UserInterface.Utility.ImageBackgroundPanel;
 
 import java.awt.*;
 
@@ -16,22 +15,12 @@ public class ScreenKeyboard {
     };
     private Boolean mayus = false;
 
-    public JPanel keyboard() {
+    public JPanel keyboard(JTextField inputKey) {
         JPanel mainPanel = new JPanel(new BorderLayout());
         JPanel CenterPanel = new JPanel(new BorderLayout());
         JPanel panelKeyboard = new JPanel(new GridLayout(4, 10, 5, 5));
-        ImageBackgroundPanel userName = new ImageBackgroundPanel(
-                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
-        JPanel usernamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
-        usernamePanel.setOpaque(false);
-        JLabel tittle = AppConfig.tittleConfig();
-        mainPanel.add(tittle, BorderLayout.NORTH);
+        panelKeyboard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         final String[] key = { "" };
-        JTextField inputKey = new JTextField(10);
-        JLabel usernameInput = new JLabel("NickName: ");
-        usernamePanel.add(usernameInput);
-        usernamePanel.add(inputKey);
-        userName.add(usernamePanel);
         for (int i = 0; i < keys.length; i++) {
             if (keys[i].equals("ESPACIO")) {
                 JButton button = AppConfig.createButton("ESPACIO", AppConfig.ButtonPrimary(), 40, 40);
@@ -78,7 +67,6 @@ public class ScreenKeyboard {
                 });
             }
         }
-        CenterPanel.add(userName, BorderLayout.CENTER);
         CenterPanel.add(panelKeyboard, BorderLayout.SOUTH);
         mainPanel.add(CenterPanel, BorderLayout.CENTER);
         return mainPanel;
