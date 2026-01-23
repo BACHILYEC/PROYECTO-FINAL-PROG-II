@@ -3,7 +3,7 @@ package UserInterface.Utility;
 import java.awt.*;
 import javax.swing.*;
 
-public class AppConfig {
+public class StyleConfig {
     public static JLabel tittleConfig() {
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 36);
         Color tittleColorPanel = new Color(173, 160, 219);

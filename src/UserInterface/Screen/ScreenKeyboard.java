@@ -1,7 +1,7 @@
 package UserInterface.Screen;
 
 import javax.swing.*;
-import UserInterface.Utility.AppConfig;
+import UserInterface.Utility.StyleConfig;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ScreenKeyboard {
         for (int i = 0; i < keys.length; i++) {
             for (int j = 0; j < keys[i].length; j++) {
                 if (keys[i][j].equals("ESPACIO")) {
-                    JButton button = AppConfig.createButton("ESPACIO", AppConfig.ButtonPrimary(), 40, 40);
+                    JButton button = StyleConfig.createButton("ESPACIO", StyleConfig.ButtonPrimary(), 40, 40);
                     button.addActionListener(e -> {
                         key[0] += " ";
                         inputKey[0].setText(key[0]);
@@ -43,7 +43,7 @@ public class ScreenKeyboard {
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                 } else if (keys[i][j].equals("ENTER")) {
-                    JButton button = AppConfig.createButton("ENTER", AppConfig.ButtonPrimary(), 40, 40);
+                    JButton button = StyleConfig.createButton("ENTER", StyleConfig.ButtonPrimary(), 40, 40);
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                     button.addActionListener(e -> {
@@ -60,14 +60,14 @@ public class ScreenKeyboard {
                         }
                     });
                 } else if (keys[i][j].equals("Mayus")) {
-                    JButton button = AppConfig.createButton("Mayus", AppConfig.ButtonPrimary(), 40, 40);
+                    JButton button = StyleConfig.createButton("Mayus", StyleConfig.ButtonPrimary(), 40, 40);
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                     button.addActionListener(e -> {
                         mayus = !mayus;
                     });
                 } else if (keys[i][j].equals("<--")) {
-                    JButton button = AppConfig.createButton("<--", AppConfig.ButtonPrimary(), 40, 40);
+                    JButton button = StyleConfig.createButton("<--", StyleConfig.ButtonPrimary(), 40, 40);
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                     button.addActionListener(e -> {
@@ -77,7 +77,7 @@ public class ScreenKeyboard {
                         }
                     });
                 } else {
-                    JButton button = AppConfig.createButton(keys[i][j], AppConfig.keyboardButtons(), 40, 40);
+                    JButton button = StyleConfig.createButton(keys[i][j], StyleConfig.keyboardButtons(), 40, 40);
                     panelKeyboard.add(button);
                     final int Letter = i;
                     final int Index = j;

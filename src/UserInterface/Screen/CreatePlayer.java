@@ -2,14 +2,14 @@ package UserInterface.Screen;
 
 import java.awt.*;
 import javax.swing.*;
-import UserInterface.Utility.AppConfig;
+import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class CreatePlayer {
     public static JPanel createPlayerPanel() {
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel tittle = AppConfig.tittleConfig();
+        JLabel tittle = StyleConfig.tittleConfig();
         panel.add(tittle, BorderLayout.NORTH);
         JPanel getName = new JPanel(new BorderLayout());
         ImageBackgroundPanel namePanel = new ImageBackgroundPanel(
@@ -26,13 +26,13 @@ public class CreatePlayer {
         getName.add(namePanel, BorderLayout.CENTER);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        JButton create = AppConfig.createButton("Crear", AppConfig.ButtonPrimary(), 200, 50);
+        JButton create = StyleConfig.createButton("Crear", StyleConfig.ButtonPrimary(), 200, 50);
         JPanel createPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        createPanel.setBackground(AppConfig.ButtonPrimaryPanel());
+        createPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
         createPanel.add(create);
-        JButton goBack = AppConfig.createButton("Regresar", AppConfig.ButtonSecondary(), 150, 40);
+        JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        backPanel.setBackground(AppConfig.ButtonSecondaryPanel());
+        backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
         backPanel.add(goBack);
         buttonPanel.add(createPanel);
         buttonPanel.add(backPanel);
