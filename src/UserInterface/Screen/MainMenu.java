@@ -12,7 +12,7 @@ public class MainMenu {
         JPanel main = new JPanel(new BorderLayout());
         JLabel tittle = AppConfig.tittleConfig();
         ImageIcon Backgroundicon = new ImageIcon("src\\UserInterface\\Resources\\LittleBackground.png");
-        Image iconGame = Backgroundicon.getImage().getScaledInstance(700, 464, Image.SCALE_SMOOTH);
+        Image iconGame = Backgroundicon.getImage().getScaledInstance(886, 520, Image.SCALE_SMOOTH);
         Backgroundicon = new ImageIcon(iconGame);
         main.add(tittle, BorderLayout.NORTH);
         JLabel iconLabel = new JLabel(Backgroundicon);
