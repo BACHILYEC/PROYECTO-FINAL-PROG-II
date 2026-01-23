@@ -56,7 +56,8 @@ public class MainMenu {
         southPanel.add(buttonssecond);
         main.add(southPanel, BorderLayout.SOUTH);
 
-        buttons = new JComponent[][] { { playButton }, { leaderboardButton, accessAdmin, exitButton } };
+        buttons = new JComponent[][] { { playButton, playButton, playButton },
+                { leaderboardButton, accessAdmin, exitButton } };
         ControllerDualsense ControllerDualsense = new ControllerDualsense();
         ControllerDualsense.setupKeyBindings(main, buttons);
 

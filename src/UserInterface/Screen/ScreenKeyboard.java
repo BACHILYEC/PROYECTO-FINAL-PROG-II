@@ -32,6 +32,8 @@ public class ScreenKeyboard {
         final String[] key = { "" };
         final String[] temp = { "" };
         final JTextField[] inputKey = { input.get(0) };
+        inputKey[0].setBackground(Color.LIGHT_GRAY);
+        inputKey[0].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
         for (int i = 0; i < keys.length; i++) {
             for (int j = 0; j < keys[i].length; j++) {
                 if (keys[i][j].equals("ESPACIO")) {
@@ -47,6 +49,8 @@ public class ScreenKeyboard {
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                     button.addActionListener(e -> {
+                        inputKey[0].setBackground(Color.WHITE);
+                        inputKey[0].setBorder(null);
                         if (textfield) {
                             inputKey[0] = input.get(1);
                             temp[0] = key[0];
@@ -58,6 +62,8 @@ public class ScreenKeyboard {
                             inputKey[0].setText(key[0]);
                             textfield = true;
                         }
+                        inputKey[0].setBackground(Color.LIGHT_GRAY);
+                        inputKey[0].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
                     });
                 } else if (keys[i][j].equals("Mayus")) {
                     JButton button = AppConfig.createButton("Mayus", AppConfig.ButtonPrimary(), 40, 40);
