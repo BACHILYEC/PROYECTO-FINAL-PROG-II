@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
-import UserInterface.Utility.AppConfig;
+import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class LoginScreen {
@@ -18,7 +18,7 @@ public class LoginScreen {
 
     public static JPanel loginPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JLabel tittle = AppConfig.tittleConfig();
+        JLabel tittle = StyleConfig.tittleConfig();
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
         JPanel Textmain = new JPanel(new BorderLayout());
         ImageBackgroundPanel GetCredencials = new ImageBackgroundPanel(
@@ -46,8 +46,8 @@ public class LoginScreen {
         Textmain.add(GetCredencials, BorderLayout.CENTER);
         mainPanel.add(tittle, BorderLayout.NORTH);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanel.setBackground(AppConfig.ButtonPrimaryPanel());
-        JButton loginButton = AppConfig.createButton("Login", AppConfig.ButtonPrimary(), 200, 50);
+        buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
+        JButton loginButton = StyleConfig.createButton("Login", StyleConfig.ButtonPrimary(), 200, 50);
         buttonPanel.add(loginButton);
         loginButton.addActionListener(a -> {
             UserAdminDAO dao = new UserAdminDAO();
@@ -77,8 +77,8 @@ public class LoginScreen {
             }
         });
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanelBack.setBackground(AppConfig.ButtonSecondaryPanel());
-        JButton GoToBack = AppConfig.createButton("Regresar", AppConfig.ButtonSecondary(), 150, 40);
+        buttonPanelBack.setBackground(StyleConfig.ButtonSecondaryPanel());
+        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         buttonPanelBack.add(GoToBack);
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
