@@ -16,6 +16,18 @@ public class StyleConfig {
         return tittle;
     }
 
+    public static JLabel questionLabel(String question) {
+        Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 20);
+        Color tittleColorPanel = new Color(173, 160, 219);
+        JLabel tittle = new JLabel(question, SwingConstants.CENTER);
+        tittle.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+        tittle.setOpaque(true);
+        tittle.setBackground(tittleColorPanel);
+        tittle.setForeground(Color.BLACK);
+        tittle.setFont(tittlefont);
+        return tittle;
+    }
+
     public static Color ButtonPrimaryPanel() {
         return new Color(156, 130, 189);
     }

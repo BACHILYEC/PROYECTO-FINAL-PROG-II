@@ -67,7 +67,8 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar la pregunta con id: " + entity.getIdQuestion(), e, getClass(), "update");
+            throw new AppException("No se pudo actualizar la pregunta con id: " + entity.getIdQuestion(), e, getClass(),
+                    "update");
         }
     }
 
@@ -89,7 +90,8 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo cambiar el estado de la pregunta con id: " + id, e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado de la pregunta con id: " + id, e, getClass(),
+                    "changestatus");
         }
     }
 
@@ -115,11 +117,11 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
         throw new AppException("Método readBy no implementado para QuestionDAO", null, getClass(), "readBy");
     }
 
-    public List<QuestionDTO> readAllQuestion(Integer id) throws Exception {
+    public List<QuestionDTO> readAllQuestion() throws Exception {
 
-        String query = "SELECT Question FROM Question WHERE idCategory = " + id.toString() + ";";
+        String query = "SELECT Question FROM Question;";
 
-        List<QuestionDTO> question = new ArrayList<>();
+        ArrayList<QuestionDTO> question = new ArrayList<>();
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -129,7 +131,8 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 question.add(questionDTO);
             }
         } catch (Exception e) {
-            throw new AppException("No se pudo leer las preguntas de la categoría con id: " + id, e, getClass(), "readAllQuestion");
+            throw new AppException("No se pudo leer las preguntas", e, getClass(),
+                    "readAllQuestion");
         }
         return question;
     }
