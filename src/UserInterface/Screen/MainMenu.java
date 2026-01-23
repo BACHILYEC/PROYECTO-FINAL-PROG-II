@@ -26,6 +26,9 @@ public class MainMenu {
         buttonPlay.setBackground(StyleConfig.ButtonPrimaryPanel());
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
         JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
+        playButton.addActionListener(e -> {
+            MainFrame.setContentPane(GameScreen.game());
+        });
         buttonPlay.add(playButton);
         JPanel buttonssecond = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonssecond.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

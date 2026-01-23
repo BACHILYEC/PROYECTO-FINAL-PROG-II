@@ -2,7 +2,6 @@ package UserInterface.Screen;
 
 import javax.swing.*;
 
-import BusinessLogic.QuestionBL;
 import DataAccessComponent.DAOs.QuestionDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
@@ -11,7 +10,6 @@ import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.StyleConfig;
 
 import java.awt.*;
-import java.text.ListFormat.Style;
 import java.util.ArrayList;
 
 public class GameScreen {
@@ -23,12 +21,12 @@ public class GameScreen {
                 "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
         gamePanel.add(backgroundPanel, BorderLayout.CENTER);
         try {
-            int max = randomNumber(50);
+            int max = randomNumber(49);
             System.out.println(max);
             QuestionDAO qdao = new QuestionDAO();
             ArrayList<QuestionDTO> question = new ArrayList<>(qdao.readAllQuestion());
+            System.out.println(question.size());
             String questionCurrent = question.get(max).getQuestion();
-            question.remove(question.get(max));
             JLabel questJLabel = StyleConfig.questionLabel(questionCurrent);
             JPanel options = new JPanel();
             options.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -41,6 +39,8 @@ public class GameScreen {
                 options.add(option);
             }
             backgroundPanel.add(options);
+            question.remove(question.get(max));
+            System.out.println(question.size());
             max--;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al cargar la pantalla de juego: " + e.getMessage(),
@@ -51,6 +51,6 @@ public class GameScreen {
     }
 
     public static int randomNumber(int max) {
-        return (int) (Math.random() * max) + 1;
+        return (int) (Math.random() * max);
     }
 }

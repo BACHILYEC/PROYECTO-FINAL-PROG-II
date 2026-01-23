@@ -11,7 +11,7 @@ public class MainFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 700);
         frame.setLocationRelativeTo(null);
-        frame.setContentPane(GameScreen.game());
+        frame.setContentPane(MainMenu.gameMenu());
         frame.setVisible(true);
     }
 
