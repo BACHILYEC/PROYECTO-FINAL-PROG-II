@@ -83,6 +83,7 @@ public class LoginScreen {
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
+        
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         ArrayList<JTextField> input = new ArrayList<>();

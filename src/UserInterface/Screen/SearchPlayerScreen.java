@@ -2,6 +2,8 @@ package UserInterface.Screen;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import DataAccessComponent.DAOs.UserPlayerDAO;
@@ -10,8 +12,7 @@ import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class SearchPlayerScreen {
-    private static JComponent[][] buttons;
-    private static int currentIndex = 0;
+    private static JComponent[][] components;
     private static JTextField nameTextField;
     private static JTextField idTextField;
 
@@ -20,6 +21,7 @@ public class SearchPlayerScreen {
         JLabel tittle = AppConfig.tittleConfig();
         mainPanel.add(tittle, BorderLayout.NORTH);
 
+        
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
                 "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
@@ -27,6 +29,7 @@ public class SearchPlayerScreen {
 
         Font labelFont = new Font("Comic Sans MS", Font.BOLD, 18);
 
+        
         JPanel searchByNamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         searchByNamePanel.setOpaque(false);
         searchByNamePanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
@@ -39,6 +42,7 @@ public class SearchPlayerScreen {
 
         centerPanel.add(Box.createVerticalGlue());
 
+    
         JPanel searchByIdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         searchByIdPanel.setOpaque(false);
         searchByIdPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
@@ -49,11 +53,10 @@ public class SearchPlayerScreen {
         searchByIdPanel.add(idTextField);
         centerPanel.add(searchByIdPanel);
 
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
-
+        
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(AppConfig.ButtonPrimaryPanel());
-        
+
         JButton searchByNameButton = AppConfig.createButton("Buscar por Nombre", AppConfig.ButtonPrimary(), 200, 50);
         searchByNameButton.addActionListener(e -> searchByName(mainPanel));
         buttonPanel.add(searchByNameButton);
@@ -62,9 +65,7 @@ public class SearchPlayerScreen {
         searchByIdButton.addActionListener(e -> searchById(mainPanel));
         buttonPanel.add(searchByIdButton);
 
-        mainPanel.add(buttonPanel, BorderLayout.CENTER);
-
-   
+       
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanelBack.setBackground(AppConfig.ButtonSecondaryPanel());
         JButton backButton = AppConfig.createButton("Regresar", AppConfig.ButtonSecondary(), 150, 40);
@@ -73,25 +74,40 @@ public class SearchPlayerScreen {
         });
         buttonPanelBack.add(backButton);
 
-      
+        
+        ArrayList<JTextField> input = new ArrayList<>();
+        input.add(nameTextField);
+        input.add(idTextField);
+        JPanel keyboard = ScreenKeyboard.keyboard(input);
+
+        
         JPanel fullCenterPanel = new JPanel();
         fullCenterPanel.setLayout(new BoxLayout(fullCenterPanel, BoxLayout.Y_AXIS));
         fullCenterPanel.add(centerPanel);
+        fullCenterPanel.add(keyboard);
         fullCenterPanel.add(buttonPanel);
         fullCenterPanel.add(buttonPanelBack);
+        
         mainPanel.add(fullCenterPanel, BorderLayout.CENTER);
 
-        buttons = new JComponent[][] { 
-            { nameTextField }, 
-            { idTextField },
-            { searchByNameButton }, 
-            { searchByIdButton }, 
-            { backButton } 
-        };
+      
+        JButton[][] buttons = ScreenKeyboard.getButtons();
+        components = new JComponent[buttons.length + 2][buttons[0].length];
+       
+        for (int i = 0; i < buttons.length; i++) {
+            for (int j = 0; j < buttons[i].length; j++) {
+                components[i][j] = buttons[i][j];
+            }
+        }
+       
+        for (int i = 0; i < buttons[0].length; i++) {
+            components[buttons.length][i] = searchByNameButton;
+            components[buttons.length + 1][i] = searchByIdButton;
+        }
         
         ControllerDualsense controller = new ControllerDualsense();
-        controller.setupKeyBindings(mainPanel, buttons);
-        controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), buttons);
+        controller.setupKeyBindings(mainPanel, components);
+        controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), components);
 
         return mainPanel;
     }
@@ -117,7 +133,6 @@ public class SearchPlayerScreen {
                         "ID: " + playerDTO.getIdPlayer() + "\n" +
                         "Nombre: " + playerDTO.getName() + "\n" +
                         "Score: " + playerDTO.getScore();
-                        idTextField.setText("");
 
                 JOptionPane.showMessageDialog(
                         parentPanel,
@@ -126,13 +141,13 @@ public class SearchPlayerScreen {
                         JOptionPane.INFORMATION_MESSAGE);
                 
                 nameTextField.setText("");
+                idTextField.setText("");
             } else {
                 JOptionPane.showMessageDialog(
                         parentPanel,
                         "No se encontró ningún jugador con el nombre: " + username,
                         "Jugador No Encontrado",
                         JOptionPane.WARNING_MESSAGE);
-                        idTextField.setText("");
             }
 
         } catch (Exception err) {
@@ -146,17 +161,14 @@ public class SearchPlayerScreen {
     }
 
     private static void searchById(JPanel parentPanel) {
-        String idInput = idTextField.getText();
         try {
-            
+            String idInput = idTextField.getText();
 
             if (idInput == null || idInput.trim().isEmpty()) {
-                nameTextField.setText("");
                 JOptionPane.showMessageDialog(
                         parentPanel,
                         "ID inválido. Por favor ingrese un ID válido.",
                         "Error",
-                        
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -181,7 +193,6 @@ public class SearchPlayerScreen {
                         "ID: " + playerDTO.getIdPlayer() + "\n" +
                         "Nombre: " + playerDTO.getName() + "\n" +
                         "Score: " + playerDTO.getScore();
-                        nameTextField.setText("");
 
                 JOptionPane.showMessageDialog(
                         parentPanel,
@@ -189,6 +200,7 @@ public class SearchPlayerScreen {
                         "Jugador Encontrado",
                         JOptionPane.INFORMATION_MESSAGE);
                 
+                nameTextField.setText("");
                 idTextField.setText("");
             } else {
                 JOptionPane.showMessageDialog(
@@ -196,7 +208,6 @@ public class SearchPlayerScreen {
                         "No se encontró ningún jugador con el ID: " + playerId,
                         "Jugador No Encontrado",
                         JOptionPane.WARNING_MESSAGE);
-                        nameTextField.setText("");
             }
 
         } catch (Exception err) {
