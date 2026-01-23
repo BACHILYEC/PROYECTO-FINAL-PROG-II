@@ -1,7 +1,6 @@
 package UserInterface.Screen;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -12,9 +11,7 @@ import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class LoginScreen {
-    private static int currentIndexX = 0;
-    private static int currentIndexY = 0;
-    static JComponent[][] components = new JComponent[6][10];
+    static JComponent[][] components = new JComponent[7][10];
 
     public static JPanel loginPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -26,12 +23,25 @@ public class LoginScreen {
         JTextField usernameField = new JTextField(10);
         JPanel userLogin = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         userLogin.setOpaque(false);
-        userLogin.setBorder(BorderFactory.createEmptyBorder(100, 0, 0, 0));
+        userLogin.setBorder(BorderFactory.createEmptyBorder(100, 3, 10, 70));
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(login);
         userLogin.add(usernameLabel);
         userLogin.add(usernameField);
         JPasswordField passwordField = new JPasswordField(10);
+        JToggleButton showPasswordButton = new JToggleButton("Ver");
+        showPasswordButton.setPreferredSize(new Dimension(50, 23));
+        showPasswordButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
+        showPasswordButton.setBackground(StyleConfig.ButtonSecondary());
+        showPasswordButton.addActionListener(e -> {
+            if (showPasswordButton.isSelected()) {
+                passwordField.setEchoChar((char) 0);
+                showPasswordButton.setText("Ocultar");
+            } else {
+                passwordField.setEchoChar('•');
+                showPasswordButton.setText("Ver");
+            }
+        });
         JPanel passwordPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         passwordPanel.setOpaque(false);
         JLabel passwordLabel = new JLabel("Password:");
@@ -39,6 +49,7 @@ public class LoginScreen {
         passwordPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 100, 0));
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordField);
+        passwordPanel.add(showPasswordButton);
         GetCredencials.add(Box.createVerticalGlue());
         GetCredencials.add(userLogin);
         GetCredencials.add(Box.createVerticalGlue());
@@ -48,6 +59,7 @@ public class LoginScreen {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
         JButton loginButton = StyleConfig.createButton("Login", StyleConfig.ButtonPrimary(), 200, 50);
+        loginButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.add(loginButton);
         loginButton.addActionListener(a -> {
             UserAdminDAO dao = new UserAdminDAO();
@@ -94,17 +106,19 @@ public class LoginScreen {
         centerPanel.add(buttonPanel);
         centerPanel.add(buttonPanelBack);
         mainPanel.add(centerPanel, BorderLayout.CENTER);
-
+        for (int i = 0; i <= 9; i++) {
+            components[0][i] = showPasswordButton;
+        }
         JButton[][] buttons = ScreenKeyboard.getButtons();
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
-                components[i][j] = buttons[i][j];
+                components[i + 1][j] = buttons[i][j];
             }
-
         }
+
         for (int i = 0; i <= 9; i++) {
-            components[4][i] = loginButton;
-            components[5][i] = GoToBack;
+            components[5][i] = loginButton;
+            components[6][i] = GoToBack;
         }
         ControllerDualsense controller = new ControllerDualsense();
         controller.setupKeyBindings(mainPanel, components);

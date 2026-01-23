@@ -1,7 +1,6 @@
 package UserInterface.Screen;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 import DataAccessComponent.DAOs.UserPlayerDAO;
@@ -11,13 +10,12 @@ import UserInterface.Utility.ImageBackgroundPanel;
 
 public class SearchPlayerScreen {
     private static JComponent[][] buttons;
-    private static int currentIndex = 0;
     private static JTextField nameTextField;
     private static JTextField idTextField;
 
     public static JPanel searchPlayerPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JLabel tittle =StyleConfig.tittleConfig();
+        JLabel tittle = StyleConfig.tittleConfig();
         mainPanel.add(tittle, BorderLayout.NORTH);
 
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
@@ -53,27 +51,26 @@ public class SearchPlayerScreen {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
-        
-        JButton searchByNameButton =StyleConfig.createButton("Buscar por Nombre",StyleConfig.ButtonPrimary(), 200, 50);
+
+        JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.ButtonPrimary(), 200,
+                50);
         searchByNameButton.addActionListener(e -> searchByName(mainPanel));
         buttonPanel.add(searchByNameButton);
 
-        JButton searchByIdButton =StyleConfig.createButton("Buscar por ID",StyleConfig.ButtonPrimary(), 200, 50);
+        JButton searchByIdButton = StyleConfig.createButton("Buscar por ID", StyleConfig.ButtonPrimary(), 200, 50);
         searchByIdButton.addActionListener(e -> searchById(mainPanel));
         buttonPanel.add(searchByIdButton);
 
         mainPanel.add(buttonPanel, BorderLayout.CENTER);
 
-   
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanelBack.setBackground(StyleConfig.ButtonSecondaryPanel());
-        JButton backButton =StyleConfig.createButton("Regresar",StyleConfig.ButtonSecondary(), 150, 40);
+        JButton backButton = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         backButton.addActionListener(e -> {
             MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
         });
         buttonPanelBack.add(backButton);
 
-      
         JPanel fullCenterPanel = new JPanel();
         fullCenterPanel.setLayout(new BoxLayout(fullCenterPanel, BoxLayout.Y_AXIS));
         fullCenterPanel.add(centerPanel);
@@ -81,14 +78,14 @@ public class SearchPlayerScreen {
         fullCenterPanel.add(buttonPanelBack);
         mainPanel.add(fullCenterPanel, BorderLayout.CENTER);
 
-        buttons = new JComponent[][] { 
-            { nameTextField }, 
-            { idTextField },
-            { searchByNameButton }, 
-            { searchByIdButton }, 
-            { backButton } 
+        buttons = new JComponent[][] {
+                { nameTextField },
+                { idTextField },
+                { searchByNameButton },
+                { searchByIdButton },
+                { backButton }
         };
-        
+
         ControllerDualsense controller = new ControllerDualsense();
         controller.setupKeyBindings(mainPanel, buttons);
         controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), buttons);
@@ -117,14 +114,14 @@ public class SearchPlayerScreen {
                         "ID: " + playerDTO.getIdPlayer() + "\n" +
                         "Nombre: " + playerDTO.getName() + "\n" +
                         "Score: " + playerDTO.getScore();
-                        idTextField.setText("");
+                idTextField.setText("");
 
                 JOptionPane.showMessageDialog(
                         parentPanel,
                         mensaje,
                         "Jugador Encontrado",
                         JOptionPane.INFORMATION_MESSAGE);
-                
+
                 nameTextField.setText("");
             } else {
                 JOptionPane.showMessageDialog(
@@ -132,7 +129,7 @@ public class SearchPlayerScreen {
                         "No se encontró ningún jugador con el nombre: " + username,
                         "Jugador No Encontrado",
                         JOptionPane.WARNING_MESSAGE);
-                        idTextField.setText("");
+                idTextField.setText("");
             }
 
         } catch (Exception err) {
@@ -148,7 +145,6 @@ public class SearchPlayerScreen {
     private static void searchById(JPanel parentPanel) {
         String idInput = idTextField.getText();
         try {
-            
 
             if (idInput == null || idInput.trim().isEmpty()) {
                 nameTextField.setText("");
@@ -156,7 +152,7 @@ public class SearchPlayerScreen {
                         parentPanel,
                         "ID inválido. Por favor ingrese un ID válido.",
                         "Error",
-                        
+
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -181,14 +177,14 @@ public class SearchPlayerScreen {
                         "ID: " + playerDTO.getIdPlayer() + "\n" +
                         "Nombre: " + playerDTO.getName() + "\n" +
                         "Score: " + playerDTO.getScore();
-                        nameTextField.setText("");
+                nameTextField.setText("");
 
                 JOptionPane.showMessageDialog(
                         parentPanel,
                         mensaje,
                         "Jugador Encontrado",
                         JOptionPane.INFORMATION_MESSAGE);
-                
+
                 idTextField.setText("");
             } else {
                 JOptionPane.showMessageDialog(
@@ -196,7 +192,7 @@ public class SearchPlayerScreen {
                         "No se encontró ningún jugador con el ID: " + playerId,
                         "Jugador No Encontrado",
                         JOptionPane.WARNING_MESSAGE);
-                        nameTextField.setText("");
+                nameTextField.setText("");
             }
 
         } catch (Exception err) {
