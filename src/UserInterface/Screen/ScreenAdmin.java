@@ -20,7 +20,7 @@ import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 
 public class ScreenAdmin {
-    private static JComponent[][] buttons;
+    private static JComponent[][] buttons = new JComponent[5][2];
 
     public static JPanel MenuAdmin() {
         JPanel panel = new JPanel();
@@ -40,15 +40,13 @@ public class ScreenAdmin {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
         String[] buttonLabels = { "Tabla De Jugadores", "Agregar Jugador", "Modificar Jugador", "Buscar Jugador" };
-        JButton[] mainButtons = new JButton[buttonLabels.length];
 
         for (int i = 0; i < buttonLabels.length; i++) {
             JButton boton = AppConfig.createButton(buttonLabels[i], AppConfig.ButtonPrimary(), 200, 50);
             boton.setMaximumSize(new Dimension(200, 75));
             boton.setAlignmentX(Component.LEFT_ALIGNMENT);
             buttonPanel.add(boton);
-            mainButtons[i] = boton;
-
+            buttons[i][0] = boton;
             if (i < buttonLabels.length - 1) {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }
@@ -86,12 +84,8 @@ public class ScreenAdmin {
         buttonsaux.add(GoToBack);
         panel.add(buttonsaux, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
-
-        buttons = new JComponent[mainButtons.length + 2][];
-        for (int i = 0; i < mainButtons.length; i++) {
-            buttons[i] = new JComponent[] { mainButtons[i] };
-        }
-        buttons[mainButtons.length] = new JComponent[] { Exit, GoToBack };
+        buttons[4][0] = Exit;
+        buttons[4][1] = GoToBack;
         ControllerDualsense ControllerDualsense = new ControllerDualsense();
         ControllerDualsense.setupKeyBindings(panel, buttons);
 
