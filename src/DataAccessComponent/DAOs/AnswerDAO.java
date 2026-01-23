@@ -13,6 +13,7 @@ import DataAccessComponent.DTOs.AnswerDTO;
 
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
+import Infrastructure.AppException;
 
 public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
@@ -43,12 +44,12 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+            throw new AppException("Caracoles, no se encontró respuesta correcta para la pregunta", e, getClass(), "readCorrectAns");
         }
         return ans1;
     }
 
-    public List<AnswerDTO> readOptions(int question, Boolean status) {
+    public List<AnswerDTO> readOptions(int question, Boolean status) throws Exception {
         String sta;
         if (status) {
             sta = "Activo";
@@ -67,7 +68,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+            throw new AppException("Caracoles, no se pudo leer las opciones", e, getClass(), "readOptions");
         }
         return list;
     }
@@ -92,7 +93,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+            throw new AppException("Caracoles, no se pudo leer las respuestas", e, getClass(), "readAllstatus");
         }
         return list;
     }
@@ -111,7 +112,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+            throw new AppException("Caracoles, no se encontraron respuestas correctas para la pregunta", e, getClass(), "readAllcorrectanswers");
         }
         return list;
     }
@@ -128,7 +129,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new AppException("Caracoles, no se pudo crear la respuesta", e, getClass(), "create");
         }
     }
 
@@ -148,7 +149,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'update'");
+            throw new AppException("Caracoles, no se pudo actualizar la respuesta", e, getClass(), "update");
         }
     }
 
@@ -173,7 +174,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
         } catch (Exception e) {
 
-            throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
+            throw new AppException("Caracoles, no se pudo cambiar el estado de la respuesta", e, getClass(), "changestatus");
         }
     }
 
@@ -189,6 +190,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
+            throw new AppException("Caracoles, no se pudo obtener el numero máximo de registros", e, getClass(), "getMaxReg");
         }
         return 0;
     }
