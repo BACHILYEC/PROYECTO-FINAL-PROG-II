@@ -8,7 +8,7 @@ import javax.swing.*;
 
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
-import UserInterface.Utility.AppConfig;
+import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class SearchPlayerScreen {
@@ -18,7 +18,7 @@ public class SearchPlayerScreen {
 
     public static JPanel searchPlayerPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JLabel tittle = AppConfig.tittleConfig();
+        JLabel tittle =StyleConfig.tittleConfig();
         mainPanel.add(tittle, BorderLayout.NORTH);
 
         
@@ -55,20 +55,24 @@ public class SearchPlayerScreen {
 
         
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanel.setBackground(AppConfig.ButtonPrimaryPanel());
 
-        JButton searchByNameButton = AppConfig.createButton("Buscar por Nombre", AppConfig.ButtonPrimary(), 200, 50);
+        buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
+
+        JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.ButtonPrimary(), 200, 50);
+
+        buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
+
         searchByNameButton.addActionListener(e -> searchByName(mainPanel));
         buttonPanel.add(searchByNameButton);
 
-        JButton searchByIdButton = AppConfig.createButton("Buscar por ID", AppConfig.ButtonPrimary(), 200, 50);
+        JButton searchByIdButton =StyleConfig.createButton("Buscar por ID",StyleConfig.ButtonPrimary(), 200, 50);
         searchByIdButton.addActionListener(e -> searchById(mainPanel));
         buttonPanel.add(searchByIdButton);
 
        
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanelBack.setBackground(AppConfig.ButtonSecondaryPanel());
-        JButton backButton = AppConfig.createButton("Regresar", AppConfig.ButtonSecondary(), 150, 40);
+        buttonPanelBack.setBackground(StyleConfig.ButtonSecondaryPanel());
+        JButton backButton =StyleConfig.createButton("Regresar",StyleConfig.ButtonSecondary(), 150, 40);
         backButton.addActionListener(e -> {
             MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
         });

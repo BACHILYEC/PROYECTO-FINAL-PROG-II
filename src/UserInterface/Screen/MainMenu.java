@@ -2,7 +2,7 @@ package UserInterface.Screen;
 
 import java.awt.*;
 import javax.swing.*;
-import UserInterface.Utility.AppConfig;
+import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ReusableMethods;
 
 public class MainMenu {
@@ -10,9 +10,9 @@ public class MainMenu {
 
     public static JPanel gameMenu() {
         JPanel main = new JPanel(new BorderLayout());
-        JLabel tittle = AppConfig.tittleConfig();
+        JLabel tittle = StyleConfig.tittleConfig();
         ImageIcon Backgroundicon = new ImageIcon("src\\UserInterface\\Resources\\LittleBackground.png");
-        Image iconGame = Backgroundicon.getImage().getScaledInstance(700, 464, Image.SCALE_SMOOTH);
+        Image iconGame = Backgroundicon.getImage().getScaledInstance(886, 520, Image.SCALE_SMOOTH);
         Backgroundicon = new ImageIcon(iconGame);
         main.add(tittle, BorderLayout.NORTH);
         JLabel iconLabel = new JLabel(Backgroundicon);
@@ -23,15 +23,15 @@ public class MainMenu {
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
         JPanel buttonPlay = new JPanel();
         buttonPlay.setOpaque(true);
-        buttonPlay.setBackground(AppConfig.ButtonPrimaryPanel());
+        buttonPlay.setBackground(StyleConfig.ButtonPrimaryPanel());
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        JButton playButton = AppConfig.createButton("Jugar", AppConfig.ButtonPrimary(), 200, 50);
+        JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
         buttonPlay.add(playButton);
         JPanel buttonssecond = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonssecond.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonssecond.setOpaque(true);
-        buttonssecond.setBackground(AppConfig.ButtonSecondaryPanel());
-        JButton leaderboardButton = AppConfig.createButton("Marcador", AppConfig.ButtonSecondary(), 150, 40);
+        buttonssecond.setBackground(StyleConfig.ButtonSecondaryPanel());
+        JButton leaderboardButton = StyleConfig.createButton("Marcador", StyleConfig.ButtonSecondary(), 150, 40);
         leaderboardButton.addActionListener(e -> {
             String[] columnNames = { "Usuario", "Score" };
             JPanel panel = new JPanel();
@@ -41,11 +41,11 @@ public class MainMenu {
             JOptionPane.showMessageDialog(panel, panel, "Marcador De Jugadores",
                     JOptionPane.INFORMATION_MESSAGE);
         });
-        JButton exitButton = AppConfig.createButton("Salir", AppConfig.ButtonSecondary(), 150, 40);
+        JButton exitButton = StyleConfig.createButton("Salir", StyleConfig.ButtonSecondary(), 150, 40);
         exitButton.addActionListener(e -> {
             System.exit(0);
         });
-        JButton accessAdmin = AppConfig.createButton("Acceso Admin", AppConfig.ButtonSecondary(), 150, 40);
+        JButton accessAdmin = StyleConfig.createButton("Acceso Admin", StyleConfig.ButtonSecondary(), 150, 40);
         accessAdmin.addActionListener(e -> {
             MainFrame.setContentPane(LoginScreen.loginPanel());
         });
@@ -56,7 +56,8 @@ public class MainMenu {
         southPanel.add(buttonssecond);
         main.add(southPanel, BorderLayout.SOUTH);
 
-        buttons = new JComponent[][] { { playButton }, { leaderboardButton, accessAdmin, exitButton } };
+        buttons = new JComponent[][] { { playButton, playButton, playButton },
+                { leaderboardButton, accessAdmin, exitButton } };
         ControllerDualsense ControllerDualsense = new ControllerDualsense();
         ControllerDualsense.setupKeyBindings(main, buttons);
 
