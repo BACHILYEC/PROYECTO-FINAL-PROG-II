@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import Infrastructure.AppException;
+
 public abstract class DataHelperSQLite {
     private static final String DBPathConnection = "jdbc:sqlite:src\\Storage\\Database\\triv.sqlite";
     private static Connection conn = null;
@@ -18,10 +20,11 @@ public abstract class DataHelperSQLite {
 
     protected static synchronized Connection openConnection() throws Exception {
         try {
-            if (conn == null)
+            if (conn == null) {
                 conn = DriverManager.getConnection(DBPathConnection);
+            }
         } catch (SQLException e) {
-            throw e;
+            throw new AppException("No se pudo establecer conexión con la base de datos: " + DBPathConnection, e, DataHelperSQLite.class, "openConnection");
         }
         return conn;
     }

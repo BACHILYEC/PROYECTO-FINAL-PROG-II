@@ -44,7 +44,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("Caracoles, no se encontró respuesta correcta para la pregunta", e, getClass(), "readCorrectAns");
+            throw new AppException("No se encontró respuesta correcta para la pregunta", e, getClass(), "readCorrectAns");
         }
         return ans1;
     }
@@ -68,7 +68,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("Caracoles, no se pudo leer las opciones", e, getClass(), "readOptions");
+            throw new AppException("No se pudo leer las opciones", e, getClass(), "readOptions");
         }
         return list;
     }
@@ -93,7 +93,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("Caracoles, no se pudo leer las respuestas", e, getClass(), "readAllstatus");
+            throw new AppException("No se pudo leer las respuestas", e, getClass(), "readAllstatus");
         }
         return list;
     }
@@ -112,7 +112,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("Caracoles, no se encontraron respuestas correctas para la pregunta", e, getClass(), "readAllcorrectanswers");
+            throw new AppException("No se encontraron respuestas correctas para la pregunta", e, getClass(), "readAllcorrectanswers");
         }
         return list;
     }
@@ -129,7 +129,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("Caracoles, no se pudo crear la respuesta", e, getClass(), "create");
+            throw new AppException("No se pudo crear la respuesta", e, getClass(), "create");
         }
     }
 
@@ -149,7 +149,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("Caracoles, no se pudo actualizar la respuesta", e, getClass(), "update");
+            throw new AppException("No se pudo actualizar la respuesta", e, getClass(), "update");
         }
     }
 
@@ -174,7 +174,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
         } catch (Exception e) {
 
-            throw new AppException("Caracoles, no se pudo cambiar el estado de la respuesta", e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado de la respuesta", e, getClass(), "changestatus");
         }
     }
 
@@ -190,7 +190,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
-            throw new AppException("Caracoles, no se pudo obtener el numero máximo de registros", e, getClass(), "getMaxReg");
+            throw new AppException("No se pudo obtener el número máximo de registros", e, getClass(), "getMaxReg");
         }
         return 0;
     }

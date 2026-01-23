@@ -12,13 +12,13 @@ import DataAccessComponent.DTOs.CategoryDTO;
 
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
+import Infrastructure.AppException;
 
 public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
 
     @Override
     public List<CategoryDTO> readBy(String name) throws Exception {
-
-        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+        throw new AppException("Método readBy no implementado para CategoryDAO", null, getClass(), "readBy");
     }
 
     @Override
@@ -37,8 +37,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
                 categories.add(category);
             }
         } catch (Exception e) {
-
-            throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
+            throw new AppException("No se pudo leer las categorías", e, getClass(), "readAllstatus");
         }
         return categories;
     }
@@ -55,7 +54,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new AppException("No se pudo crear la categoría: " + entity.getName(), e, getClass(), "create");
         }
     }
 
@@ -71,7 +70,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'update'");
+            throw new AppException("No se pudo actualizar la categoría con id: " + entity.getIdCategory(), e, getClass(), "update");
         }
     }
 
@@ -92,7 +91,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
+            throw new AppException("No se pudo cambiar el estado de la categoría con id: " + id, e, getClass(), "changestatus");
         }
     }
 
@@ -107,6 +106,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
+            throw new AppException("No se pudo obtener el número máximo de registros de categorías activas", e, getClass(), "getMaxReg");
         }
         return 0;
     }

@@ -7,6 +7,7 @@ import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +18,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public List<UserPlayerDTO> readBy(String name) throws Exception {
-        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+        throw new AppException("Método readBy no implementado para UserPlayerDAO", null, getClass(), "readBy");
     }
 
     @Override
@@ -70,7 +71,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new AppException("No se pudo crear el jugador: " + entity.getName(), e, getClass(), "create");
         }
     }
 
@@ -92,7 +93,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'update'");
+            throw new AppException("No se pudo actualizar el jugador con id: " + entity.getIdPlayer(), e, getClass(), "update");
         }
     }
 
@@ -113,7 +114,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
+            throw new AppException("No se pudo cambiar el estado del jugador con id: " + id, e, getClass(), "changestatus");
         }
     }
 
@@ -128,6 +129,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
+            throw new AppException("No se pudo obtener el número máximo de registros de jugadores", e, getClass(), "getMaxReg");
         }
         return 0;
     }
@@ -153,7 +155,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                         rs.getString(5));
             }
         } catch (Exception e) {
-            System.out.println("Error en la consulta: " + e.getMessage());
+            throw new AppException("No se pudo leer el jugador por nombre: " + username, e, getClass(), "readByName");
         }
 
         return userPlayerDTO;
@@ -180,7 +182,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                         rs.getString(5));
             }
         } catch (Exception e) {
-            System.out.println("Error en la consulta: " + e.getMessage());
+            throw new AppException("No se pudo leer el jugador con id: " + id, e, getClass(), "readById");
         }
 
         return userPlayerDTO;

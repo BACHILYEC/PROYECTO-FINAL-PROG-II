@@ -83,6 +83,7 @@ public class LoginScreen {
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
+        
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         ArrayList<JTextField> input = new ArrayList<>();
@@ -99,11 +100,9 @@ public class LoginScreen {
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
                 components[i][j] = buttons[i][j];
-                System.out.println(components[i][j] + "\n");
             }
 
         }
-        System.out.println(components.length + components[0].length + "\n");
         for (int i = 0; i <= 9; i++) {
             components[4][i] = loginButton;
             components[5][i] = GoToBack;

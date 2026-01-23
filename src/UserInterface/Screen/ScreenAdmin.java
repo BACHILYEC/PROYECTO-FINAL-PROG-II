@@ -47,6 +47,7 @@ public class ScreenAdmin {
             boton.setAlignmentX(Component.LEFT_ALIGNMENT);
             buttonPanel.add(boton);
             buttons[i][0] = boton;
+            buttons[i][1] = boton;
             if (i < buttonLabels.length - 1) {
                 buttonPanel.add(Box.createRigidArea(new Dimension(20, 70)));
             }

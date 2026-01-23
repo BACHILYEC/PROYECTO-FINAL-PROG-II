@@ -7,6 +7,7 @@ import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
+import Infrastructure.AppException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,7 +16,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
 
     @Override
     public List<UserAdminDTO> readBy(String name) throws Exception {
-        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+        throw new AppException("Método readBy no implementado para UserAdminDAO", null, getClass(), "readBy");
     }
 
     public UserAdminDTO readByName(String name) throws Exception {
@@ -30,7 +31,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             }
             // conn.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new AppException("No se pudo leer el usuario administrador: " + name, e, getClass(), "readByName");
         }
         return admin;
     }
@@ -51,8 +52,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
                 administrators.add(admin);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
+            throw new AppException("No se pudo leer los administradores", e, getClass(), "readAllstatus");
         }
         return administrators;
     }
@@ -70,7 +70,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new AppException("No se pudo crear el usuario administrador: " + entity.getUserName(), e, getClass(), "create");
         }
     }
 
@@ -87,8 +87,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new AppException("No se pudo actualizar el usuario administrador con id: " + entity.getIdAdministrator(), e, getClass(), "update");
         }
     }
 
@@ -109,7 +108,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
+            throw new AppException("No se pudo cambiar el estado del usuario administrador con id: " + id, e, getClass(), "changestatus");
         }
     }
 
@@ -124,6 +123,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
+            throw new AppException("No se pudo obtener el número máximo de registros de administradores", e, getClass(), "getMaxReg");
         }
         return 0;
     }

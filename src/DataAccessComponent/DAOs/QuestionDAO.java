@@ -7,6 +7,7 @@ import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import DataAccessComponent.DTOs.QuestionDTO;
+import Infrastructure.AppException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,8 +32,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 question.add(questionDTO);
             }
         } catch (Exception e) {
-
-            throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
+            throw new AppException("No se pudo leer las preguntas", e, getClass(), "readAllstatus");
         }
         return question;
     }
@@ -50,7 +50,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new AppException("No se pudo crear la pregunta: " + entity.getQuestion(), e, getClass(), "create");
         }
     }
 
@@ -67,7 +67,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'update'");
+            throw new AppException("No se pudo actualizar la pregunta con id: " + entity.getIdQuestion(), e, getClass(), "update");
         }
     }
 
@@ -89,7 +89,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
+            throw new AppException("No se pudo cambiar el estado de la pregunta con id: " + id, e, getClass(), "changestatus");
         }
     }
 
@@ -105,14 +105,14 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
+            throw new AppException("No se pudo obtener el número máximo de registros", e, getClass(), "getMaxReg");
         }
         return 0;
     }
 
     @Override
     public List<QuestionDTO> readBy(String name) throws Exception {
-
-        throw new UnsupportedOperationException("Unimplemented method 'readBy'");
+        throw new AppException("Método readBy no implementado para QuestionDAO", null, getClass(), "readBy");
     }
 
     public List<QuestionDTO> readAllQuestion(Integer id) throws Exception {
@@ -129,6 +129,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 question.add(questionDTO);
             }
         } catch (Exception e) {
+            throw new AppException("No se pudo leer las preguntas de la categoría con id: " + id, e, getClass(), "readAllQuestion");
         }
         return question;
     }
@@ -147,6 +148,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 questionDTO = new QuestionDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
             }
         } catch (Exception e) {
+            throw new AppException("No se pudo leer la pregunta con id: " + id, e, getClass(), "readByQuestion");
         }
         return questionDTO;
     }

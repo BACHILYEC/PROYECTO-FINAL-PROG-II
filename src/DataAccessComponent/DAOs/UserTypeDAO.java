@@ -6,6 +6,7 @@ import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import DataAccessComponent.DTOs.UserTypeDTO;
+import Infrastructure.AppException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,7 +37,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
                 userTypes.add(userType);
             }
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'readAllstatus'");
+            throw new AppException("No se pudo leer los tipos de usuario con estado: " + (status ? "Activo" : "Inactivo"), e, getClass(), "readAllstatus");
         }
         return userTypes;
     }
@@ -53,7 +54,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'create'");
+            throw new AppException("No se pudo crear el tipo de usuario: " + entity.getName(), e, getClass(), "create");
         }
     }
 
@@ -70,7 +71,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'update'");
+            throw new AppException("No se pudo actualizar el tipo de usuario con id: " + entity.getIdUserType(), e, getClass(), "update");
         }
     }
 
@@ -91,7 +92,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new UnsupportedOperationException("Unimplemented method 'changestatus'");
+            throw new AppException("No se pudo cambiar el estado del tipo de usuario con id: " + id, e, getClass(), "changestatus");
         }
     }
 
@@ -107,6 +108,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
+            throw new AppException("No se pudo obtener el número máximo de registros de tipos de usuario activos", e, getClass(), "getMaxReg");
         }
         return 0;
     }
