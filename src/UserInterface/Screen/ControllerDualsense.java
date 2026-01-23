@@ -10,6 +10,7 @@ import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 import javax.swing.KeyStroke;
 
 public class ControllerDualsense {
@@ -86,6 +87,8 @@ public class ControllerDualsense {
             public void actionPerformed(ActionEvent e) {
                 if (components[getCurrentIndexX()][getCurrentIndexY()] instanceof JButton) {
                     ((JButton) components[getCurrentIndexX()][getCurrentIndexY()]).doClick();
+                } else if (components[getCurrentIndexX()][getCurrentIndexY()] instanceof JToggleButton) {
+                    ((JToggleButton) components[getCurrentIndexX()][getCurrentIndexY()]).doClick();
                 } else {
 
                     setCurrentIndexX((getCurrentIndexX() + 1) % components.length);
@@ -99,15 +102,13 @@ public class ControllerDualsense {
 
         for (JComponent[] componentRow : components) {
             for (JComponent component : componentRow) {
-                if (component instanceof JButton) {
+                if (component instanceof JButton || component instanceof JToggleButton) {
                     component.setBorder(BorderFactory.createEmptyBorder());
                 }
             }
         }
 
-        components[indexX][indexY].requestFocusInWindow();
-
-        if (components[indexX][indexY] instanceof JButton) {
+        if (components[indexX][indexY] instanceof JButton || components[indexX][indexY] instanceof JToggleButton) {
             components[indexX][indexY].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
         }
     }
