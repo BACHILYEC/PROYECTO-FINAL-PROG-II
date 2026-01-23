@@ -10,7 +10,7 @@ import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class SearchPlayerScreen {
-    private static JButton[] buttons;
+    private static JComponent[][] buttons;
     private static int currentIndex = 0;
 
     public static JPanel searchPlayerPanel() {
@@ -23,14 +23,12 @@ public class SearchPlayerScreen {
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(100, 50, 100, 50));
 
-       
         JLabel searchLabel = new JLabel("Seleccione el método de búsqueda:");
         searchLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         searchLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         centerPanel.add(searchLabel);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 40)));
 
-       
         JButton searchByNameButton = AppConfig.createButton("Buscar por Nombre", AppConfig.ButtonPrimary(), 250, 50);
         searchByNameButton.setMaximumSize(new Dimension(250, 50));
         searchByNameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -38,7 +36,6 @@ public class SearchPlayerScreen {
         centerPanel.add(searchByNameButton);
         centerPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        
         JButton searchByIdButton = AppConfig.createButton("Buscar por ID", AppConfig.ButtonPrimary(), 250, 50);
         searchByIdButton.setMaximumSize(new Dimension(250, 50));
         searchByIdButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -47,7 +44,6 @@ public class SearchPlayerScreen {
 
         mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-        
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         bottomPanel.setBackground(AppConfig.ButtonSecondaryPanel());
         JButton backButton = AppConfig.createButton("Regresar", AppConfig.ButtonSecondary(), 150, 40);
@@ -57,14 +53,13 @@ public class SearchPlayerScreen {
         bottomPanel.add(backButton);
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
 
-        
-        buttons = new JButton[] { searchByNameButton, searchByIdButton, backButton };
+        buttons = new JComponent[][] { { searchByNameButton }, { searchByIdButton }, { backButton } };
+        ControllerDualsense ControllerDualsense = new ControllerDualsense();
+        ControllerDualsense.setupKeyBindings(mainPanel, buttons);
 
-      
-        setupKeyBindings(mainPanel);
-
-      
-        highlightButton(currentIndex);
+        ControllerDualsense.focusComponent(ControllerDualsense.getCurrentIndexX(),
+                ControllerDualsense.getCurrentIndexY(),
+                buttons);
 
         return mainPanel;
     }
@@ -169,51 +164,6 @@ public class SearchPlayerScreen {
                     JOptionPane.ERROR_MESSAGE);
             err.printStackTrace();
         }
-    }
 
-    private static void setupKeyBindings(JPanel panel) {
-        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = panel.getActionMap();
-
-       
-        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "nextButton");
-        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "nextButton");
-        actionMap.put("nextButton", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentIndex = (currentIndex + 1) % buttons.length;
-                highlightButton(currentIndex);
-            }
-        });
-
-       
-        inputMap.put(KeyStroke.getKeyStroke("UP"), "prevButton");
-        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "prevButton");
-        actionMap.put("prevButton", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
-                highlightButton(currentIndex);
-            }
-        });
-
-   
-        inputMap.put(KeyStroke.getKeyStroke("ENTER"), "clickButton");
-        actionMap.put("clickButton", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buttons[currentIndex].doClick();
-            }
-        });
-    }
-
-    private static void highlightButton(int index) {
-        
-        for (JButton button : buttons) {
-            button.setBorder(BorderFactory.createEmptyBorder());
-        }
-        
-        buttons[index].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
-        buttons[index].requestFocusInWindow();
     }
 }

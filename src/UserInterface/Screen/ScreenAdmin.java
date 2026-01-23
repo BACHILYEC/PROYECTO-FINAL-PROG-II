@@ -15,16 +15,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
-
-import DataAccessComponent.DAOs.UserPlayerDAO;
-import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.AppConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 
 public class ScreenAdmin {
-    private static JButton[] buttons;
-    private static int currentIndex = 0;
+    private static JComponent[][] buttons;
 
     public static JPanel MenuAdmin() {
         JPanel panel = new JPanel();
@@ -91,58 +87,19 @@ public class ScreenAdmin {
         panel.add(buttonsaux, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
 
-        buttons = new JButton[mainButtons.length + 2];
-        System.arraycopy(mainButtons, 0, buttons, 0, mainButtons.length);
-        buttons[mainButtons.length] = Exit;
-        buttons[mainButtons.length + 1] = GoToBack;
+        buttons = new JComponent[mainButtons.length + 2][];
+        for (int i = 0; i < mainButtons.length; i++) {
+            buttons[i] = new JComponent[] { mainButtons[i] };
+        }
+        buttons[mainButtons.length] = new JComponent[] { Exit, GoToBack };
+        ControllerDualsense ControllerDualsense = new ControllerDualsense();
+        ControllerDualsense.setupKeyBindings(panel, buttons);
 
-        setupKeyBindings(panel);
-
-        highlightButton(currentIndex);
+        ControllerDualsense.focusComponent(ControllerDualsense.getCurrentIndexX(),
+                ControllerDualsense.getCurrentIndexY(),
+                buttons);
 
         return panel;
     }
 
-    private static void setupKeyBindings(JPanel panel) {
-        InputMap inputMap = panel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        ActionMap actionMap = panel.getActionMap();
-
-        inputMap.put(KeyStroke.getKeyStroke("DOWN"), "nextButton");
-        inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "nextButton");
-        actionMap.put("nextButton", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentIndex = (currentIndex + 1) % buttons.length;
-                highlightButton(currentIndex);
-            }
-        });
-
-        inputMap.put(KeyStroke.getKeyStroke("UP"), "prevButton");
-        inputMap.put(KeyStroke.getKeyStroke("LEFT"), "prevButton");
-        actionMap.put("prevButton", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
-                highlightButton(currentIndex);
-            }
-        });
-
-        inputMap.put(KeyStroke.getKeyStroke("ENTER"), "clickButton");
-        actionMap.put("clickButton", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buttons[currentIndex].doClick();
-            }
-        });
-    }
-
-    private static void highlightButton(int index) {
-
-        for (JButton button : buttons) {
-            button.setBorder(BorderFactory.createEmptyBorder());
-        }
-
-        buttons[index].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
-        buttons[index].requestFocusInWindow();
-    }
 }
