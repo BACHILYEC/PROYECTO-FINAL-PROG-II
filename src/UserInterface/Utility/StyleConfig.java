@@ -18,7 +18,7 @@ public class StyleConfig {
 
     public static JLabel questionLabel(String question) {
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 20);
-        Color tittleColorPanel = new Color(173, 160, 219);
+        Color tittleColorPanel = new Color(Color.WHITE.getRGB());
         JLabel tittle = new JLabel(question, SwingConstants.CENTER);
         tittle.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
         tittle.setOpaque(true);

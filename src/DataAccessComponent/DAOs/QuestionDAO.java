@@ -119,7 +119,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
 
     public List<QuestionDTO> readAllQuestion() throws Exception {
 
-        String query = "SELECT Question FROM Question;";
+        String query = "SELECT Question, idQuestion FROM Question;";
 
         ArrayList<QuestionDTO> question = new ArrayList<>();
         try {
@@ -127,7 +127,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                QuestionDTO questionDTO = new QuestionDTO(rs.getString(1));
+                QuestionDTO questionDTO = new QuestionDTO(rs.getString(1), rs.getInt(2));
                 question.add(questionDTO);
             }
         } catch (Exception e) {
@@ -139,7 +139,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
 
     public QuestionDTO readByQuestion(Integer id) throws Exception {
 
-        String query = "SELECT idQuestion, idCategory, Question FROM Question WHERE idQuestion = " + id.toString()
+        String query = "SELECT Question, idQuestion FROM Question WHERE idQuestion = " + id.toString()
                 + ";";
 
         QuestionDTO questionDTO = new QuestionDTO();
@@ -148,7 +148,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                questionDTO = new QuestionDTO(rs.getInt(1), rs.getInt(2), rs.getString(3));
+                questionDTO = new QuestionDTO(rs.getString(1), rs.getInt(2));
             }
         } catch (Exception e) {
             throw new AppException("No se pudo leer la pregunta con id: " + id, e, getClass(), "readByQuestion");

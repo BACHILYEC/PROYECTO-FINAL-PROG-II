@@ -30,8 +30,8 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
         return null;
     }
 
-    public AnswerDTO readCorrectAns(int idQuestion) throws Exception {
-        String query = "SELECT idAnswer, idQuestion, Answer, CorrectAns, Status FROM Answer WHERE CorrectAns = '1'"
+    public String readCorrectAns(int idQuestion) throws Exception {
+        String query = "SELECT Answer Status FROM Answer WHERE CorrectAns = '1'"
                 + " AND idQuestion = '"
                 + idQuestion + "';";
         AnswerDTO ans1 = new AnswerDTO();
@@ -40,13 +40,14 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                ans1 = new AnswerDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5));
+                ans1 = new AnswerDTO(rs.getString(1));
             }
 
         } catch (Exception e) {
-            throw new AppException("No se encontró respuesta correcta para la pregunta", e, getClass(), "readCorrectAns");
+            throw new AppException("No se encontró respuesta correcta para la pregunta", e, getClass(),
+                    "readCorrectAns");
         }
-        return ans1;
+        return ans1.getAnswer();
     }
 
     public List<AnswerDTO> readOptions(int question, Boolean status) throws Exception {
@@ -112,7 +113,8 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("No se encontraron respuestas correctas para la pregunta", e, getClass(), "readAllcorrectanswers");
+            throw new AppException("No se encontraron respuestas correctas para la pregunta", e, getClass(),
+                    "readAllcorrectanswers");
         }
         return list;
     }

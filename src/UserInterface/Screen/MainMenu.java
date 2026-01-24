@@ -2,6 +2,8 @@ package UserInterface.Screen;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ReusableMethods;
 
@@ -27,7 +29,12 @@ public class MainMenu {
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
         JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
         playButton.addActionListener(e -> {
-            MainFrame.setContentPane(GameScreen.game());
+            try {
+                MainFrame.setContentPane(GameScreen.game());
+            } catch (AppException ex) {
+                JOptionPane.showMessageDialog(null, "Error al iniciar el juego: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
         buttonPlay.add(playButton);
         JPanel buttonssecond = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));

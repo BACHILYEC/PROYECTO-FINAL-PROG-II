@@ -1,6 +1,11 @@
 package DataAccessComponent.DTOs;
 
 public class QuestionDTO {
+    public QuestionDTO(String question, Integer idQuestion) {
+        IdQuestion = idQuestion;
+        Question = question;
+    }
+
     private Integer IdQuestion;
     private Integer IdCategory;
     private String Question;
