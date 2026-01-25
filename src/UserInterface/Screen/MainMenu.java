@@ -1,6 +1,8 @@
 package UserInterface.Screen;
 
 import java.awt.*;
+import java.net.URL;
+
 import javax.swing.*;
 
 import UserInterface.Utility.StyleConfig;
@@ -12,11 +14,18 @@ public class MainMenu {
     public static JPanel gameMenu() {
         JPanel main = new JPanel(new BorderLayout());
         JLabel tittle = StyleConfig.tittleConfig();
-        ImageIcon Backgroundicon = new ImageIcon("src\\UserInterface\\Resources\\LittleBackground.png");
-        Image iconGame = Backgroundicon.getImage().getScaledInstance(886, 520, Image.SCALE_SMOOTH);
-        Backgroundicon = new ImageIcon(iconGame);
+        URL url = Thread.currentThread()
+                .getContextClassLoader()
+                .getResource("UserInterface/Resources/LittleBackground.png");
+        if (url == null) {
+            throw new RuntimeException("No se encontró la imagen");
+        }
+        ImageIcon backgroundIcon = new ImageIcon(url);
+        Image iconGame = backgroundIcon.getImage()
+                .getScaledInstance(886, 520, Image.SCALE_SMOOTH);
+        backgroundIcon = new ImageIcon(iconGame);
         main.add(tittle, BorderLayout.NORTH);
-        JLabel iconLabel = new JLabel(Backgroundicon);
+        JLabel iconLabel = new JLabel(backgroundIcon);
         iconLabel.setOpaque(false);
         iconLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         main.add(iconLabel, BorderLayout.CENTER);

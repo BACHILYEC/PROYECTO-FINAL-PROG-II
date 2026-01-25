@@ -27,7 +27,7 @@ public class GameScreen {
         JLabel gameLabel = StyleConfig.tittleConfig();
         gamePanel.add(gameLabel, BorderLayout.NORTH);
         ImageBackgroundPanel backgroundPanel = new ImageBackgroundPanel(
-                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                "/UserInterface/Resources/ImagenBackGroundLogin.png");
         gamePanel.add(backgroundPanel, BorderLayout.CENTER);
         try {
             ArrayList<QuestionDTO> questionCurrent = getQuestion();

@@ -21,7 +21,7 @@ public class SearchPlayerScreen {
                 mainPanel.add(tittle, BorderLayout.NORTH);
 
                 ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
-                                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                                "/UserInterface/Resources/ImagenBackGroundLogin.png");
                 centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
                 centerPanel.add(Box.createVerticalGlue());
 
@@ -65,8 +65,8 @@ public class SearchPlayerScreen {
                 buttonPanel.add(searchByIdButton);
 
                 JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
-                        GoToBack.addActionListener(e -> {
-                            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                GoToBack.addActionListener(e -> {
+                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                 });
                 buttonPanel.add(GoToBack);
 

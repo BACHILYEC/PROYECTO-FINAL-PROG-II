@@ -1,4 +1,0 @@
-╭─🔥─ SHOW ⚠️ No se pudo leer el jugador por nombre: Prob 
-╰──── LOG  ⚠️ 2026-01-22 22:55:57 | UserPlayerDAO.readByName | [SQLITE_ERROR] SQL error or missing database (no such column: idPlayr)
-╭─🔥─ SHOW ⚠️ Error en Iniciar el juego 
-╰──── LOG  ⚠️ 2026-01-24 22:35:37 | undefined.undefined | Caracoles, ocurrio un error inesperado! Contacta al administrador
