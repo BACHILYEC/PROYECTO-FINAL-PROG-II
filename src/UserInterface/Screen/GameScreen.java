@@ -3,8 +3,10 @@ package UserInterface.Screen;
 import javax.swing.*;
 
 import DataAccessComponent.DAOs.QuestionDAO;
+import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
+import DataAccessComponent.DTOs.UserPlayerDTO;
 import Infrastructure.AppException;
 import DataAccessComponent.DAOs.AnswerDAO;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -122,6 +124,22 @@ public class GameScreen {
         }
 
         return gamePanel;
+    }
+
+
+    public static void validarJugador(String name) throws Exception{
+        UserPlayerDAO userDAO = new UserPlayerDAO();
+        UserPlayerDTO userDTO = userDAO.searchByName(name);
+        if (userDTO != null) {
+            System.out.println("El jugador existe");
+        } else {
+            System.out.println("Jugador no encontrado");
+            userDTO = new UserPlayerDTO();  
+            userDTO.setIdUserType(1);  
+            userDTO.setName(name);
+            userDTO.setScore(0);        
+            userDAO.create(userDTO);
+        }
     }
 
     public static int randomNumber(int max) {
