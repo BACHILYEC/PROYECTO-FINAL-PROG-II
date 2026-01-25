@@ -1,5 +1,8 @@
 package UserInterface.Screen;
 
+import UserInterface.Utility.ImageBackgroundPanel;
+import UserInterface.Utility.ReusableMethods;
+import UserInterface.Utility.StyleConfig;
 import java.awt.*;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -10,9 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import UserInterface.Utility.StyleConfig;
-import UserInterface.Utility.ImageBackgroundPanel;
-import UserInterface.Utility.ReusableMethods;
 
 public class ScreenAdmin {
     private static JComponent[][] buttons = new JComponent[5][2];
@@ -63,10 +63,10 @@ public class ScreenAdmin {
                         MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
                         break;
                     }
-                    // Angela case "Modificar Jugador": {
-                    // ReusableMethods.setContentPane(ScreenData.updateData(frame), frame);
-                    // break;
-                    // }
+                    case "Modificar Jugador": {
+                    MainFrame.setContentPane(UpdatePlayerScreen.updatePlayerPanel());
+                    break;
+                    }
                     case "Buscar Jugador": {
                         MainFrame.setContentPane(SearchPlayerScreen.searchPlayerPanel());
                         break;
