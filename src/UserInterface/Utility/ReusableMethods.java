@@ -96,7 +96,6 @@ public class ReusableMethods {
         columnModel.getColumn(1).setPreferredWidth(150);
         columnModel.getColumn(2).setPreferredWidth(100);
         columnModel.getColumn(3).setPreferredWidth(100);
-        columnModel.getColumn(4).setPreferredWidth(100);
 
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
@@ -104,8 +103,7 @@ public class ReusableMethods {
 
         try {
             for (UserPlayerDTO dto : dao.readAllstatus(status)) {
-                String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
-                        dto.getModificateDate() };
+                String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getModificateDate() };
                 model.addRow(row);
             }
         } catch (
