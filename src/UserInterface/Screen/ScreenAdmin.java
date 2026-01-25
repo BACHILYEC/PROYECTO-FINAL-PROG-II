@@ -18,14 +18,15 @@ public class ScreenAdmin {
     private static JComponent[][] buttons = new JComponent[4][2];
 
     public static JPanel MenuAdmin() {
-        JPanel panel = new JPanel();
+        ImageBackgroundPanel panel = new ImageBackgroundPanel(
+                ReusableMethods.getImageTranslucent());
         panel.setLayout(new BorderLayout());
         JLabel tittle = StyleConfig.tittleConfig();
         panel.add(tittle, BorderLayout.NORTH);
-        ImageBackgroundPanel buttonPanel = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
+        JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
+        buttonPanel.setOpaque(false);
         JButton Exit = StyleConfig.createButton("Salir", StyleConfig.ButtonSecondary(), 150, 40);
         Exit.addActionListener(e -> {
             System.exit(0);
@@ -72,7 +73,7 @@ public class ScreenAdmin {
             });
         }
         JPanel buttonsaux = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonsaux.setBackground(StyleConfig.ButtonSecondaryPanel());
+        buttonsaux.setOpaque(false);
         buttonsaux.add(Exit);
         buttonsaux.add(GoToBack);
         panel.add(buttonsaux, BorderLayout.SOUTH);

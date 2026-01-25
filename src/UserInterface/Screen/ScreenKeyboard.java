@@ -25,6 +25,7 @@ public class ScreenKeyboard {
     public static JPanel keyboard(ArrayList<JTextField> input) {
         JPanel panelKeyboard = new JPanel(new GridLayout(4, 10, 5, 5));
         panelKeyboard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panelKeyboard.setOpaque(false);
         final String[] key = { "" };
         final String[] temp = { "" };
         final String[][] keysMayus = {
