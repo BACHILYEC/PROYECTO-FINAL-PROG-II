@@ -164,7 +164,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     public UserPlayerDTO readById(int id) throws Exception {
         UserPlayerDTO userPlayerDTO = null;
 
-        String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate FROM UserPlayer WHERE idPlayer = ?;";
+        String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate,ModificateDate FROM UserPlayer WHERE idPlayer = ?;";
 
         try {
             Connection conn = openConnection();
@@ -179,7 +179,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                         rs.getInt(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getString(5));
+                        rs.getString(5),
+                        rs.getString(6));
             }
         } catch (Exception e) {
             throw new AppException("No se pudo leer el jugador con id: " + id, e, getClass(), "readById");
