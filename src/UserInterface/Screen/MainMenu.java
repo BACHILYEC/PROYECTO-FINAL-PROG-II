@@ -43,9 +43,9 @@ public class MainMenu {
         buttonssecond.setBackground(StyleConfig.ButtonSecondaryPanel());
         JButton leaderboardButton = StyleConfig.createButton("Marcador", StyleConfig.ButtonSecondary(), 150, 40);
         leaderboardButton.addActionListener(e -> {
-            String[] columnNames = { "Usuario", "Score" };
+            String[] columnNames = { "Id Jugador", "Jugador", "Puntuación", "Ultima Jugada" };
             JPanel panel = new JPanel();
-            JScrollPane tableScrollPane = ReusableMethods.createTableAdmin(columnNames, panel, true);
+            JScrollPane tableScrollPane = ReusableMethods.createTablePlayer(columnNames, panel, true);
             panel.setLayout(new BorderLayout());
             panel.add(tableScrollPane, BorderLayout.CENTER);
             JOptionPane.showMessageDialog(panel, panel, "Marcador De Jugadores",
