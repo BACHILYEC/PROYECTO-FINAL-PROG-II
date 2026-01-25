@@ -9,15 +9,12 @@ public class ImageBackgroundPanel extends JPanel {
 
     private Image backgroundImage;
 
-    public ImageBackgroundPanel(String resourcePath) {
-
-        URL imgURL = getClass().getResource(resourcePath);
-
-        if (imgURL == null) {
-            throw new RuntimeException("No se encontró la imagen: " + resourcePath);
+    public ImageBackgroundPanel(URL imageURL) {
+        if (imageURL == null) {
+            throw new RuntimeException("No se encontró la imagen: " + imageURL);
         }
 
-        this.backgroundImage = new ImageIcon(imgURL).getImage();
+        this.backgroundImage = new ImageIcon(imageURL).getImage();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 

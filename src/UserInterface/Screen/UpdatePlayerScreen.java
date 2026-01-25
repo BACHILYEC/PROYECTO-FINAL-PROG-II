@@ -2,6 +2,7 @@ package UserInterface.Screen;
 
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.ImageBackgroundPanel;
+import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
 import java.awt.*;
 import javax.swing.*;
@@ -26,7 +27,7 @@ public class UpdatePlayerScreen {
         mainPanel.add(title, BorderLayout.NORTH);
 
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
-                "/UserInterface/Resources/ImagenBackGroundLogin.png");
+                ReusableMethods.getImageTranslucent());
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 

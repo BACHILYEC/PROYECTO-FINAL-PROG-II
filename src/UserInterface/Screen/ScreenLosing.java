@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import UserInterface.Utility.ImageBackgroundPanel;
+import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
 
 public class ScreenLosing {
@@ -13,7 +14,7 @@ public class ScreenLosing {
         JLabel tittle = StyleConfig.tittleConfig();
         losingPanel.add(tittle, BorderLayout.NORTH);
         ImageBackgroundPanel backgroundPanel = new ImageBackgroundPanel(
-                "/UserInterface/Resources/ImagenBackGroundLogin.png");
+                ReusableMethods.getImageTranslucent());
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setOpaque(false);

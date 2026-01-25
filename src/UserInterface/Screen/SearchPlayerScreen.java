@@ -9,6 +9,7 @@ import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
+import UserInterface.Utility.ReusableMethods;
 
 public class SearchPlayerScreen {
         private static JComponent[][] components;
@@ -20,8 +21,7 @@ public class SearchPlayerScreen {
                 JLabel tittle = StyleConfig.tittleConfig();
                 mainPanel.add(tittle, BorderLayout.NORTH);
 
-                ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
-                                "/UserInterface/Resources/ImagenBackGroundLogin.png");
+                ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(ReusableMethods.getImageTranslucent());
                 centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
                 centerPanel.add(Box.createVerticalGlue());
 
@@ -62,15 +62,12 @@ public class SearchPlayerScreen {
                 searchByIdButton.addActionListener(e -> searchById(mainPanel));
                 buttonPanel.add(searchByIdButton);
 
-<<<<<<< HEAD
-=======
                 JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
                 GoToBack.addActionListener(e -> {
                         MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                 });
                 buttonPanel.add(GoToBack);
 
->>>>>>> 2f5a3cdcf739bf4497b45342f3d9839722a3b2d8
                 ArrayList<JTextField> input = new ArrayList<>();
                 input.add(nameTextField);
                 input.add(idTextField);

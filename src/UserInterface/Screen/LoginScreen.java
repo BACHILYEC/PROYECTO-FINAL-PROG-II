@@ -9,6 +9,7 @@ import BusinessLogic.UserAdminBL;
 import DataAccessComponent.DTOs.UserAdminDTO;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
+import UserInterface.Utility.ReusableMethods;
 
 public class LoginScreen {
     static JComponent[][] components = new JComponent[7][10];
@@ -19,7 +20,7 @@ public class LoginScreen {
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
         JPanel Textmain = new JPanel(new BorderLayout());
         ImageBackgroundPanel GetCredencials = new ImageBackgroundPanel(
-                "/UserInterface/Resources/ImagenBackGroundLogin.png");
+                ReusableMethods.getImageTranslucent());
         JTextField usernameField = new JTextField(10);
         JPanel userLogin = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         userLogin.setOpaque(false);

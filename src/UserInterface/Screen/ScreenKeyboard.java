@@ -20,17 +20,26 @@ public class ScreenKeyboard {
         ScreenKeyboard.buttons = buttons;
     }
 
+    static String[][] keys = new String[4][10];
+
     public static JPanel keyboard(ArrayList<JTextField> input) {
-        final String[][] keys = {
+        JPanel panelKeyboard = new JPanel(new GridLayout(4, 10, 5, 5));
+        panelKeyboard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        final String[] key = { "" };
+        final String[] temp = { "" };
+        final String[][] keysMayus = {
                 { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" },
                 { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" },
                 { "A", "S", "D", "F", "G", "H", "J", "K", "L", "ENTER" },
                 { "Z", "X", "C", "V", "B", "N", "M", "<--", "ESPACIO", "Mayus" }
         };
-        JPanel panelKeyboard = new JPanel(new GridLayout(4, 10, 5, 5));
-        panelKeyboard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        final String[] key = { "" };
-        final String[] temp = { "" };
+        final String[][] keysMinus = {
+                { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" },
+                { "q", "w", "e", "r", "t", "y", "u", "i", "o", "p" },
+                { "a", "s", "d", "f", "g", "h", "j", "k", "l", "ENTER" },
+                { "z", "x", "c", "v", "b", "n", "m", "<--", "ESPACIO", "Mayus" }
+        };
+        keys = keysMayus;
         final JTextField[] inputKey = { input.get(0) };
         inputKey[0].setBackground(Color.LIGHT_GRAY);
         inputKey[0].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
@@ -70,6 +79,31 @@ public class ScreenKeyboard {
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                     button.addActionListener(e -> {
+                        if (mayus) {
+                            keys = keysMinus;
+                            for (int r = 0; r < keys.length; r++) {
+                                for (int c = 0; c < keys[r].length; c++) {
+                                    if (!keys[r][c].equals("ENTER") && !keys[r][c].equals("<--")
+                                            && !keys[r][c].equals("ESPACIO") && !keys[r][c].equals("Mayus")) {
+                                        buttons[r][c].setText(keys[r][c]);
+                                    }
+                                }
+                            }
+                            panelKeyboard.revalidate();
+                            panelKeyboard.repaint();
+                        } else {
+                            keys = keysMayus;
+                            for (int r = 0; r < keys.length; r++) {
+                                for (int c = 0; c < keys[r].length; c++) {
+                                    if (!keys[r][c].equals("ENTER") && !keys[r][c].equals("<--")
+                                            && !keys[r][c].equals("ESPACIO") && !keys[r][c].equals("Mayus")) {
+                                        buttons[r][c].setText(keys[r][c]);
+                                    }
+                                }
+                            }
+                            panelKeyboard.revalidate();
+                            panelKeyboard.repaint();
+                        }
                         mayus = !mayus;
                     });
                 } else if (keys[i][j].equals("<--")) {

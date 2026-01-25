@@ -2,6 +2,7 @@ package UserInterface.Utility;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -69,7 +70,8 @@ public class ReusableMethods {
 
         try {
             for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(status)) {
-                String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
+                String[] row = { dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(),
+                        dto.getStatus(), dto.getCreationDate(),
                         dto.getModificateDate() };
                 model.addRow(row);
             }
@@ -101,7 +103,8 @@ public class ReusableMethods {
 
         try {
             for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(status)) {
-                String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getModificateDate() };
+                String[] row = { dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(),
+                        dto.getModificateDate() };
                 model.addRow(row);
             }
         } catch (
@@ -129,4 +132,17 @@ public class ReusableMethods {
         return button;
     }
 
+    public static java.net.URL getImage(String relativePath) {
+        return ReusableMethods.class.getResource(relativePath);
+    }
+
+    public static URL getImageBackground() {
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/LittleBackground.png");
+        return url;
+    }
+
+    public static URL getImageTranslucent() {
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/ImagenBackGround.png");
+        return url;
+    }
 }

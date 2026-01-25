@@ -9,6 +9,7 @@ import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
 import Infrastructure.AppException;
 import UserInterface.Utility.ImageBackgroundPanel;
+import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
 
 import java.awt.*;
@@ -27,7 +28,7 @@ public class GameScreen {
         JLabel gameLabel = StyleConfig.tittleConfig();
         gamePanel.add(gameLabel, BorderLayout.NORTH);
         ImageBackgroundPanel backgroundPanel = new ImageBackgroundPanel(
-                "/UserInterface/Resources/ImagenBackGroundLogin.png");
+                ReusableMethods.getImageTranslucent());
         gamePanel.add(backgroundPanel, BorderLayout.CENTER);
         try {
             ArrayList<QuestionDTO> questionCurrent = getQuestion();
