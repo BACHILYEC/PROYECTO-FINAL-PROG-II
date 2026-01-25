@@ -2,6 +2,8 @@ package UserInterface.Screen;
 
 import javax.swing.*;
 
+import BusinessLogic.AnswerBL;
+import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DAOs.QuestionDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
@@ -85,15 +87,14 @@ public class GameScreen {
                                 options.revalidate();
                                 options.repaint();
                             } else {
+                                UserPlayerBL.create("pepe", score[0]);
+                                MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], false));
 
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null,
-                                    "Juego terminado! Tu puntaje final es: " + score[0],
-                                    "Juego Terminado", JOptionPane.INFORMATION_MESSAGE);
+                            MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], true));
                         }
                     } catch (Exception e1) {
-
                         JOptionPane.showMessageDialog(null,
                                 "Error al procesar la respuesta: " + e1.getMessage(),
                                 "Error", JOptionPane.ERROR_MESSAGE);
@@ -157,6 +158,9 @@ public class GameScreen {
             case 3 -> "Electrónica";
             case 4 -> "Espacio Exterior";
             case 5 -> "Programación";
+            case 6 -> "Ecuador";
+            case 7 -> "Geografia";
+            case 8 -> "VideoJuegos";
             default -> "Desconocida";
         };
         return category;

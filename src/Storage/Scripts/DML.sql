@@ -41,8 +41,8 @@ INSERT INTO Category
     ,(   'Planetas'       ,'Preguntas sobre el sistema solar'       )
     ,(   'Tipo de Dato'   ,'Preguntas sobre tipos de datos Java'    )
     ,(   'Ecuador'        ,'Preguntas sobre Ecuador'                )
-    ,(   'Videojuegos'    ,'Preguntas sobre Videojuegos'            )
-    ,(   'Geografia'      ,'Preguntas de geografia'                 )
+    ,(   'Geografia'    ,'Preguntas sobre Geografia'            )
+    ,(   'VideoJuegos'      ,'Preguntas de Videojuegos'                 )
     ;
 
 
@@ -454,4 +454,3 @@ INSERT INTO Answer
     ,(   80               ,'Amarillo'                                                                ,'1'           )
     ,(   80               ,'Verde'                                                                   ,'0'           )
     ; 
-    SELECT Question FROM Question WHERE idCategory = 2;

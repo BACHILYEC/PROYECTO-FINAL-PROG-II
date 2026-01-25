@@ -22,7 +22,7 @@ public class ScreenLosing {
         endPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         JLabel endLabel = new JLabel(end ? "GANASTE" : "PERDISTE", SwingConstants.CENTER);
         endLabel.setFont(new Font("Comic Sans MC", Font.BOLD, 30));
-        endLabel.setForeground(end ? Color.RED : Color.GREEN);
+        endLabel.setForeground(end ? Color.GREEN : Color.RED);
         endPanel.add(endLabel);
         JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         scorePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));

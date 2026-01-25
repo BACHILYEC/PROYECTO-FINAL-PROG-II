@@ -52,7 +52,7 @@ public class UserPlayerBL {
         return -1;
     }
 
-    public static List<UserPlayerDTO> getAllActivePlayers() throws Exception {
+    public List<UserPlayerDTO> getAllActivePlayers() throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
         try {
             return userPlayerDAO.readAllstatus(true);
