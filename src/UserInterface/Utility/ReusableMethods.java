@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
@@ -99,10 +100,10 @@ public class ReusableMethods {
 
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
-        UserPlayerDAO dao = new UserPlayerDAO();
+        UserPlayerBL BL = new UserPlayerBL();
 
         try {
-            for (UserPlayerDTO dto : dao.readAllstatus(status)) {
+            for (UserPlayerDTO dto : BL.getAllActivePlayers()) {
                 String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getModificateDate() };
                 model.addRow(row);
             }
