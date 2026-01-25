@@ -66,13 +66,11 @@ public class SearchPlayerScreen {
                 searchByIdButton.addActionListener(e -> searchById(mainPanel));
                 buttonPanel.add(searchByIdButton);
 
-                JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-                buttonPanelBack.setBackground(StyleConfig.ButtonSecondaryPanel());
-                JButton backButton = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
-                backButton.addActionListener(e -> {
-                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+                        GoToBack.addActionListener(e -> {
+                            MainFrame.setContentPane(MainMenu.gameMenu());
                 });
-                buttonPanelBack.add(backButton);
+                buttonPanel.add(GoToBack);
 
                 ArrayList<JTextField> input = new ArrayList<>();
                 input.add(nameTextField);
@@ -84,12 +82,12 @@ public class SearchPlayerScreen {
                 fullCenterPanel.add(centerPanel);
                 fullCenterPanel.add(keyboard);
                 fullCenterPanel.add(buttonPanel);
-                fullCenterPanel.add(buttonPanelBack);
+                fullCenterPanel.add(GoToBack);
 
                 mainPanel.add(fullCenterPanel, BorderLayout.CENTER);
 
                 JButton[][] buttons = ScreenKeyboard.getButtons();
-                components = new JComponent[buttons.length + 2][buttons[0].length];
+                components = new JComponent[buttons.length + 3][buttons[0].length];
 
                 for (int i = 0; i < buttons.length; i++) {
                         for (int j = 0; j < buttons[i].length; j++) {
@@ -100,6 +98,7 @@ public class SearchPlayerScreen {
                 for (int i = 0; i < buttons[0].length; i++) {
                         components[buttons.length][i] = searchByNameButton;
                         components[buttons.length + 1][i] = searchByIdButton;
+                        components[buttons.length + 2][i] = GoToBack;
                 }
 
                 ControllerDualsense controller = new ControllerDualsense();
