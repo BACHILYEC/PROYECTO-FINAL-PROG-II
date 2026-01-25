@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
@@ -72,6 +73,38 @@ public class ReusableMethods {
             for (UserPlayerDTO dto : dao.readAllstatus(status)) {
                 String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
                         dto.getModificateDate() };
+                model.addRow(row);
+            }
+        } catch (
+
+        Exception ex) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage());
+        }
+        return scrollPane;
+    }
+
+    public static JScrollPane createTablePlayer(String[] columnNames, JPanel panel, Boolean status) {
+
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        JTable data = new JTable(model) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        TableColumnModel columnModel = data.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(100);
+        columnModel.getColumn(3).setPreferredWidth(100);
+
+        JScrollPane scrollPane = new JScrollPane(data);
+        model.setRowCount(0);
+        UserPlayerBL BL = new UserPlayerBL();
+
+        try {
+            for (UserPlayerDTO dto : BL.getAllActivePlayers()) {
+                String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getModificateDate() };
                 model.addRow(row);
             }
         } catch (

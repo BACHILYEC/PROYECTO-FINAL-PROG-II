@@ -1,5 +1,7 @@
 package BusinessLogic;
 
+import java.util.List;
+
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 
@@ -36,6 +38,16 @@ public class UserPlayerBL {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public List<UserPlayerDTO> getAllActivePlayers() throws Exception {
+        UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
+        try {
+            return userPlayerDAO.readAllstatus(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
     
     public Boolean Update(String username, Integer score) throws Exception {
