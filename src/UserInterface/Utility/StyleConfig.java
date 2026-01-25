@@ -41,7 +41,7 @@ public class StyleConfig {
     }
 
     public static Color ButtonSecondary() {
-        return new Color(177, 151, 204);
+        return new Color(171, 157, 204);
     }
 
     public static Color keyboardButtons() {
