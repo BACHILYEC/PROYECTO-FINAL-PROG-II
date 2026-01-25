@@ -2,7 +2,6 @@ package UserInterface.Screen;
 
 import javax.swing.*;
 
-import BusinessLogic.AnswerBL;
 import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DAOs.QuestionDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
