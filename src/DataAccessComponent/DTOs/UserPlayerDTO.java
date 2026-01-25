@@ -7,7 +7,6 @@ public class UserPlayerDTO {
     private Integer Score;
     private String  Status;
 
-
     private String CreationDate;
     private String ModificateDate;
 
