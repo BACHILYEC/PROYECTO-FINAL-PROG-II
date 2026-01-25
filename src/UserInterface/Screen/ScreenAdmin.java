@@ -50,7 +50,7 @@ public class ScreenAdmin {
             boton.addActionListener(e -> {
                 switch (index) {
                     case "Tabla De Jugadores": {
-                        String[] columnNames = { "Usuario", "Score", "Status", "Creation Date", "Modificate Date" };
+                        String[] columnNames = { "Player Id", "Usuario", "Score", "Status", "Creation Date", "Modificate Date" };
                         JPanel pan = new JPanel();
                         JScrollPane tableScrollPane = ReusableMethods.createTableUser(columnNames, pan, true);
                         pan.setLayout(new BorderLayout());

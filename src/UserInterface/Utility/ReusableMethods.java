@@ -58,8 +58,8 @@ public class ReusableMethods {
             }
         };
         TableColumnModel columnModel = data.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(150);
-        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(1).setPreferredWidth(150);
         columnModel.getColumn(2).setPreferredWidth(100);
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(100);
@@ -70,7 +70,7 @@ public class ReusableMethods {
 
         try {
             for (UserPlayerDTO dto : dao.readAllstatus(status)) {
-                String[] row = { dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
+                String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
                         dto.getModificateDate() };
                 model.addRow(row);
             }

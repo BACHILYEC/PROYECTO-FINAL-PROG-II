@@ -50,6 +50,7 @@ public class MainMenu {
             panel.add(tableScrollPane, BorderLayout.CENTER);
             JOptionPane.showMessageDialog(panel, panel, "Marcador De Jugadores",
                     JOptionPane.INFORMATION_MESSAGE);
+
         });
         JButton exitButton = StyleConfig.createButton("Salir", StyleConfig.ButtonSecondary(), 150, 40);
         exitButton.addActionListener(e -> {
