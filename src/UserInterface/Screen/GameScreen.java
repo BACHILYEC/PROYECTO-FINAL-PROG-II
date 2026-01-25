@@ -3,10 +3,8 @@ package UserInterface.Screen;
 import javax.swing.*;
 
 import DataAccessComponent.DAOs.QuestionDAO;
-import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
-import DataAccessComponent.DTOs.UserPlayerDTO;
 import Infrastructure.AppException;
 import DataAccessComponent.DAOs.AnswerDAO;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -104,7 +102,7 @@ public class GameScreen {
             }
             JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.ButtonSecondary(), 40, 40);
             gotoback.addActionListener(e -> {
-                MainFrame.setContentPane(ExitGame.confirmExitPanel());
+                MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
             });
             backgroundPanel.add(options);
             gamePanel.add(gotoback, BorderLayout.SOUTH);

@@ -7,7 +7,7 @@ import DataAccessComponent.DTOs.UserPlayerDTO;
 
 public class UserPlayerBL {
 
-    public Boolean create(String username, int score) throws Exception {
+    public static Boolean create(String username, int score) throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
 
         if (exists(username)) {
@@ -30,7 +30,7 @@ public class UserPlayerBL {
         return false;
     }
 
-    public Boolean exists(String username) throws Exception {
+    public static Boolean exists(String username) throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
         try {
             UserPlayerDTO player = userPlayerDAO.readByName(username);
@@ -41,7 +41,7 @@ public class UserPlayerBL {
         return false;
     }
 
-    public int getIdByUsername(String username) throws Exception {
+    public static int getIdByUsername(String username) throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
         try {
             UserPlayerDTO player = userPlayerDAO.readByName(username);
@@ -52,7 +52,7 @@ public class UserPlayerBL {
         return -1;
     }
 
-    public List<UserPlayerDTO> getAllActivePlayers() throws Exception {
+    public static List<UserPlayerDTO> getAllActivePlayers() throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
         try {
             return userPlayerDAO.readAllstatus(true);
@@ -62,7 +62,7 @@ public class UserPlayerBL {
         }
     }
 
-    public Boolean Update(String username, Integer score, int id) throws Exception {
+    public static Boolean Update(String username, Integer score, int id) throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
         UserPlayerDTO userPlayerDTO = new UserPlayerDTO();
         userPlayerDTO.setName(username);
