@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
+import Infrastructure.AppException;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,7 +93,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar el jugador con id: " + entity.getIdPlayer(), e, getClass(), "update");
+            throw new AppException("No se pudo actualizar el jugador con id: " + entity.getIdPlayer(), e, getClass(),
+                    "update");
         }
     }
 
@@ -113,7 +115,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo cambiar el estado del jugador con id: " + id, e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado del jugador con id: " + id, e, getClass(),
+                    "changestatus");
         }
     }
 
@@ -128,7 +131,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
-            throw new AppException("No se pudo obtener el número máximo de registros de jugadores", e, getClass(), "getMaxReg");
+            throw new AppException("No se pudo obtener el número máximo de registros de jugadores", e, getClass(),
+                    "getMaxReg");
         }
         return 0;
     }
