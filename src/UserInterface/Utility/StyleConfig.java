@@ -45,7 +45,7 @@ public class StyleConfig {
     }
 
     public static Color keyboardButtons() {
-        return new Color(200, 222, 230);
+        return new Color(218, 209, 237);
     }
 
     public static JButton createButton(String text, Color backgroundColor, int a, int b) {
