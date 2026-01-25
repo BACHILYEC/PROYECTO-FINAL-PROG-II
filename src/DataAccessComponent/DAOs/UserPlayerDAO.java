@@ -192,4 +192,27 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         return userPlayerDTO;
     }
 
+    public UserPlayerDTO searchByName(String username) throws Exception {
+        UserPlayerDTO userPlayerDTO = null;
+
+        String query = "SELECT Name FROM UserPlayer WHERE Name = ?;";
+
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userPlayerDTO = new UserPlayerDTO(
+                        rs.getString(1));
+            }
+        } catch (Exception e) {
+            throw new AppException("No se pudo buscar el jugador: " + username, e, getClass(), "readByName");
+        }
+
+        return userPlayerDTO;
+    }
+
 }
