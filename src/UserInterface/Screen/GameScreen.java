@@ -40,10 +40,19 @@ public class GameScreen {
             questionCurrent.remove(index[0]);
             correctAnswer = getCorrectAnswer(indexAnswer);
             JLabel questJLabel = StyleConfig.questionLabel(question);
+            JLabel categoryLabel = StyleConfig.questionLabel("Categoría: " + category);
+            categoryLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            categoryLabel.setOpaque(false);
+            categoryLabel.setForeground(Color.white);
+            JPanel Category = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            Category.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
+            Category.setOpaque(false);
+            Category.add(categoryLabel);
             JPanel options = new JPanel();
-            options.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            options.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+            options.add(Category);
             options.add(questJLabel);
-            options.setLayout(new GridLayout(5, 1, 10, 10));
+            options.setLayout(new GridLayout(6, 1, 10, 10));
             options.setOpaque(false);
             JButton[] optionButtons = new JButton[4];
             for (int i[] = { 0 }; i[0] < 4; i[0]++) {
@@ -64,8 +73,11 @@ public class GameScreen {
                                 question = questionCurrent.get(index[0]).getQuestion();
                                 indexAnswer = questionCurrent.get(index[0]).getIdQuestion();
                                 answers = getOptions(indexAnswer);
+                                indexCategory = questionCurrent.get(index[0]).getIdCategory();
+                                category = getCategory(indexCategory);
                                 questionCurrent.remove(index[0]);
                                 questJLabel.setText(question);
+                                categoryLabel.setText("Categoría: " + category);
                                 correctAnswer = getCorrectAnswer(indexAnswer);
                                 for (int j = 0; j < 4; j++) {
                                     optionButtons[j].setText(answers[j]);
@@ -88,10 +100,16 @@ public class GameScreen {
                     }
                 });
             }
+            JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.ButtonSecondary(), 40, 40);
+            gotoback.addActionListener(e -> {
+                MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
+            });
             backgroundPanel.add(options);
+            gamePanel.add(gotoback, BorderLayout.SOUTH);
             JComponent[][] buttons = new JComponent[][] { { optionButtons[0] }, { optionButtons[1] },
                     { optionButtons[2] }, {
-                            optionButtons[3] } };
+                            optionButtons[3] },
+                    { gotoback } };
             ControllerDualsense ControllerDualsense = new ControllerDualsense();
             ControllerDualsense.setupKeyBindings(gamePanel, buttons);
             ControllerDualsense.focusComponent(ControllerDualsense.getCurrentIndexX(),

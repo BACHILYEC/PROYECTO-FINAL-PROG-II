@@ -23,18 +23,19 @@ public class ExitGame {
     titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 24));
     titleLabel.setHorizontalAlignment(JLabel.CENTER);
     titleLabel.setForeground(new Color(60, 60, 60));
+    titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
     confirmPanel.add(titleLabel, BorderLayout.NORTH);
 
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
     buttonPanel.setOpaque(false);
 
-    JButton yesButton = StyleConfig.createButton("Sí", new Color(220, 53, 69), 100, 50);
+    JButton yesButton = StyleConfig.createButton("Si", StyleConfig.ButtonPrimary(), 100, 50);
     yesButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
     yesButton.addActionListener(e -> {
         MainFrame.setContentPane(MainMenu.gameMenu());
     });
 
-    JButton noButton = StyleConfig.createButton("No", new Color(40, 167, 69), 100, 50);
+    JButton noButton = StyleConfig.createButton("No", StyleConfig.ButtonSecondary(), 100, 50);
     noButton.addActionListener(e -> {
         MainFrame.setContentPane(previousPanel);
     });
