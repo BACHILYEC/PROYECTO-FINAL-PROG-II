@@ -29,11 +29,11 @@ public class StyleConfig {
     }
 
     public static Color ButtonPrimaryPanel() {
-        return new Color(156, 130, 189);
+        return new Color(139, 137, 179);
     }
 
     public static Color ButtonSecondaryPanel() {
-        return new Color(199, 186, 212);
+        return new Color(160, 151, 209);
     }
 
     public static Color ButtonPrimary() {
