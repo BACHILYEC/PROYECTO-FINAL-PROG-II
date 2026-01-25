@@ -61,7 +61,7 @@ public class CreatePlayer {
         });
         JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         goBack.addActionListener(e -> {
-            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+            MainFrame.setContentPane(MainMenu.gameMenu());
         });
 
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
