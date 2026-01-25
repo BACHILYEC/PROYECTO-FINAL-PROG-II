@@ -7,7 +7,6 @@ import java.util.List;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
-import Infrastructure.AppException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
