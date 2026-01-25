@@ -4,8 +4,12 @@ import DataAccessComponent.DTOs.UserPlayerDTO;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import Infrastructure.AppException;
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+=======
+import DataAccessComponent.DTOs.UserPlayerDTO;
+>>>>>>> 9bcbac709e09021e4d001d6380cef514d839059b
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -93,7 +97,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar el jugador con id: " + entity.getIdPlayer(), e, getClass(), "update");
+            throw new AppException("No se pudo actualizar el jugador con id: " + entity.getIdPlayer(), e, getClass(),
+                    "update");
         }
     }
 
@@ -114,7 +119,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo cambiar el estado del jugador con id: " + id, e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado del jugador con id: " + id, e, getClass(),
+                    "changestatus");
         }
     }
 
@@ -129,7 +135,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
-            throw new AppException("No se pudo obtener el número máximo de registros de jugadores", e, getClass(), "getMaxReg");
+            throw new AppException("No se pudo obtener el número máximo de registros de jugadores", e, getClass(),
+                    "getMaxReg");
         }
         return 0;
     }
@@ -188,7 +195,32 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         throw new AppException("No se pudo leer el jugador con id: " + id, e, getClass(), "readById");
     }
 
+<<<<<<< HEAD
     return userPlayerDTO;
 }
+=======
+    public UserPlayerDTO searchByName(String username) throws Exception {
+        UserPlayerDTO userPlayerDTO = null;
+
+        String query = "SELECT Name FROM UserPlayer WHERE Name = ?;";
+
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userPlayerDTO = new UserPlayerDTO(
+                        rs.getString(1));
+            }
+        } catch (Exception e) {
+            throw new AppException("No se pudo buscar el jugador: " + username, e, getClass(), "readByName");
+        }
+
+        return userPlayerDTO;
+    }
+>>>>>>> 9bcbac709e09021e4d001d6380cef514d839059b
 
 }
