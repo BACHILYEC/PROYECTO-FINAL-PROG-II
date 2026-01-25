@@ -19,12 +19,12 @@ public class CreatePlayer {
         JPanel panel = new JPanel(new BorderLayout());
         JLabel tittle = StyleConfig.tittleConfig();
         panel.add(tittle, BorderLayout.NORTH);
-        
+
         JPanel getName = new JPanel(new BorderLayout());
         ImageBackgroundPanel namePanel = new ImageBackgroundPanel(
-                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                "/UserInterface/Resources/ImagenBackGroundLogin.png");
         namePanel.setLayout(new BorderLayout());
-        
+
         JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         textPanel.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
         textPanel.setOpaque(false);
@@ -33,16 +33,16 @@ public class CreatePlayer {
         nameField = new JTextField(10);
         textPanel.add(nameLabel);
         textPanel.add(nameField);
-        
+
         ArrayList<JTextField> input = new ArrayList<>();
         input.add(nameField);
         JPanel keyboard = ScreenKeyboard.keyboard(input);
-        
+
         JPanel centerContent = new JPanel(new BorderLayout());
         centerContent.setOpaque(false);
         centerContent.add(textPanel, BorderLayout.NORTH);
         centerContent.add(keyboard, BorderLayout.CENTER);
-        
+
         namePanel.add(centerContent, BorderLayout.NORTH);
         getName.add(namePanel, BorderLayout.CENTER);
 
@@ -67,7 +67,7 @@ public class CreatePlayer {
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
         backPanel.add(goBack);
-        
+
         buttonPanel.add(createPanel);
         buttonPanel.add(backPanel);
         panel.add(getName, BorderLayout.CENTER);
@@ -77,19 +77,19 @@ public class CreatePlayer {
         components = new JComponent[buttons.length + 2][buttons[0].length];
         for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
-                    components[i][j] = buttons[i][j];
+                components[i][j] = buttons[i][j];
             }
         }
-        //asdasd
+        // asdasd
         for (int i = 0; i < buttons[0].length; i++) {
-                components[buttons.length][i] = create;
-                components[buttons.length + 1][i] = goBack;
+            components[buttons.length][i] = create;
+            components[buttons.length + 1][i] = goBack;
 
         }
 
-                ControllerDualsense controller = new ControllerDualsense();
-                controller.setupKeyBindings(panel, components);
-                controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), components);
+        ControllerDualsense controller = new ControllerDualsense();
+        controller.setupKeyBindings(panel, components);
+        controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), components);
 
         return panel;
     }

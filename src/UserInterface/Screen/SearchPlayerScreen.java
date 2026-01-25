@@ -21,7 +21,7 @@ public class SearchPlayerScreen {
                 mainPanel.add(tittle, BorderLayout.NORTH);
 
                 ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
-                                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                                "/UserInterface/Resources/ImagenBackGroundLogin.png");
                 centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
                 centerPanel.add(Box.createVerticalGlue());
 
@@ -62,12 +62,17 @@ public class SearchPlayerScreen {
                 searchByIdButton.addActionListener(e -> searchById(mainPanel));
                 buttonPanel.add(searchByIdButton);
 
+                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+                GoToBack.addActionListener(e -> {
+                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                });
+                buttonPanel.add(GoToBack);
+
                 ArrayList<JTextField> input = new ArrayList<>();
                 input.add(nameTextField);
                 input.add(idTextField);
                 JPanel keyboard = ScreenKeyboard.keyboard(input);
 
-                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 50);
                 GoToBack.addActionListener(e -> {
                     MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                 });
@@ -181,8 +186,7 @@ public class SearchPlayerScreen {
                                 return;
                         }
 
-                        UserPlayerBL BL = new UserPlayerBL();
-                        UserPlayerDTO playerDTO = BL.readById(playerId);
+                        UserPlayerDTO playerDTO = UserPlayerBL.readById(playerId);
 
                         if (playerDTO != null) {
                                 String mensaje = "¡Jugador encontrado!\n\n" +

@@ -19,7 +19,7 @@ public class LoginScreen {
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
         JPanel Textmain = new JPanel(new BorderLayout());
         ImageBackgroundPanel GetCredencials = new ImageBackgroundPanel(
-                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                "/UserInterface/Resources/ImagenBackGroundLogin.png");
         JTextField usernameField = new JTextField(10);
         JPanel userLogin = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         userLogin.setOpaque(false);
@@ -95,7 +95,7 @@ public class LoginScreen {
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
-        
+
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         ArrayList<JTextField> input = new ArrayList<>();

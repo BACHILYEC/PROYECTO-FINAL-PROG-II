@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import Infrastructure.AppException;
 
 public abstract class DataHelperSQLite {
-    private static final String DBPathConnection = "jdbc:sqlite:src\\Storage\\Database\\triv.sqlite";
+    private static final String DBPathConnection = "jdbc:sqlite:Storage\\Database\\triv.sqlite";
     private static Connection conn = null;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

@@ -26,7 +26,7 @@ public class UpdatePlayerScreen {
         mainPanel.add(title, BorderLayout.NORTH);
 
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
-                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                "/UserInterface/Resources/ImagenBackGroundLogin.png");
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 

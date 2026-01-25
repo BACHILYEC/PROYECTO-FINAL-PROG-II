@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class ScreenAdmin {
-    private static JComponent[][] buttons = new JComponent[5][2];
+    private static JComponent[][] buttons = new JComponent[4][2];
 
     public static JPanel MenuAdmin() {
         JPanel panel = new JPanel();
@@ -23,7 +23,7 @@ public class ScreenAdmin {
         JLabel tittle = StyleConfig.tittleConfig();
         panel.add(tittle, BorderLayout.NORTH);
         ImageBackgroundPanel buttonPanel = new ImageBackgroundPanel(
-                "src\\UserInterface\\Resources\\ImagenBackGroundLogin.png");
+                "/UserInterface/Resources/ImagenBackGroundLogin.png");
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
         JButton Exit = StyleConfig.createButton("Salir", StyleConfig.ButtonSecondary(), 150, 40);
@@ -77,8 +77,8 @@ public class ScreenAdmin {
         buttonsaux.add(GoToBack);
         panel.add(buttonsaux, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
-        buttons[4][0] = Exit;
-        buttons[4][1] = GoToBack;
+        buttons[3][0] = Exit;
+        buttons[3][1] = GoToBack;
         ControllerDualsense ControllerDualsense = new ControllerDualsense();
         ControllerDualsense.setupKeyBindings(panel, buttons);
 
