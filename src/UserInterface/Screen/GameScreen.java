@@ -18,6 +18,8 @@ public class GameScreen {
     private static String correctAnswer;
     private static Integer indexAnswer;
     private static String[] answers;
+    private static Integer indexCategory;
+    private static String category;
 
     public static JPanel game() throws AppException {
         JPanel gamePanel = new JPanel(new BorderLayout());
@@ -32,7 +34,9 @@ public class GameScreen {
             int index[] = { randomNumber(questionCurrent.size()) };
             indexAnswer = questionCurrent.get(index[0]).getIdQuestion();
             question = questionCurrent.get(index[0]).getQuestion();
+            indexCategory = questionCurrent.get(index[0]).getIdCategory();
             answers = getOptions(indexAnswer);
+            category = getCategory(indexCategory);
             questionCurrent.remove(index[0]);
             correctAnswer = getCorrectAnswer(indexAnswer);
             JLabel questJLabel = StyleConfig.questionLabel(question);
@@ -43,10 +47,10 @@ public class GameScreen {
             options.setOpaque(false);
             JButton[] optionButtons = new JButton[4];
             for (int i[] = { 0 }; i[0] < 4; i[0]++) {
-                JButton optionButton = StyleConfig.createButton(answers[i[0]], StyleConfig.ButtonSecondary(),
+                JButton optionButton = StyleConfig.createButton(answers[i[0]], new Color(255, 255, 255),
                         50,
                         50);
-                optionButton.setOpaque(false);
+                optionButton.setOpaque(true);
                 optionButton.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
                 optionButtons[i[0]] = optionButton;
                 options.add(optionButton);
@@ -66,13 +70,10 @@ public class GameScreen {
                                 for (int j = 0; j < 4; j++) {
                                     optionButtons[j].setText(answers[j]);
                                 }
-                                System.out.println("Pregunta: " + correctAnswer);
                                 options.revalidate();
                                 options.repaint();
                             } else {
-                                JOptionPane.showMessageDialog(null,
-                                        "Respuesta Incorrecta. La respuesta correcta es: " + correctAnswer,
-                                        "Resultado", JOptionPane.ERROR_MESSAGE);
+
                             }
                         } else {
                             JOptionPane.showMessageDialog(null,
@@ -131,4 +132,15 @@ public class GameScreen {
         return correctAnswer;
     }
 
+    public static String getCategory(int questionId) throws Exception {
+        String category = switch (questionId) {
+            case 1 -> "Cultura General";
+            case 2 -> "Disney";
+            case 3 -> "Electrónica";
+            case 4 -> "Espacio Exterior";
+            case 5 -> "Programación";
+            default -> "Desconocida";
+        };
+        return category;
+    }
 }

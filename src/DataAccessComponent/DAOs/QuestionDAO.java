@@ -119,7 +119,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
 
     public List<QuestionDTO> readAllQuestion() throws Exception {
 
-        String query = "SELECT Question, idQuestion FROM Question;";
+        String query = "SELECT Question, idQuestion, idCategory FROM Question;";
 
         ArrayList<QuestionDTO> question = new ArrayList<>();
         try {
@@ -127,7 +127,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             PreparedStatement pstmt = conn.prepareStatement(query);
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                QuestionDTO questionDTO = new QuestionDTO(rs.getString(1), rs.getInt(2));
+                QuestionDTO questionDTO = new QuestionDTO(rs.getInt(2), rs.getInt(3), rs.getString(1));
                 question.add(questionDTO);
             }
         } catch (Exception e) {
