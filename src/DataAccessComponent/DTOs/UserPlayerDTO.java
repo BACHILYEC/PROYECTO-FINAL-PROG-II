@@ -7,11 +7,14 @@ public class UserPlayerDTO {
     private Integer Score;
     private String  Status;
 
-
     private String CreationDate;
     private String ModificateDate;
 
     public UserPlayerDTO() {
+    }
+
+    public UserPlayerDTO(String name) {
+        Name = name;
     }
 
     public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score) {
