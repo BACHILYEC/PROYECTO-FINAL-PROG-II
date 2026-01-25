@@ -36,7 +36,6 @@ public class SearchPlayerScreen {
                 searchByNamePanel.add(nameLabel);
                 searchByNamePanel.add(nameTextField);
                 centerPanel.add(searchByNamePanel);
-
                 centerPanel.add(Box.createVerticalGlue());
 
                 JPanel searchByIdPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -55,7 +54,6 @@ public class SearchPlayerScreen {
 
                 JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.ButtonPrimary(),
                                 200, 50);
-
                 buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
 
                 searchByNameButton.addActionListener(e -> searchByName(mainPanel));

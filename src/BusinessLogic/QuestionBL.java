@@ -20,6 +20,10 @@ public class QuestionBL {
         return QuestionDTO;
     }
 
+    public List<QuestionDTO> readAllQuestion() throws Exception {
+        return QuestionDAO.readAllQuestion();
+    }
+
     public List<QuestionDTO> getQuestionsForGame() throws Exception {
         List<QuestionDTO> selectedQuestions = new ArrayList<>();
         Random random = new Random();
