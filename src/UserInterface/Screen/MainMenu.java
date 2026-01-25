@@ -24,7 +24,7 @@ public class MainMenu {
         buttonPlay.setBackground(StyleConfig.ButtonPrimaryPanel());
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
         JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 500, 100);
-        playButton.setFont(new Font("Cooper Black", Font.PLAIN, 15));
+        playButton.setFont(new Font("Cooper Black", Font.PLAIN, 20));
         playButton.addActionListener(e -> {
             MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
         });
