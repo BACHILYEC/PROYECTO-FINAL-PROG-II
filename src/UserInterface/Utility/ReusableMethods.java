@@ -2,14 +2,20 @@ package UserInterface.Utility;
 
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.net.URL;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
@@ -137,12 +143,44 @@ public class ReusableMethods {
     }
 
     public static URL getImageBackground() {
-        URL url = ReusableMethods.getImage("/UserInterface/Resources/LittleBackground.png");
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/Fonditou.png");
+        return url;
+    }
+
+    public static URL getTittle() {
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/Iconito.png");
         return url;
     }
 
     public static URL getImageTranslucent() {
         URL url = ReusableMethods.getImage("/UserInterface/Resources/ImagenBackGround.png");
         return url;
+    }
+
+    public static URL getIconApp() {
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/LoadingImage.png");
+        return url;
+    }
+
+    public static void applyCleanProgressBarUI(JProgressBar progressBar) {
+        progressBar.setUI(new BasicProgressBarUI() {
+            @Override
+            protected void paintDeterminate(Graphics g, JComponent c) {
+                Insets insets = progressBar.getInsets();
+                int width = progressBar.getWidth() - insets.left - insets.right;
+                int height = progressBar.getHeight() - insets.top - insets.bottom;
+
+                int amountFull = getAmountFull(insets, width, height);
+
+                Graphics2D g2 = (Graphics2D) g.create();
+                g2.setColor(progressBar.getForeground());
+                g2.fillRect(
+                        insets.left,
+                        insets.top,
+                        amountFull,
+                        height);
+                g2.dispose();
+            }
+        });
     }
 }

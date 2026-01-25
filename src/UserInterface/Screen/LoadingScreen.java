@@ -2,24 +2,31 @@ package UserInterface.Screen;
 
 import javax.swing.*;
 
-import UserInterface.Utility.StyleConfig;
+import UserInterface.Utility.ImageLoadingPanel;
+import UserInterface.Utility.ReusableMethods;
 
 import java.awt.*;
 
 public class LoadingScreen {
     public static JPanel loadingPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
-        JPanel loadingPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JPanel informationPanel = new JPanel(new GridLayout(2, 1));
-        JLabel titleLabel = StyleConfig.tittleConfig();
-        mainPanel.add(titleLabel, BorderLayout.NORTH);
-        mainPanel.add(informationPanel, BorderLayout.CENTER);
+        ImageLoadingPanel loadingPanel = new ImageLoadingPanel(ReusableMethods.getIconApp());
+        loadingPanel.setBorder(BorderFactory.createEmptyBorder(0, 15, 175, 15));
         JProgressBar progressBar = new JProgressBar(0, 100);
-        progressBar.setForeground(StyleConfig.ButtonSecondary());
-        progressBar.setPreferredSize(new Dimension(800, 50));
-        loadingPanel.add(progressBar);
-        mainPanel.add(loadingPanel, BorderLayout.SOUTH);
-        Timer loading = new Timer(50, null);
+        ReusableMethods.applyCleanProgressBarUI(progressBar);
+        progressBar.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.WHITE, 2),
+                        BorderFactory.createEmptyBorder(3, 3, 3, 3)));
+        progressBar.setBackground(new Color(204, 159, 250));
+        progressBar.setForeground(Color.WHITE);
+        progressBar.setPreferredSize(new Dimension(500, 30));
+        JPanel progressPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        progressPanel.setOpaque(false);
+        progressPanel.add(progressBar);
+        loadingPanel.add(progressPanel, BorderLayout.SOUTH);
+        mainPanel.add(loadingPanel, BorderLayout.CENTER);
+        Timer loading = new Timer(1, null);
         loading.addActionListener(e -> {
             int value = progressBar.getValue();
             if (value < 100) {

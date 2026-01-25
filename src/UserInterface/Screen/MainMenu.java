@@ -16,24 +16,25 @@ public class MainMenu {
         JLabel tittle = StyleConfig.tittleConfig();
         ImageBackgroundPanel backgroundPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
-        main.add(tittle, BorderLayout.NORTH);
+        backgroundPanel.add(tittle);
         main.add(backgroundPanel, BorderLayout.CENTER);
-        JPanel southPanel = new JPanel();
-        southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
         JPanel buttonPlay = new JPanel();
-        buttonPlay.setOpaque(true);
+        buttonPlay.setBorder(BorderFactory.createEmptyBorder(150, 0, 0, 0));
+        buttonPlay.setOpaque(false);
         buttonPlay.setBackground(StyleConfig.ButtonPrimaryPanel());
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
+        JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 500, 100);
+        playButton.setFont(new Font("Cooper Black", Font.PLAIN, 15));
         playButton.addActionListener(e -> {
             MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
         });
         buttonPlay.add(playButton);
         JPanel buttonssecond = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonssecond.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        buttonssecond.setOpaque(true);
+        buttonssecond.setOpaque(false);
         buttonssecond.setBackground(StyleConfig.ButtonSecondaryPanel());
         JButton leaderboardButton = StyleConfig.createButton("Marcador", StyleConfig.ButtonSecondary(), 150, 40);
+        leaderboardButton.setFont(new Font("Cooper Black", Font.PLAIN, 15));
         leaderboardButton.addActionListener(e -> {
             String[] columnNames = { "Id Jugador", "Jugador", "Puntuación", "Ultima Jugada" };
             JPanel panel = new JPanel();
@@ -45,19 +46,28 @@ public class MainMenu {
 
         });
         JButton exitButton = StyleConfig.createButton("Salir", StyleConfig.ButtonSecondary(), 150, 40);
+        exitButton.setFont(new Font("Cooper Black", Font.PLAIN, 15));
         exitButton.addActionListener(e -> {
             System.exit(0);
         });
         JButton accessAdmin = StyleConfig.createButton("Acceso Admin", StyleConfig.ButtonSecondary(), 150, 40);
+        accessAdmin.setFont(new Font("Cooper Black", Font.PLAIN, 15));
         accessAdmin.addActionListener(e -> {
             MainFrame.setContentPane(LoginScreen.loginPanel());
         });
         buttonssecond.add(leaderboardButton);
         buttonssecond.add(accessAdmin);
         buttonssecond.add(exitButton);
-        southPanel.add(buttonPlay);
-        southPanel.add(buttonssecond);
-        main.add(southPanel, BorderLayout.SOUTH);
+        backgroundPanel.add(buttonPlay);
+        backgroundPanel.add(buttonssecond);
+        JPanel icon = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        // icon.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
+        ImageIcon icontittle = new ImageIcon(ReusableMethods.getTittle());
+        JLabel labelIcon = new JLabel(icontittle);
+        icon.setOpaque(false);
+        icon.add(labelIcon);
+        backgroundPanel.add(icon);
+        main.add(backgroundPanel, BorderLayout.CENTER);
 
         buttons = new JComponent[][] { { playButton, playButton, playButton },
                 { leaderboardButton, accessAdmin, exitButton } };

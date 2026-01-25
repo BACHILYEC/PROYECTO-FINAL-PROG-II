@@ -24,19 +24,11 @@ public abstract class DataHelperSQLite {
                 conn = DriverManager.getConnection(DBPathConnection);
             }
         } catch (SQLException e) {
-            throw new AppException("No se pudo establecer conexión con la base de datos: " + DBPathConnection, e, DataHelperSQLite.class, "openConnection");
+            throw new AppException("No se pudo establecer conexión con la base de datos: " + DBPathConnection, e,
+                    DataHelperSQLite.class, "openConnection");
         }
         return conn;
     }
-
-    // protected static void closeConnection() throws Exception {
-    //     try {
-    //         if (conn != null)
-    //             conn.close();
-    //     } catch (Exception e) {
-    //         throw e;
-    //     }
-    // }
 
     protected String getDataTimeNow() {
         return dtf.format(now).toString();

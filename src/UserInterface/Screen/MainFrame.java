@@ -9,7 +9,7 @@ public class MainFrame {
     public static void Frame() {
         frame = new JFrame("Liminalis");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 700);
+        frame.setSize(1000, 700);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(LoadingScreen.loadingPanel());
         frame.setVisible(true);
