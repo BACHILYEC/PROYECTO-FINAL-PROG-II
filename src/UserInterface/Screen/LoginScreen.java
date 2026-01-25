@@ -15,12 +15,11 @@ public class LoginScreen {
     static JComponent[][] components = new JComponent[7][10];
 
     public static JPanel loginPanel() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        ImageBackgroundPanel mainPanel = new ImageBackgroundPanel(
+                ReusableMethods.getImageTranslucent());
+        mainPanel.setLayout(new BorderLayout());
         JLabel tittle = StyleConfig.tittleConfig();
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
-        JPanel Textmain = new JPanel(new BorderLayout());
-        ImageBackgroundPanel GetCredencials = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
         JTextField usernameField = new JTextField(10);
         JPanel userLogin = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         userLogin.setOpaque(false);
@@ -51,14 +50,16 @@ public class LoginScreen {
         passwordPanel.add(passwordLabel);
         passwordPanel.add(passwordField);
         passwordPanel.add(showPasswordButton);
-        GetCredencials.add(Box.createVerticalGlue());
-        GetCredencials.add(userLogin);
-        GetCredencials.add(Box.createVerticalGlue());
-        GetCredencials.add(passwordPanel);
-        Textmain.add(GetCredencials, BorderLayout.CENTER);
+        JPanel credentialsPanel = new JPanel();
+        credentialsPanel.setLayout(new BoxLayout(credentialsPanel, BoxLayout.Y_AXIS));
+        credentialsPanel.setOpaque(false);
+        credentialsPanel.add(Box.createVerticalGlue());
+        credentialsPanel.add(userLogin);
+        credentialsPanel.add(Box.createVerticalGlue());
+        credentialsPanel.add(passwordPanel);
         mainPanel.add(tittle, BorderLayout.NORTH);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
+        buttonPanel.setOpaque(false);
         JButton loginButton = StyleConfig.createButton("Login", StyleConfig.ButtonPrimary(), 200, 50);
         loginButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.add(loginButton);
@@ -90,7 +91,7 @@ public class LoginScreen {
             }
         });
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        buttonPanelBack.setBackground(StyleConfig.ButtonSecondaryPanel());
+        buttonPanelBack.setOpaque(false);
         JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         buttonPanelBack.add(GoToBack);
         GoToBack.addActionListener(e -> {
@@ -99,11 +100,12 @@ public class LoginScreen {
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setOpaque(false);
         ArrayList<JTextField> input = new ArrayList<>();
         input.add(usernameField);
         input.add(passwordField);
         JPanel keyboard = ScreenKeyboard.keyboard(input);
-        centerPanel.add(Textmain);
+        centerPanel.add(credentialsPanel);
         centerPanel.add(keyboard);
         centerPanel.add(buttonPanel);
         centerPanel.add(buttonPanelBack);
