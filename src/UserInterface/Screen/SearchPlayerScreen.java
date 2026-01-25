@@ -21,7 +21,7 @@ public class SearchPlayerScreen {
                 JLabel tittle = StyleConfig.tittleConfig();
                 mainPanel.add(tittle, BorderLayout.NORTH);
 
-                ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(ReusableMethods.getImageTranslucent());
+                ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(ReusableMethods.getImageBackground());
                 centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
                 centerPanel.add(Box.createVerticalGlue());
 

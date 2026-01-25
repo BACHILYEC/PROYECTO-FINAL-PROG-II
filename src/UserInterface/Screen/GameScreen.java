@@ -24,12 +24,16 @@ public class GameScreen {
     private static String category;
 
     public static JPanel game() throws AppException {
-        JPanel gamePanel = new JPanel(new BorderLayout());
         JLabel gameLabel = StyleConfig.tittleConfig();
-        gamePanel.add(gameLabel, BorderLayout.NORTH);
+        gameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        gameLabel.setOpaque(false);
+        JPanel gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        gamePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        gamePanel.setOpaque(false);
+        gamePanel.add(gameLabel);
         ImageBackgroundPanel backgroundPanel = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
-        gamePanel.add(backgroundPanel, BorderLayout.CENTER);
+                ReusableMethods.getImageBackground());
+        backgroundPanel.add(gamePanel);
         try {
             ArrayList<QuestionDTO> questionCurrent = getQuestion();
             int score[] = { 0 };
@@ -54,7 +58,7 @@ public class GameScreen {
             options.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
             options.add(Category);
             options.add(questJLabel);
-            options.setLayout(new GridLayout(6, 1, 10, 10));
+            options.setLayout(new GridLayout(7, 1, 10, 10));
             options.setOpaque(false);
             JButton[] optionButtons = new JButton[4];
             for (int i[] = { 0 }; i[0] < 4; i[0]++) {
@@ -105,8 +109,8 @@ public class GameScreen {
             gotoback.addActionListener(e -> {
                 MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
             });
+            options.add(gotoback);
             backgroundPanel.add(options);
-            gamePanel.add(gotoback, BorderLayout.SOUTH);
             JComponent[][] buttons = new JComponent[][] { { optionButtons[0] }, { optionButtons[1] },
                     { optionButtons[2] }, {
                             optionButtons[3] },
@@ -122,7 +126,7 @@ public class GameScreen {
 
         }
 
-        return gamePanel;
+        return backgroundPanel;
     }
 
     public static int randomNumber(int max) {

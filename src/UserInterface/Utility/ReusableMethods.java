@@ -143,17 +143,12 @@ public class ReusableMethods {
     }
 
     public static URL getImageBackground() {
-        URL url = ReusableMethods.getImage("/UserInterface/Resources/Fonditou.png");
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/BackGround.png");
         return url;
     }
 
     public static URL getTittle() {
-        URL url = ReusableMethods.getImage("/UserInterface/Resources/Iconito.png");
-        return url;
-    }
-
-    public static URL getImageTranslucent() {
-        URL url = ReusableMethods.getImage("/UserInterface/Resources/Fonditou.png");
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/icon.png");
         return url;
     }
 
