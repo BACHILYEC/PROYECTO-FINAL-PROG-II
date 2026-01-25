@@ -50,15 +50,6 @@ CREATE TABLE Category (
 
 );
 
-CREATE TABLE LeaderBoard(
-    idLeaderBoard INTEGER PRIMARY KEY AUTOINCREMENT
-    ,idPlayer INTEGER REFERENCES Player(idPlayer)
-    ,idCategory INTEGER REFERENCES Category(idCategory)
-    ,Status VARCHAR(10) NOT NULL DEFAULT 'Activo'
-    ,CreationDate DATETIME NOT NULL DEFAULT(datetime('now','localtime'))
-    ,ModificateDate DATETIME DEFAULT NULL
-
-);
 
 CREATE TABLE Question (
     idCategory INTEGER REFERENCES Category(idCategory)
@@ -79,8 +70,6 @@ CREATE TABLE Answer (
     ,ModificateDate DATETIME DEFAULT NULL
 );
 
--- INSERT INTO UserPlayer (idUserType, Name, Score) 
--- VALUES (1, 'PlayerOne', 1500);
-
--- INSERT INTO UserPlayer (idUserType, Name, Score) 
--- VALUES (2, 'ShadowHunter', 2350);
+CREATE TABLE IF NOT EXISTS _db_init (
+    initialized INTEGER
+);
