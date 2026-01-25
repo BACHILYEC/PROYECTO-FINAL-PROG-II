@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class ScreenAdmin {
-    private static JComponent[][] buttons = new JComponent[5][2];
+    private static JComponent[][] buttons = new JComponent[4][2];
 
     public static JPanel MenuAdmin() {
         JPanel panel = new JPanel();

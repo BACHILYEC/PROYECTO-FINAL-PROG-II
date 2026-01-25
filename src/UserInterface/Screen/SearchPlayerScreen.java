@@ -62,15 +62,6 @@ public class SearchPlayerScreen {
                 searchByIdButton.addActionListener(e -> searchById(mainPanel));
                 buttonPanel.add(searchByIdButton);
 
-<<<<<<< HEAD
-                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
-                GoToBack.addActionListener(e -> {
-                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
-                });
-                buttonPanel.add(GoToBack);
-
-=======
->>>>>>> 448544b14ea564ef60c900ac4dac23fe3ae84018
                 ArrayList<JTextField> input = new ArrayList<>();
                 input.add(nameTextField);
                 input.add(idTextField);
@@ -78,9 +69,9 @@ public class SearchPlayerScreen {
 
                 JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 50);
                 GoToBack.addActionListener(e -> {
-                    MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                 });
-                
+
                 JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
                 backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
                 backPanel.add(GoToBack);
