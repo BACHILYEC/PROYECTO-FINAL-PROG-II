@@ -2,12 +2,12 @@ package UserInterface.Screen;
 
 import javax.swing.*;
 
+import BusinessLogic.AnswerBL;
+import BusinessLogic.QuestionBL;
 import BusinessLogic.UserPlayerBL;
-import DataAccessComponent.DAOs.QuestionDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
 import Infrastructure.AppException;
-import DataAccessComponent.DAOs.AnswerDAO;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.StyleConfig;
 
@@ -129,14 +129,14 @@ public class GameScreen {
     }
 
     public static ArrayList<QuestionDTO> getQuestion() throws Exception {
-        QuestionDAO qdao = new QuestionDAO();
-        ArrayList<QuestionDTO> questionCurrent = new ArrayList<>(qdao.readAllQuestion());
+        QuestionBL qBL = new QuestionBL();
+        ArrayList<QuestionDTO> questionCurrent = new ArrayList<>(qBL.readAllQuestion());
         return questionCurrent;
     }
 
     public static String[] getOptions(int index) throws Exception {
-        AnswerDAO adao = new AnswerDAO();
-        ArrayList<AnswerDTO> options = new ArrayList<>(adao.readOptions(index, true));
+        AnswerBL abL = new AnswerBL();
+        ArrayList<AnswerDTO> options = new ArrayList<>(abL.readOptions(index, true));
         String[] optionTexts = new String[options.size()];
         for (int i = 0; i < options.size(); i++) {
             optionTexts[i] = options.get(i).getAnswer();
@@ -145,8 +145,8 @@ public class GameScreen {
     }
 
     public static String getCorrectAnswer(int questionId) throws Exception {
-        AnswerDAO adao = new AnswerDAO();
-        String correctAnswer = adao.readCorrectAns(questionId);
+        AnswerBL abL = new AnswerBL();
+        String correctAnswer = abL.readCorrectAns(questionId);
         return correctAnswer;
     }
 

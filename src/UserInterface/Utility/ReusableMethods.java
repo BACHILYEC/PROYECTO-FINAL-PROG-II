@@ -12,9 +12,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import BusinessLogic.UserAdminBL;
 import BusinessLogic.UserPlayerBL;
-import DataAccessComponent.DAOs.UserAdminDAO;
-import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 
@@ -35,9 +34,9 @@ public class ReusableMethods {
         columnModel.getColumn(2).setPreferredWidth(100);
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
-        UserAdminDAO dao = new UserAdminDAO();
+        UserAdminBL BL = new UserAdminBL();
         try {
-            for (UserAdminDTO dto : dao.readAllstatus(status)) {
+            for (UserAdminDTO dto : BL.readAllstatus(status)) {
                 String[] row = { dto.getUserName(), dto.getLastLogin(), dto.getIdAdministrator().toString() };
                 model.addRow(row);
             }
@@ -67,10 +66,9 @@ public class ReusableMethods {
 
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
-        UserPlayerDAO dao = new UserPlayerDAO();
 
         try {
-            for (UserPlayerDTO dto : dao.readAllstatus(status)) {
+            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(status)) {
                 String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getStatus(), dto.getCreationDate(),
                         dto.getModificateDate() };
                 model.addRow(row);
@@ -100,10 +98,9 @@ public class ReusableMethods {
 
         JScrollPane scrollPane = new JScrollPane(data);
         model.setRowCount(0);
-        UserPlayerBL BL = new UserPlayerBL();
 
         try {
-            for (UserPlayerDTO dto : BL.getAllActivePlayers()) {
+            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(status)) {
                 String[] row = {dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(), dto.getModificateDate() };
                 model.addRow(row);
             }

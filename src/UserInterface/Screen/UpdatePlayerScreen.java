@@ -1,6 +1,5 @@
 package UserInterface.Screen;
 
-import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.StyleConfig;
@@ -84,7 +83,7 @@ public class UpdatePlayerScreen {
     private static void loadTableData(DefaultTableModel model) {
         model.setRowCount(0);
         try {
-            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers()) {
+            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(true)) {
                 Object[] row = {
                         dto.getIdPlayer(),
                         dto.getName(),
@@ -290,7 +289,7 @@ public class UpdatePlayerScreen {
 
         selectedPlayer.setName(name);
         selectedPlayer.setScore(score);
-        
+
         try {
             boolean success = UserPlayerBL.AllUpdate(selectedPlayer);
             if (success) {

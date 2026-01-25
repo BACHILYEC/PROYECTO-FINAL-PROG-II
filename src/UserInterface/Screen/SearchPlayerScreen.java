@@ -49,12 +49,10 @@ public class SearchPlayerScreen {
                 centerPanel.add(searchByIdPanel);
 
                 JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-
                 buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
 
                 JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.ButtonPrimary(),
                                 200, 50);
-                buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
 
                 searchByNameButton.addActionListener(e -> searchByName(mainPanel));
                 buttonPanel.add(searchByNameButton);
@@ -64,23 +62,27 @@ public class SearchPlayerScreen {
                 searchByIdButton.addActionListener(e -> searchById(mainPanel));
                 buttonPanel.add(searchByIdButton);
 
-                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
-                        GoToBack.addActionListener(e -> {
-                            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
-                });
-                buttonPanel.add(GoToBack);
-
                 ArrayList<JTextField> input = new ArrayList<>();
                 input.add(nameTextField);
                 input.add(idTextField);
                 JPanel keyboard = ScreenKeyboard.keyboard(input);
 
+                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 50);
+                GoToBack.addActionListener(e -> {
+                    MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                });
+                
+                JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+                backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
+                backPanel.add(GoToBack);
+
                 JPanel fullCenterPanel = new JPanel();
                 fullCenterPanel.setLayout(new BoxLayout(fullCenterPanel, BoxLayout.Y_AXIS));
+                fullCenterPanel.setOpaque(false);
                 fullCenterPanel.add(centerPanel);
                 fullCenterPanel.add(keyboard);
                 fullCenterPanel.add(buttonPanel);
-                fullCenterPanel.add(GoToBack);
+                fullCenterPanel.add(backPanel);
 
                 mainPanel.add(fullCenterPanel, BorderLayout.CENTER);
 
