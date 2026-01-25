@@ -126,22 +126,6 @@ public class GameScreen {
         return gamePanel;
     }
 
-
-    public static void validarJugador(String name) throws Exception{
-        UserPlayerDAO userDAO = new UserPlayerDAO();
-        UserPlayerDTO userDTO = userDAO.searchByName(name);
-        if (userDTO != null) {
-            System.out.println("El jugador existe");
-        } else {
-            System.out.println("Jugador no encontrado");
-            userDTO = new UserPlayerDTO();  
-            userDTO.setIdUserType(1);  
-            userDTO.setName(name);
-            userDTO.setScore(0);        
-            userDAO.create(userDTO);
-        }
-    }
-
     public static int randomNumber(int max) {
         return (int) (Math.random() * max);
     }
