@@ -16,7 +16,7 @@ public class LoginScreen {
 
     public static JPanel loginPanel() {
         ImageBackgroundPanel mainPanel = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
+                ReusableMethods.getImageBackground());
         mainPanel.setLayout(new BorderLayout());
         JLabel tittle = StyleConfig.tittleConfig();
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);

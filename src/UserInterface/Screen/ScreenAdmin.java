@@ -19,7 +19,7 @@ public class ScreenAdmin {
 
     public static JPanel MenuAdmin() {
         ImageBackgroundPanel panel = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
+                ReusableMethods.getImageBackground());
         panel.setLayout(new BorderLayout());
         JLabel tittle = StyleConfig.tittleConfig();
         panel.add(tittle, BorderLayout.NORTH);
