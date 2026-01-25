@@ -44,4 +44,14 @@ public class UserAdminBL {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         return userAdminDAO.getMaxReg();
     }
+
+    public UserAdminDTO searchByName(String username) throws Exception {
+        UserAdminDAO userAdminDAO = new UserAdminDAO();
+        try {
+            return userAdminDAO.readByName(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 }

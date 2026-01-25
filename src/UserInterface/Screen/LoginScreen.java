@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import DataAccessComponent.DAOs.UserAdminDAO;
+import BusinessLogic.UserAdminBL;
 import DataAccessComponent.DTOs.UserAdminDTO;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -62,7 +62,7 @@ public class LoginScreen {
         loginButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.add(loginButton);
         loginButton.addActionListener(a -> {
-            UserAdminDAO dao = new UserAdminDAO();
+            UserAdminBL BL = new UserAdminBL();
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
             try {
@@ -71,7 +71,7 @@ public class LoginScreen {
                     return;
                 } else {
                     try {
-                        UserAdminDTO dto = dao.readByName(username);
+                        UserAdminDTO dto = BL.searchByName(username);
                         if (dto.getPassword().equals(password)) {
 
                             MainFrame.setContentPane(ScreenAdmin.MenuAdmin());

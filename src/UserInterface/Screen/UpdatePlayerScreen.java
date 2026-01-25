@@ -8,6 +8,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import BusinessLogic.UserPlayerBL;
+
 public class UpdatePlayerScreen {
     private static JTextField txtName;
     private static JTextField txtScore;
@@ -81,9 +83,8 @@ public class UpdatePlayerScreen {
 
     private static void loadTableData(DefaultTableModel model) {
         model.setRowCount(0);
-        UserPlayerDAO dao = new UserPlayerDAO();
         try {
-            for (UserPlayerDTO dto : dao.readAllstatus(true)) {
+            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers()) {
                 Object[] row = {
                         dto.getIdPlayer(),
                         dto.getName(),
@@ -106,9 +107,8 @@ public class UpdatePlayerScreen {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
             int idPlayer = (Integer) table.getValueAt(selectedRow, 0);
-            UserPlayerDAO dao = new UserPlayerDAO();
             try {
-                selectedPlayer = dao.readById(idPlayer);
+                selectedPlayer = UserPlayerBL.readById(idPlayer);
                 if (selectedPlayer != null) {
                     lblIdPlayer.setText(selectedPlayer.getIdPlayer().toString());
                     txtName.setText(selectedPlayer.getName());
@@ -290,10 +290,9 @@ public class UpdatePlayerScreen {
 
         selectedPlayer.setName(name);
         selectedPlayer.setScore(score);
-
-        UserPlayerDAO dao = new UserPlayerDAO();
+        
         try {
-            boolean success = dao.update(selectedPlayer);
+            boolean success = UserPlayerBL.AllUpdate(selectedPlayer);
             if (success) {
                 JOptionPane.showMessageDialog(null,
                         "Jugador actualizado correctamente",

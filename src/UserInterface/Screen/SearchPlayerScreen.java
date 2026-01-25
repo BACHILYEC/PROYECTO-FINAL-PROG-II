@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import DataAccessComponent.DAOs.UserPlayerDAO;
+import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -121,8 +121,8 @@ public class SearchPlayerScreen {
                                 return;
                         }
 
-                        UserPlayerDAO playerDAO = new UserPlayerDAO();
-                        UserPlayerDTO playerDTO = playerDAO.readByName(username.trim());
+                        UserPlayerBL BL = new UserPlayerBL();
+                        UserPlayerDTO playerDTO = BL.searchByName(username.trim());
 
                         if (playerDTO != null) {
                                 String mensaje = "¡Jugador encontrado!\n\n" +
@@ -181,8 +181,8 @@ public class SearchPlayerScreen {
                                 return;
                         }
 
-                        UserPlayerDAO playerDAO = new UserPlayerDAO();
-                        UserPlayerDTO playerDTO = playerDAO.readById(playerId);
+                        UserPlayerBL BL = new UserPlayerBL();
+                        UserPlayerDTO playerDTO = BL.readById(playerId);
 
                         if (playerDTO != null) {
                                 String mensaje = "¡Jugador encontrado!\n\n" +
