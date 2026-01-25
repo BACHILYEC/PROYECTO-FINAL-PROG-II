@@ -53,7 +53,7 @@ public class UpdatePlayerScreen {
         tableLabel.setForeground(Color.WHITE);
         panel.add(tableLabel, BorderLayout.NORTH);
         
-        String[] columnNames = {"ID", "Usuario", "Score", "Status", "Fecha Creación"};
+        String[] columnNames = {"ID", "Usuario", "Score", "Status", "Fecha Creación","Fecha Modificacion"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -89,7 +89,8 @@ public class UpdatePlayerScreen {
                     dto.getName(),
                     dto.getScore(),
                     dto.getStatus(),
-                    dto.getCreationDate()
+                    dto.getCreationDate(),
+                    dto.getModificateDate()
                 };
                 model.addRow(row);
             }
