@@ -54,14 +54,19 @@ public class CreatePlayer {
         createPanel.add(create);
         create.addActionListener(e -> {
             try {
-                MainFrame.setContentPane(GameScreen.game());
+                if(nameField.getText().trim().isEmpty()){
+                    JOptionPane.showMessageDialog(panel,"El nombre no puede estar vacio o tener espacios","Error",JOptionPane.ERROR_MESSAGE);
+                    MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
+                }else{
+                    MainFrame.setContentPane(GameScreen.game());
+                }  
             } catch (AppException e1) {
                 e1.printStackTrace();
             }
         });
         JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         goBack.addActionListener(e -> {
-            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+            MainFrame.setContentPane(MainMenu.gameMenu());
         });
 
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));

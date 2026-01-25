@@ -77,8 +77,8 @@ public class ScreenAdmin {
         buttonsaux.add(GoToBack);
         panel.add(buttonsaux, BorderLayout.SOUTH);
         panel.add(buttonPanel, BorderLayout.CENTER);
-        buttons[4][0] = Exit;
-        buttons[4][1] = GoToBack;
+        buttons[3][0] = Exit;
+        buttons[3][1] = GoToBack;
         ControllerDualsense ControllerDualsense = new ControllerDualsense();
         ControllerDualsense.setupKeyBindings(panel, buttons);
 

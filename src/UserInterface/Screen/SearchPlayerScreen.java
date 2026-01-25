@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import DataAccessComponent.DAOs.UserPlayerDAO;
+import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -62,12 +62,20 @@ public class SearchPlayerScreen {
                 searchByIdButton.addActionListener(e -> searchById(mainPanel));
                 buttonPanel.add(searchByIdButton);
 
+<<<<<<< HEAD
+=======
+                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+                GoToBack.addActionListener(e -> {
+                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                });
+                buttonPanel.add(GoToBack);
+
+>>>>>>> 2f5a3cdcf739bf4497b45342f3d9839722a3b2d8
                 ArrayList<JTextField> input = new ArrayList<>();
                 input.add(nameTextField);
                 input.add(idTextField);
                 JPanel keyboard = ScreenKeyboard.keyboard(input);
 
-                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 50);
                 GoToBack.addActionListener(e -> {
                         MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                 });
@@ -121,8 +129,8 @@ public class SearchPlayerScreen {
                                 return;
                         }
 
-                        UserPlayerDAO playerDAO = new UserPlayerDAO();
-                        UserPlayerDTO playerDTO = playerDAO.readByName(username.trim());
+                        UserPlayerBL BL = new UserPlayerBL();
+                        UserPlayerDTO playerDTO = BL.searchByName(username.trim());
 
                         if (playerDTO != null) {
                                 String mensaje = "¡Jugador encontrado!\n\n" +
@@ -181,8 +189,7 @@ public class SearchPlayerScreen {
                                 return;
                         }
 
-                        UserPlayerDAO playerDAO = new UserPlayerDAO();
-                        UserPlayerDTO playerDTO = playerDAO.readById(playerId);
+                        UserPlayerDTO playerDTO = UserPlayerBL.readById(playerId);
 
                         if (playerDTO != null) {
                                 String mensaje = "¡Jugador encontrado!\n\n" +

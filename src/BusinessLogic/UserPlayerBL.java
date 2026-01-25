@@ -18,7 +18,7 @@ public class UserPlayerBL {
             UserPlayerDTO userPlayerDTO = new UserPlayerDTO();
             userPlayerDTO.setIdUserType(1);
             userPlayerDTO.setName(username);
-            userPlayerDTO.setScore(0);
+            userPlayerDTO.setScore(score);
             try {
                 if (userPlayerDAO.create(userPlayerDTO)) {
                     return true;
@@ -52,10 +52,10 @@ public class UserPlayerBL {
         return -1;
     }
 
-    public List<UserPlayerDTO> getAllActivePlayers() throws Exception {
+    public static List<UserPlayerDTO> getAllActivePlayers(boolean status) throws Exception {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
         try {
-            return userPlayerDAO.readAllstatus(true);
+            return userPlayerDAO.readAllstatus(status);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
@@ -76,6 +76,48 @@ public class UserPlayerBL {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static boolean AllUpdate(UserPlayerDTO user) throws Exception {
+        UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
+        try {
+            if (userPlayerDAO.update(user)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public UserPlayerDTO searchByName(String username) throws Exception{
+        UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
+        try {
+            return userPlayerDAO.readByName(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static UserPlayerDTO readById(int id) throws Exception {
+        UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
+        try {
+            return userPlayerDAO.readById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public List<UserPlayerDTO> getAllPlayers() throws Exception {
+        UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
+        try {
+            return userPlayerDAO.readAllstatus(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 
 }

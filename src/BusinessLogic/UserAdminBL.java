@@ -1,5 +1,7 @@
 package BusinessLogic;
 
+import java.util.List;
+
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
 
@@ -40,8 +42,23 @@ public class UserAdminBL {
         return false;
     }
 
+    public List<UserAdminDTO> readAllstatus(boolean status) throws Exception {
+        UserAdminDAO userAdminDAO = new UserAdminDAO();
+        return userAdminDAO.readAllstatus(status);
+    }
+
     public Integer GetMaxRow() throws Exception {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         return userAdminDAO.getMaxReg();
+    }
+
+    public UserAdminDTO searchByName(String username) throws Exception {
+        UserAdminDAO userAdminDAO = new UserAdminDAO();
+        try {
+            return userAdminDAO.readByName(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
 }
