@@ -68,7 +68,7 @@ public class SearchPlayerScreen {
 
                 JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
                         GoToBack.addActionListener(e -> {
-                            MainFrame.setContentPane(MainMenu.gameMenu());
+                            MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                 });
                 buttonPanel.add(GoToBack);
 
