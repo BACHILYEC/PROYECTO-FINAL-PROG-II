@@ -4,6 +4,7 @@ import DataAccessComponent.DTOs.UserPlayerDTO;
 import DataAccessComponent.Helpers.DataHelperSQLite;
 import DataAccessComponent.Interfaces.IDAO;
 import Infrastructure.AppException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -165,33 +166,55 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         return userPlayerDTO;
     }
 
-   public UserPlayerDTO readById(int id) throws Exception {
-    UserPlayerDTO userPlayerDTO = null;
+    public UserPlayerDTO readById(int id) throws Exception {
+        UserPlayerDTO userPlayerDTO = null;
 
-    String query = "SELECT idPlayer, idUserType, Name, Score, Status, CreationDate, ModificateDate FROM UserPlayer WHERE idPlayer = ?;";
+        String query = "SELECT idPlayer, idUserType, Name, Score, Status, CreationDate, ModificateDate FROM UserPlayer WHERE idPlayer = ?;";
 
-    try {
-        Connection conn = openConnection();
-        PreparedStatement pstmt = conn.prepareStatement(query);
-        pstmt.setInt(1, id);
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, id);
 
-        ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = pstmt.executeQuery();
 
-        if (rs.next()) {
-            userPlayerDTO = new UserPlayerDTO();
-            userPlayerDTO.setIdPlayer(rs.getInt("idPlayer"));
-            userPlayerDTO.setIdUserType(rs.getInt("idUserType"));
-            userPlayerDTO.setName(rs.getString("Name"));
-            userPlayerDTO.setScore(rs.getInt("Score"));
-            userPlayerDTO.setStatus(rs.getString("Status"));
-            userPlayerDTO.setCreationDate(rs.getString("CreationDate"));
-            userPlayerDTO.setModificateDate(rs.getString("ModificateDate"));
+            if (rs.next()) {
+                userPlayerDTO = new UserPlayerDTO();
+                userPlayerDTO.setIdPlayer(rs.getInt("idPlayer"));
+                userPlayerDTO.setIdUserType(rs.getInt("idUserType"));
+                userPlayerDTO.setName(rs.getString("Name"));
+                userPlayerDTO.setScore(rs.getInt("Score"));
+                userPlayerDTO.setStatus(rs.getString("Status"));
+                userPlayerDTO.setCreationDate(rs.getString("CreationDate"));
+                userPlayerDTO.setModificateDate(rs.getString("ModificateDate"));
+            }
+        } catch (Exception e) {
+            throw new AppException("No se pudo leer el jugador con id: " + id, e, getClass(), "readById");
         }
-    } catch (Exception e) {
-        throw new AppException("No se pudo leer el jugador con id: " + id, e, getClass(), "readById");
+        return userPlayerDTO;
     }
 
-    return userPlayerDTO;
-}
+    public UserPlayerDTO searchByName(String username) throws Exception {
+        UserPlayerDTO userPlayerDTO = null;
+
+        String query = "SELECT Name FROM UserPlayer WHERE Name = ?;";
+
+        try {
+            Connection conn = openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, username);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                userPlayerDTO = new UserPlayerDTO(
+                        rs.getString(1));
+            }
+        } catch (Exception e) {
+            throw new AppException("No se pudo buscar el jugador: " + username, e, getClass(), "readByName");
+        }
+
+        return userPlayerDTO;
+    }
 
 }

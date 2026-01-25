@@ -7,6 +7,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import UserInterface.Utility.StyleConfig;
@@ -39,6 +40,12 @@ public class ExitGame {
     noButton.addActionListener(e -> {
         MainFrame.setContentPane(previousPanel);
     });
+
+    JComponent[][] buttons = new JComponent[][] { { yesButton, noButton } };
+            ControllerDualsense ControllerDualsense = new ControllerDualsense();
+            ControllerDualsense.setupKeyBindings(confirmPanel, buttons);
+            ControllerDualsense.focusComponent(ControllerDualsense.getCurrentIndexX(),
+                    ControllerDualsense.getCurrentIndexY(), buttons);
 
     buttonPanel.add(yesButton);
     buttonPanel.add(noButton);
