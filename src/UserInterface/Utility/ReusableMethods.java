@@ -153,7 +153,7 @@ public class ReusableMethods {
     }
 
     public static URL getImageTranslucent() {
-        URL url = ReusableMethods.getImage("/UserInterface/Resources/ImagenBackGround.png");
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/Fonditou.png");
         return url;
     }
 
