@@ -7,7 +7,7 @@ import DataAccessComponent.DTOs.AnswerDTO;
 
 public class AnswerBL {
 
-    public List<AnswerDTO> readOptions(int question, Boolean status) throws Exception {
+    public List<AnswerDTO> readOption(int question, Boolean status) throws Exception {
         AnswerDAO answerDAO = new AnswerDAO();
         return answerDAO.readOptions(question, status);
 

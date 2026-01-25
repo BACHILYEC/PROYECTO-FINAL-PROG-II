@@ -136,7 +136,7 @@ public class GameScreen {
 
     public static String[] getOptions(int index) throws Exception {
         AnswerBL abL = new AnswerBL();
-        ArrayList<AnswerDTO> options = new ArrayList<>(abL.readOptions(index, true));
+        ArrayList<AnswerDTO> options = new ArrayList<>(abL.readOption(index, true));
         String[] optionTexts = new String[options.size()];
         for (int i = 0; i < options.size(); i++) {
             optionTexts[i] = options.get(i).getAnswer();
