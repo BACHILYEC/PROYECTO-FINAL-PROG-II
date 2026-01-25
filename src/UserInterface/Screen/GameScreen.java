@@ -87,12 +87,12 @@ public class GameScreen {
                                 options.revalidate();
                                 options.repaint();
                             } else {
-                                UserPlayerBL.create("pepe", score[0]);
+                                UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
                                 MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], false));
-
                             }
                         } else {
                             MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], true));
+                            UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
                         }
                     } catch (Exception e1) {
                         JOptionPane.showMessageDialog(null,

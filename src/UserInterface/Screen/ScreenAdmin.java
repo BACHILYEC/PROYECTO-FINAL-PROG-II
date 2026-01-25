@@ -34,7 +34,7 @@ public class ScreenAdmin {
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
-        String[] buttonLabels = { "Tabla De Jugadores", "Agregar Jugador", "Modificar Jugador", "Buscar Jugador" };
+        String[] buttonLabels = { "Tabla De Jugadores", "Modificar Jugador", "Buscar Jugador" };
 
         for (int i = 0; i < buttonLabels.length; i++) {
             JButton boton = StyleConfig.createButton(buttonLabels[i], StyleConfig.ButtonPrimary(), 200, 50);
@@ -50,7 +50,8 @@ public class ScreenAdmin {
             boton.addActionListener(e -> {
                 switch (index) {
                     case "Tabla De Jugadores": {
-                        String[] columnNames = { "Player Id", "Usuario", "Score", "Status", "Creation Date", "Modificate Date" };
+                        String[] columnNames = { "Player Id", "Usuario", "Score", "Status", "Creation Date",
+                                "Modificate Date" };
                         JPanel pan = new JPanel();
                         JScrollPane tableScrollPane = ReusableMethods.createTableUser(columnNames, pan, true);
                         pan.setLayout(new BorderLayout());
@@ -59,13 +60,9 @@ public class ScreenAdmin {
                                 JOptionPane.INFORMATION_MESSAGE);
                         break;
                     }
-                    case "Agregar Jugador": {
-                        MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
-                        break;
-                    }
                     case "Modificar Jugador": {
-                    MainFrame.setContentPane(UpdatePlayerScreen.updatePlayerPanel());
-                    break;
+                        MainFrame.setContentPane(UpdatePlayerScreen.updatePlayerPanel());
+                        break;
                     }
                     case "Buscar Jugador": {
                         MainFrame.setContentPane(SearchPlayerScreen.searchPlayerPanel());

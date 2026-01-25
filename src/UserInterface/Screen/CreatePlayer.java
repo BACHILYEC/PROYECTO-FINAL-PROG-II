@@ -3,14 +3,13 @@ package UserInterface.Screen;
 import java.awt.*;
 import javax.swing.*;
 
-import DataAccessComponent.DAOs.UserPlayerDAO;
-import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 
 public class CreatePlayer {
 
-    private static JTextField nameField;
+    public static JTextField nameField;
 
     public static JPanel createPlayerPanel() {
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
@@ -30,15 +29,19 @@ public class CreatePlayer {
         textPanel.add(nameField);
         namePanel.add(textPanel);
         getName.add(namePanel, BorderLayout.CENTER);
-        
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        JButton create = StyleConfig.createButton("Crear", StyleConfig.ButtonPrimary(), 200, 50);
+        JButton create = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
         JPanel createPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         createPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
         createPanel.add(create);
         create.addActionListener(e -> {
-            crearJugador(panel);
+            try {
+                MainFrame.setContentPane(GameScreen.game());
+            } catch (AppException e1) {
+                e1.printStackTrace();
+            }
         });
         JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         goBack.addActionListener(e -> {
@@ -54,32 +57,4 @@ public class CreatePlayer {
         panel.add(buttonPanel, BorderLayout.SOUTH);
         return panel;
     }
-
-    private static void crearJugador(JPanel parentPanel){
-        try {
-
-            String username = nameField.getText();    
-            UserPlayerDAO userDAO = new UserPlayerDAO();
-            UserPlayerDTO userDTO = userDAO.searchByName(username);
-            if (userDTO != null) {
-                // JOptionPane.showMessageDialog("Se ha creado le jugador");
-            } else {
-                System.out.println("Jugador no encontrado");
-                userDTO = new UserPlayerDTO();  
-                userDTO.setIdUserType(1);  
-                userDTO.setName(username);
-                userDTO.setScore(0);        
-                userDAO.create(userDTO);
-            }
-
-        } catch (Exception err) {
-            JOptionPane.showMessageDialog(
-                parentPanel,
-                "Error al crear al jugador: " + err.getMessage(),
-                "Error",
-                JOptionPane.ERROR_MESSAGE);
-            err.printStackTrace();
-        }
-    }
-
 }
