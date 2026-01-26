@@ -59,7 +59,6 @@ public class MainMenu {
         backgroundPanel.add(buttonPlay);
         backgroundPanel.add(buttonssecond);
         JPanel icon = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        // icon.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         ImageIcon icontittle = new ImageIcon(ReusableMethods.getTittle());
         JLabel labelIcon = new JLabel(icontittle);
         icon.setOpaque(false);

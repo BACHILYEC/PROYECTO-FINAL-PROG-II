@@ -13,37 +13,42 @@ import javax.swing.table.DefaultTableModel;
 public class UpdatePlayerScreen {
     private static JTextField txtName;
     private static JTextField txtScore;
-    private static JLabel lblIdPlayer;
     private static JComboBox<String> cmbStatus;
-    private static JLabel lblCreationDate;
-    private static JLabel lblModificateDate;
     private static JTable table;
     private static UserPlayerDTO selectedPlayer = null;
+    private static int row;
+    private static JComponent[][] buttons;
 
     public static JPanel updatePlayerPanel() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
-
-        JLabel title = StyleConfig.tittleConfig();
-        mainPanel.add(title, BorderLayout.NORTH);
 
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        JLabel title = StyleConfig.tittleConfig();
+        centerPanel.add(title, BorderLayout.NORTH);
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JPanel tableSection = createTableSection();
-        centerPanel.add(tableSection);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        // centerPanel.add(tableSection);
+        // centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel formSection = createFormSection();
         centerPanel.add(formSection);
 
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
-
         JPanel buttonsPanel = createButtonsPanel();
-        mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        centerPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        ControllerDualsense ControllerDualsense = new ControllerDualsense();
+        ControllerDualsense.setupKeyBindings(centerPanel, buttons);
+        ControllerDualsense.focusComponent(ControllerDualsense.getCurrentIndexX(),
+                ControllerDualsense.getCurrentIndexY(),
+                buttons);
+        System.out.println(ControllerDualsense.getCurrentIndexX() + " " + ControllerDualsense.getCurrentIndexY());
+        for (int i = 0; i < buttons.length; i++) {
+            for (int j = 0; j < buttons[i].length; j++) {
+                System.out.println("buttons[" + i + "][" + j + "]=" + buttons[i][j]);
+            }
+        }
 
-        return mainPanel;
+        return centerPanel;
     }
 
     private static JPanel createTableSection() {
@@ -116,6 +121,8 @@ public class UpdatePlayerScreen {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+        row = model.getRowCount();
+        buttons = new JComponent[1][3];
     }
 
     private static void loadSelectedPlayer() {
@@ -125,14 +132,10 @@ public class UpdatePlayerScreen {
             try {
                 selectedPlayer = UserPlayerBL.readById(idPlayer);
                 if (selectedPlayer != null) {
-                    lblIdPlayer.setText(selectedPlayer.getIdPlayer().toString());
                     txtName.setText(selectedPlayer.getName());
                     txtScore.setText(selectedPlayer.getScore().toString());
                     cmbStatus.setSelectedItem(
                             selectedPlayer.getStatus() != null ? selectedPlayer.getStatus() : "Activo");
-                    lblCreationDate.setText(selectedPlayer.getCreationDate());
-                    lblModificateDate.setText(
-                            selectedPlayer.getModificateDate() != null ? selectedPlayer.getModificateDate() : "N/A");
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
@@ -163,68 +166,36 @@ public class UpdatePlayerScreen {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        JLabel lblIdLabel = new JLabel("ID:");
-        lblIdLabel.setForeground(Color.BLACK);
-        fieldsPanel.add(lblIdLabel, gbc);
-
-        gbc.gridx = 1;
-        lblIdPlayer = new JLabel("-");
-        lblIdPlayer.setForeground(Color.BLACK);
-        lblIdPlayer.setPreferredSize(new Dimension(200, 25));
-        fieldsPanel.add(lblIdPlayer, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
         JLabel lblNameLabel = new JLabel("Nombre:");
         lblNameLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblNameLabel, gbc);
 
         gbc.gridx = 1;
         txtName = new JTextField(20);
+        txtName.setFocusable(false);
         fieldsPanel.add(txtName, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         JLabel lblScoreLabel = new JLabel("Score:");
         lblScoreLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblScoreLabel, gbc);
 
         gbc.gridx = 1;
         txtScore = new JTextField(20);
+        txtScore.setFocusable(false);
         fieldsPanel.add(txtScore, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         JLabel lblStatusLabel = new JLabel("Status:");
         lblStatusLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblStatusLabel, gbc);
 
         gbc.gridx = 1;
         cmbStatus = new JComboBox<>(new String[] { "Activo", "Inactivo" });
+        cmbStatus.setFocusable(false);
         fieldsPanel.add(cmbStatus, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        JLabel lblCreationLabel = new JLabel("Fecha Creación:");
-        lblCreationLabel.setForeground(Color.BLACK);
-        fieldsPanel.add(lblCreationLabel, gbc);
-
-        gbc.gridx = 1;
-        lblCreationDate = new JLabel("-");
-        lblCreationDate.setForeground(Color.BLACK);
-        fieldsPanel.add(lblCreationDate, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        JLabel lblModificateLabel = new JLabel("Fecha Modificación:");
-        lblModificateLabel.setForeground(Color.BLACK);
-        fieldsPanel.add(lblModificateLabel, gbc);
-
-        gbc.gridx = 1;
-        lblModificateDate = new JLabel("-");
-        lblModificateDate.setForeground(Color.BLACK);
-        fieldsPanel.add(lblModificateDate, gbc);
-
         panel.add(fieldsPanel);
 
         return panel;
@@ -232,6 +203,7 @@ public class UpdatePlayerScreen {
 
     private static JPanel createButtonsPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        panel.setOpaque(false);
 
         JButton btnUpdate = StyleConfig.createButton("Actualizar", StyleConfig.ButtonPrimary(), 150, 40);
         btnUpdate.addActionListener(e -> updatePlayer());
@@ -241,7 +213,9 @@ public class UpdatePlayerScreen {
 
         JButton btnBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         btnBack.addActionListener(e -> MainFrame.setContentPane(ScreenAdmin.MenuAdmin()));
-
+        buttons[0][0] = btnUpdate;
+        buttons[0][1] = btnCancel;
+        buttons[0][2] = btnBack;
         panel.add(btnUpdate);
         panel.add(btnCancel);
         panel.add(btnBack);
@@ -335,10 +309,7 @@ public class UpdatePlayerScreen {
     private static void clearForm() {
         txtName.setText("");
         txtScore.setText("");
-        lblIdPlayer.setText("-");
         cmbStatus.setSelectedIndex(0);
-        lblCreationDate.setText("-");
-        lblModificateDate.setText("-");
         selectedPlayer = null;
         table.clearSelection();
     }

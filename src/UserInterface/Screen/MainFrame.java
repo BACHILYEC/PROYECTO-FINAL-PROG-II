@@ -3,17 +3,15 @@ package UserInterface.Screen;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-
 public class MainFrame {
     public static JFrame frame;
 
-    public static void Frame(){
+    public static void Frame() {
         frame = new JFrame("Liminalis");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 700);
         frame.setLocationRelativeTo(null);
-        frame.setContentPane(LoadingScreen.loadingPanel());
+        frame.setContentPane(UpdatePlayerScreen.updatePlayerPanel());
         frame.setVisible(true);
     }
 
