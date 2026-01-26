@@ -17,13 +17,14 @@ public class SearchPlayerScreen {
         private static JTextField idTextField;
 
         public static JPanel searchPlayerPanel() {
-                JPanel mainPanel = new JPanel(new BorderLayout());
-                JLabel tittle = StyleConfig.tittleConfig();
-                mainPanel.add(tittle, BorderLayout.NORTH);
 
-                ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(ReusableMethods.getImageTranslucent());
-                centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+                ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(ReusableMethods.getImageBackground());
                 centerPanel.add(Box.createVerticalGlue());
+                JLabel tittle = StyleConfig.tittleConfig();
+                JPanel tittlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+                tittlePanel.setOpaque(false);
+                tittlePanel.add(tittle);
+                centerPanel.add(tittlePanel);
 
                 Font labelFont = new Font("Comic Sans MS", Font.BOLD, 18);
 
@@ -49,17 +50,17 @@ public class SearchPlayerScreen {
                 centerPanel.add(searchByIdPanel);
 
                 JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-                buttonPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
+                buttonPanel.setOpaque(false);
 
                 JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.ButtonPrimary(),
                                 200, 50);
 
-                searchByNameButton.addActionListener(e -> searchByName(mainPanel));
+                searchByNameButton.addActionListener(e -> searchByName(centerPanel));
                 buttonPanel.add(searchByNameButton);
 
                 JButton searchByIdButton = StyleConfig.createButton("Buscar por ID", StyleConfig.ButtonPrimary(), 200,
                                 50);
-                searchByIdButton.addActionListener(e -> searchById(mainPanel));
+                searchByIdButton.addActionListener(e -> searchById(centerPanel));
                 buttonPanel.add(searchByIdButton);
 
                 JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
@@ -78,18 +79,18 @@ public class SearchPlayerScreen {
                 });
 
                 JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-                backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
+                backPanel.setOpaque(false);
                 backPanel.add(GoToBack);
 
                 JPanel fullCenterPanel = new JPanel();
                 fullCenterPanel.setLayout(new BoxLayout(fullCenterPanel, BoxLayout.Y_AXIS));
                 fullCenterPanel.setOpaque(false);
-                fullCenterPanel.add(centerPanel);
+                // fullCenterPanel.add(centerPanel);
                 fullCenterPanel.add(keyboard);
                 fullCenterPanel.add(buttonPanel);
                 fullCenterPanel.add(backPanel);
 
-                mainPanel.add(fullCenterPanel, BorderLayout.CENTER);
+                centerPanel.add(fullCenterPanel, BorderLayout.CENTER);
 
                 JButton[][] buttons = ScreenKeyboard.getButtons();
                 components = new JComponent[buttons.length + 3][buttons[0].length];
@@ -107,10 +108,10 @@ public class SearchPlayerScreen {
                 }
 
                 ControllerDualsense controller = new ControllerDualsense();
-                controller.setupKeyBindings(mainPanel, components);
+                controller.setupKeyBindings(centerPanel, components);
                 controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), components);
 
-                return mainPanel;
+                return centerPanel;
         }
 
         private static void searchByName(JPanel parentPanel) {

@@ -28,14 +28,6 @@ public class StyleConfig {
         return tittle;
     }
 
-    public static Color ButtonPrimaryPanel() {
-        return new Color(139, 137, 179);
-    }
-
-    public static Color ButtonSecondaryPanel() {
-        return new Color(160, 151, 209);
-    }
-
     public static Color ButtonPrimary() {
         return new Color(217, 163, 187);
     }
@@ -45,7 +37,7 @@ public class StyleConfig {
     }
 
     public static Color keyboardButtons() {
-        return new Color(200, 222, 230);
+        return new Color(218, 209, 237);
     }
 
     public static JButton createButton(String text, Color backgroundColor, int a, int b) {

@@ -17,14 +17,15 @@ public class CreatePlayer {
     public static JPanel createPlayerPanel() {
 
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
-        JPanel panel = new JPanel(new BorderLayout());
-        JLabel tittle = StyleConfig.tittleConfig();
-        panel.add(tittle, BorderLayout.NORTH);
 
-        JPanel getName = new JPanel(new BorderLayout());
+        JLabel tittle = StyleConfig.tittleConfig();
+        JPanel label = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ImageBackgroundPanel namePanel = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
-        namePanel.setLayout(new BorderLayout());
+                ReusableMethods.getImageBackground());
+        tittle.setOpaque(false);
+        label.add(tittle);
+        label.setOpaque(false);
+        namePanel.add(label);
 
         JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         textPanel.setBorder(BorderFactory.createEmptyBorder(125, 0, 0, 0));
@@ -38,25 +39,25 @@ public class CreatePlayer {
         ArrayList<JTextField> input = new ArrayList<>();
         input.add(nameField);
         JPanel keyboard = ScreenKeyboard.keyboard(input);
-
+        keyboard.setOpaque(false);
         JPanel centerContent = new JPanel(new BorderLayout());
         centerContent.setOpaque(false);
         centerContent.add(textPanel, BorderLayout.NORTH);
 
         namePanel.add(centerContent, BorderLayout.NORTH);
-        getName.add(namePanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.add(keyboard);
         JButton create = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
         JPanel createPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        createPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
+        createPanel.setOpaque(false);
         createPanel.add(create);
         create.addActionListener(e -> {
             try {
                 if (nameField.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(panel, "Nombre no Valido", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(namePanel, "Nombre no Valido", "Error", JOptionPane.ERROR_MESSAGE);
                     MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
                 } else {
                     MainFrame.setContentPane(GameScreen.game());
@@ -71,13 +72,12 @@ public class CreatePlayer {
         });
 
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
+        backPanel.setOpaque(false);
         backPanel.add(goBack);
 
         buttonPanel.add(createPanel);
         buttonPanel.add(backPanel);
-        panel.add(getName, BorderLayout.CENTER);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        namePanel.add(buttonPanel);
 
         JButton[][] buttons = ScreenKeyboard.getButtons();
         components = new JComponent[buttons.length + 2][buttons[0].length];
@@ -94,9 +94,9 @@ public class CreatePlayer {
         }
 
         ControllerDualsense controller = new ControllerDualsense();
-        controller.setupKeyBindings(panel, components);
+        controller.setupKeyBindings(namePanel, components);
         controller.focusComponent(controller.getCurrentIndexX(), controller.getCurrentIndexY(), components);
 
-        return panel;
+        return namePanel;
     }
 }

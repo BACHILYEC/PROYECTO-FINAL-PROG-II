@@ -26,7 +26,7 @@ public class LoadingScreen {
         progressPanel.add(progressBar);
         loadingPanel.add(progressPanel, BorderLayout.SOUTH);
         mainPanel.add(loadingPanel, BorderLayout.CENTER);
-        Timer loading = new Timer(1, null);
+        Timer loading = new Timer(50, null);
         loading.addActionListener(e -> {
             int value = progressBar.getValue();
             if (value < 100) {

@@ -1,9 +1,8 @@
 package BusinessLogic;
 
-import java.util.List;
-
 import DataAccessComponent.DAOs.UserTypeDAO;
 import DataAccessComponent.DTOs.UserTypeDTO;
+import java.util.List;
 
 public class UserTypeBL {
 

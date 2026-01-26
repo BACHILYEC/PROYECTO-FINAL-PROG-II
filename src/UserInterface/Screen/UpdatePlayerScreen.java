@@ -1,5 +1,7 @@
 package UserInterface.Screen;
 
+import BusinessLogic.UserPlayerBL;
+import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
@@ -8,13 +10,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import BusinessLogic.UserPlayerBL;
-
 public class UpdatePlayerScreen {
     private static JTextField txtName;
     private static JTextField txtScore;
     private static JLabel lblIdPlayer;
-    private static JLabel lblStatus;
+    private static JComboBox<String> cmbStatus;
     private static JLabel lblCreationDate;
     private static JLabel lblModificateDate;
     private static JTable table;
@@ -27,7 +27,7 @@ public class UpdatePlayerScreen {
         mainPanel.add(title, BorderLayout.NORTH);
 
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
-                ReusableMethods.getImageTranslucent());
+                ReusableMethods.getImageBackground());
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
@@ -83,8 +83,9 @@ public class UpdatePlayerScreen {
 
     private static void loadTableData(DefaultTableModel model) {
         model.setRowCount(0);
+        UserPlayerDAO dao = new UserPlayerDAO();
         try {
-            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(true)) {
+            for (UserPlayerDTO dto : dao.readAllstatus(true)) {
                 Object[] row = {
                         dto.getIdPlayer(),
                         dto.getName(),
@@ -94,6 +95,20 @@ public class UpdatePlayerScreen {
                         dto.getModificateDate()
                 };
                 model.addRow(row);
+            }
+
+            for (UserPlayerDTO dto : dao.readAllstatus(false)) {
+                if ("Inactivo".equals(dto.getStatus())) {
+                    Object[] row = {
+                            dto.getIdPlayer(),
+                            dto.getName(),
+                            dto.getScore(),
+                            dto.getStatus(),
+                            dto.getCreationDate(),
+                            dto.getModificateDate()
+                    };
+                    model.addRow(row);
+                }
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
@@ -113,7 +128,8 @@ public class UpdatePlayerScreen {
                     lblIdPlayer.setText(selectedPlayer.getIdPlayer().toString());
                     txtName.setText(selectedPlayer.getName());
                     txtScore.setText(selectedPlayer.getScore().toString());
-                    lblStatus.setText(selectedPlayer.getStatus() != null ? selectedPlayer.getStatus() : "Activo");
+                    cmbStatus.setSelectedItem(
+                            selectedPlayer.getStatus() != null ? selectedPlayer.getStatus() : "Activo");
                     lblCreationDate.setText(selectedPlayer.getCreationDate());
                     lblModificateDate.setText(
                             selectedPlayer.getModificateDate() != null ? selectedPlayer.getModificateDate() : "N/A");
@@ -184,9 +200,8 @@ public class UpdatePlayerScreen {
         fieldsPanel.add(lblStatusLabel, gbc);
 
         gbc.gridx = 1;
-        lblStatus = new JLabel("-");
-        lblStatus.setForeground(Color.BLACK);
-        fieldsPanel.add(lblStatus, gbc);
+        cmbStatus = new JComboBox<>(new String[] { "Activo", "Inactivo" });
+        fieldsPanel.add(cmbStatus, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -217,7 +232,6 @@ public class UpdatePlayerScreen {
 
     private static JPanel createButtonsPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        panel.setBackground(StyleConfig.ButtonSecondaryPanel());
 
         JButton btnUpdate = StyleConfig.createButton("Actualizar", StyleConfig.ButtonPrimary(), 150, 40);
         btnUpdate.addActionListener(e -> updatePlayer());
@@ -291,8 +305,14 @@ public class UpdatePlayerScreen {
         selectedPlayer.setName(name);
         selectedPlayer.setScore(score);
 
+        UserPlayerDAO dao = new UserPlayerDAO();
         try {
-            boolean success = UserPlayerBL.AllUpdate(selectedPlayer);
+            boolean success = dao.update(selectedPlayer);
+
+            String selectedStatus = (String) cmbStatus.getSelectedItem();
+            boolean isActive = selectedStatus.equals("Activo");
+            dao.changestatus(selectedPlayer.getIdPlayer(), isActive);
+
             if (success) {
                 JOptionPane.showMessageDialog(null,
                         "Jugador actualizado correctamente",
@@ -316,7 +336,7 @@ public class UpdatePlayerScreen {
         txtName.setText("");
         txtScore.setText("");
         lblIdPlayer.setText("-");
-        lblStatus.setText("-");
+        cmbStatus.setSelectedIndex(0);
         lblCreationDate.setText("-");
         lblModificateDate.setText("-");
         selectedPlayer = null;
