@@ -1,5 +1,6 @@
 package Infrastructure;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +19,13 @@ public class AppConfig {
     
     // Configuración dinámica  (Sin recompilar)
     public static final String getDATABASE  (){ return getProperty( KEY_DB_NAME      ); }
-    public static final String getLOGFILE   (){ return getProperty( KEY_FILE_LOG     ); }
+    public static final String getLOGFILE   (){ 
+        String relativePath = getProperty( KEY_FILE_LOG );
+        if (relativePath != null) {
+            return System.getProperty("user.dir") + File.separator + relativePath;
+        }
+        return null;
+    }
     
     // AppMSGs
     public static final String MSG_DEFAULT_ERROR    = "Caracoles, ocurrio un error inesperado! Contacta al administrador";

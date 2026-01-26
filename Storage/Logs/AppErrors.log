@@ -2,3 +2,9 @@
 ╰──── LOG  ⚠️ 2026-01-22 22:55:57 | UserPlayerDAO.readByName | [SQLITE_ERROR] SQL error or missing database (no such column: idPlayr)
 ╭─🔥─ SHOW ⚠️ Error en Iniciar el juego 
 ╰──── LOG  ⚠️ 2026-01-24 22:35:37 | undefined.undefined | Caracoles, ocurrio un error inesperado! Contacta al administrador
+╭─🔥─ SHOW ⚠️ No se pudo establecer conexión con la base de datos: jdbc:sqlite:C:\PROYECTO-FINAL-PROG-II\app\Storage\Database\triv.sqlite 
+╰──── LOG  ⚠️ 2026-01-25 20:02:48 | DataHelperSQLite.openConnection | [SQLITE_CANTOPEN] Unable to open the database file (unable to open database file)
+╭─🔥─ SHOW ⚠️ No se pudo establecer conexión con la base de datos: jdbc:sqlite: Storage\Database\triv.sqlite 
+╰──── LOG  ⚠️ 2026-01-25 20:57:02 | DataHelperSQLite.openConnection | [SQLITE_CANTOPEN] Unable to open the database file (unable to open database file)
+╭─🔥─ SHOW ⚠️ No se pudo establecer conexión con la base de datos: jdbc:sqlite: Storage\Database\triv.sqlite 
+╰──── LOG  ⚠️ 2026-01-25 20:58:00 | DataHelperSQLite.openConnection | [SQLITE_CANTOPEN] Unable to open the database file (unable to open database file)
