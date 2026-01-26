@@ -1,5 +1,6 @@
 package DataAccessComponent.Helpers;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,7 +10,9 @@ import java.time.format.DateTimeFormatter;
 import Infrastructure.AppException;
 
 public abstract class DataHelperSQLite {
-    private static final String DBPathConnection = "jdbc:sqlite:Storage\\Database\\triv.sqlite";
+    private static final String DBPathConnection = "jdbc:sqlite:" + System.getProperty("user.dir") + File.separator
+            + "app" + File.separator
+            + "Storage" + File.separator + "Database" + File.separator + "triv.sqlite";
     private static Connection conn = null;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

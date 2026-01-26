@@ -24,7 +24,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
 
     @Override
     public List<UserPlayerDTO> readAllstatus(boolean status) throws Exception {
-        String query = "SELECT idPlayer, idUserType, Name, Score, Status, ModificateDate, CreationDate FROM UserPlayer";
+        String query = "SELECT idPlayer, idUserTpe, Name, Score, Status, ModificateDate, CreationDate FROM UserPlayer";
         if (status) {
             query += " WHERE Status = 'Activo'";
         }
@@ -81,7 +81,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        String query = "UPDATE UserPlayer SET Name = ?, Score = ?, ModificateDate = ? "
+        String query = "UPDATE UserPlayer SET Name = ?, Scor = ?, ModificateDate = ? "
                 + "WHERE idPlayer = ?;";
         try {
             Connection conn = openConnection();

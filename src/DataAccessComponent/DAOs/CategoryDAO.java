@@ -25,7 +25,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
     public List<CategoryDTO> readAllstatus(boolean status) throws Exception {
         String query = "SELECT idCategory, CategoryName, Description FROM Category";
         if (status) {
-            query += " WHERE Status = 'Active';";
+            query += " WHERE Status = 'ctive';";
         }
         List<CategoryDTO> categories = new ArrayList<>();
         try {
