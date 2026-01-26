@@ -17,8 +17,10 @@ public class LoginScreen {
     public static JPanel loginPanel() {
         ImageBackgroundPanel mainPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
-        mainPanel.setLayout(new BorderLayout());
-        JLabel tittle = StyleConfig.tittleConfig();
+        JPanel tittle = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JLabel label = StyleConfig.tittleConfig();
+        tittle.setOpaque(false);
+        tittle.add(label);
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
         JTextField usernameField = new JTextField(10);
         JPanel userLogin = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -57,7 +59,7 @@ public class LoginScreen {
         credentialsPanel.add(userLogin);
         credentialsPanel.add(Box.createVerticalGlue());
         credentialsPanel.add(passwordPanel);
-        mainPanel.add(tittle, BorderLayout.NORTH);
+        mainPanel.add(tittle);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setOpaque(false);
         JButton loginButton = StyleConfig.createButton("Login", StyleConfig.ButtonPrimary(), 200, 50);

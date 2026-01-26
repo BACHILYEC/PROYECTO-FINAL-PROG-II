@@ -23,7 +23,7 @@ public class MainMenu {
         buttonPlay.setOpaque(false);
         buttonPlay.setBackground(StyleConfig.ButtonPrimaryPanel());
         buttonPlay.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 10));
-        JButton playButton = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 500, 100);
+        JButton playButton = StyleConfig.createButton("Iniciar Juego", StyleConfig.ButtonPrimary(), 500, 100);
         playButton.setFont(new Font("Cooper Black", Font.PLAIN, 25));
         playButton.addActionListener(e -> {
             MainFrame.setContentPane(CreatePlayer.createPlayerPanel());

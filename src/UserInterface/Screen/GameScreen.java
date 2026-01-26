@@ -25,9 +25,9 @@ public class GameScreen {
 
     public static JPanel game() throws AppException {
         JLabel gameLabel = StyleConfig.tittleConfig();
-        gameLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        gameLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         gameLabel.setOpaque(false);
-        JPanel gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JPanel gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1000, 0));
         gamePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         gamePanel.setOpaque(false);
         gamePanel.add(gameLabel);
@@ -47,18 +47,14 @@ public class GameScreen {
             correctAnswer = getCorrectAnswer(indexAnswer);
             JLabel questJLabel = StyleConfig.questionLabel(question);
             JLabel categoryLabel = StyleConfig.questionLabel("Categoría: " + category);
-            categoryLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+            categoryLabel.setBorder(null);
             categoryLabel.setOpaque(false);
             categoryLabel.setForeground(Color.white);
-            JPanel Category = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            Category.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
-            Category.setOpaque(false);
-            Category.add(categoryLabel);
+            gamePanel.add(categoryLabel);
             JPanel options = new JPanel();
             options.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-            options.add(Category);
             options.add(questJLabel);
-            options.setLayout(new GridLayout(7, 1, 10, 10));
+            options.setLayout(new GridLayout(6, 1, 10, 10));
             options.setOpaque(false);
             JButton[] optionButtons = new JButton[4];
             for (int i[] = { 0 }; i[0] < 4; i[0]++) {
