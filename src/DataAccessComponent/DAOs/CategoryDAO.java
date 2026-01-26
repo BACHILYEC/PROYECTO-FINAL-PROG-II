@@ -17,12 +17,12 @@ import Infrastructure.AppException;
 public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
 
     @Override
-    public List<CategoryDTO> readBy(String name) throws Exception {
+    public List<CategoryDTO> readBy(String name) throws AppException {
         throw new AppException("Método readBy no implementado para CategoryDAO", null, getClass(), "readBy");
     }
 
     @Override
-    public List<CategoryDTO> readAllstatus(boolean status) throws Exception {
+    public List<CategoryDTO> readAllstatus(boolean status) throws AppException {
         String query = "SELECT idCategory, CategoryName, Description FROM Category";
         if (status) {
             query += " WHERE Status = 'ctive';";
@@ -43,7 +43,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
     }
 
     @Override
-    public boolean create(CategoryDTO entity) throws Exception {
+    public boolean create(CategoryDTO entity) throws AppException {
         String query = "INSERT INTO Category (Name, Description) "
                 + "VALUES (?, ?);";
         try {
@@ -59,7 +59,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
     }
 
     @Override
-    public boolean update(CategoryDTO entity) throws Exception {
+    public boolean update(CategoryDTO entity) throws AppException {
         String query = "UPDATE Category SET Name = ?, Description = ? WHERE idCategory = ?;";
         try {
             Connection conn = openConnection();
@@ -75,7 +75,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
+    public boolean changestatus(int id, Boolean status) throws AppException {
         String query = "UPDATE Category SET Status = ? WHERE idCategory = ?;";
         String sta;
         if (status) {
@@ -96,7 +96,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
+    public Integer getMaxReg() throws AppException {
         String query = "SELECT COUNT(*) TotalReg FROM Category WHERE Status = 'Activo';";
         try {
             Connection conn = openConnection();

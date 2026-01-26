@@ -26,11 +26,11 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public List<AnswerDTO> readBy(String name) throws Exception {
+    public List<AnswerDTO> readBy(String name) throws AppException {
         return null;
     }
 
-    public String readCorrectAns(int idQuestion) throws Exception {
+    public String readCorrectAns(int idQuestion) throws AppException {
         String query = "SELECT Answer Status FROM Answer WHERE CorrectAns = '1'"
                 + " AND idQuestion = '"
                 + idQuestion + "';";
@@ -44,13 +44,13 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("No se encontró respuesta correcta para la pregunta", e, getClass(),
-                    "readCorrectAns");
+            throw new AppException("No se encontró respuesta correcta para la pregunta ", e, getClass(),
+                    "readCorrectAns()");
         }
         return ans1.getAnswer();
     }
 
-    public List<AnswerDTO> readOptions(int question, Boolean status) throws Exception {
+    public List<AnswerDTO> readOptions(int question, Boolean status) throws AppException {
         String sta;
         if (status) {
             sta = "Activo";
@@ -75,7 +75,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public List<AnswerDTO> readAllstatus(boolean status) throws Exception {
+    public List<AnswerDTO> readAllstatus(boolean status) throws AppException {
         String sta;
         if (status) {
             sta = "Activo";
@@ -99,7 +99,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
         return list;
     }
 
-    public List<AnswerDTO> readAllcorrectanswers(boolean status, int CorrectAnswer) throws Exception {
+    public List<AnswerDTO> readAllcorrectanswers(boolean status, int CorrectAnswer) throws AppException {
         String query = "SELECT idAnswer, idQuestion, Answer, CorrectAns FROM Answer WHERE CorrectAns = '"
                 + CorrectAnswer + "';";
         List<AnswerDTO> list = new ArrayList<>();
@@ -120,7 +120,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public boolean create(AnswerDTO entity) throws Exception {
+    public boolean create(AnswerDTO entity) throws AppException {
         String query = "INSERT INTO Answer (idQuestion, Answer, CorrectAns) VALUES (?,?,?);";
         try {
             Connection conn = openConnection();
@@ -136,7 +136,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public boolean update(AnswerDTO entity) throws Exception {
+    public boolean update(AnswerDTO entity) throws AppException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String query = "UPDATE Answer SET idQuestion = ?, Answer = ?, CorrectAns = ?, ModificateDate = ? WHERE idAnswer = ?;";
@@ -156,7 +156,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
+    public boolean changestatus(int id, Boolean status) throws AppException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String query = "UPDATE Answer SET Status = ?, ModificateDate = ? WHERE idAnswer '" + id + "';";
@@ -181,7 +181,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
+    public Integer getMaxReg() throws AppException {
         String query = "SELECT COUNT(*) TotalReg FROM Answer" +
                 " WHERE Status = 'Activo';";
         try {

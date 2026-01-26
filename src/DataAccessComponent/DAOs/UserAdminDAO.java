@@ -15,11 +15,11 @@ import java.sql.Statement;
 public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO> {
 
     @Override
-    public List<UserAdminDTO> readBy(String name) throws Exception {
+    public List<UserAdminDTO> readBy(String name) throws AppException {
         throw new AppException("Método readBy no implementado para UserAdminDAO", null, getClass(), "readBy");
     }
 
-    public UserAdminDTO readByName(String name) throws Exception {
+    public UserAdminDTO readByName(String name) throws AppException {
         String query = "SELECT Password FROM UserAdmin WHERE UserName = '" + name + "';";
         UserAdminDTO admin = new UserAdminDTO();
         try {
@@ -37,7 +37,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
     }
 
     @Override
-    public List<UserAdminDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserAdminDTO> readAllstatus(boolean status) throws AppException {
         String query = "SELECT idAdmin, UserName, Password, LastLogin FROM UserAdmin";
         if (status) {
             query += " WHERE Status = 'Activo';";
@@ -58,7 +58,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
     }
 
     @Override
-    public boolean create(UserAdminDTO entity) throws Exception {
+    public boolean create(UserAdminDTO entity) throws AppException {
         String query = "INSERT INTO UserAdmin (IdUserType, UserName, Password) "
                 + "VALUES (?, ?, ?);";
         try {
@@ -75,7 +75,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
     }
 
     @Override
-    public boolean update(UserAdminDTO entity) throws Exception {
+    public boolean update(UserAdminDTO entity) throws AppException {
         String query = "UPDATE UserAdmin SET UserName = ?, Password = ? "
                 + "WHERE idAdmin = ?;";
         try {
@@ -92,7 +92,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
+    public boolean changestatus(int id, Boolean status) throws AppException {
         String query = "UPDATE UserAdmin SET Status = ? WHERE idAdmin = ?;";
         String sta;
         if (status) {
@@ -113,7 +113,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
+    public Integer getMaxReg() throws AppException {
         String query = "SELECT COUNT(*) TotalReg FROM UserAdmin WHERE Status = 'Activo';";
         try {
             Connection conn = openConnection();

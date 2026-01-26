@@ -15,7 +15,7 @@ import java.sql.Statement;
 public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
 
     @Override
-    public List<QuestionDTO> readAllstatus(boolean status) throws Exception {
+    public List<QuestionDTO> readAllstatus(boolean status) throws AppException {
 
         String query = "SELECT idQuestion, idCategory, Question, CreationDate, ModificateDate FROM Question";
         if (status) {
@@ -38,7 +38,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
     }
 
     @Override
-    public boolean create(QuestionDTO entity) throws Exception {
+    public boolean create(QuestionDTO entity) throws AppException {
 
         String query = "INSERT INTO Question (idQuestion, Question) "
                 + "VALUES (?, ?);";
@@ -55,7 +55,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
     }
 
     @Override
-    public boolean update(QuestionDTO entity) throws Exception {
+    public boolean update(QuestionDTO entity) throws AppException {
 
         String query = "UPDATE Question SET Question = ? "
                 + "WHERE idQuestion = ?;";
@@ -73,7 +73,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
+    public boolean changestatus(int id, Boolean status) throws AppException {
 
         String query = "UPDATE Question SET Status = ? WHERE idQuestion = ?;";
         String sta;
@@ -96,7 +96,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
+    public Integer getMaxReg() throws AppException {
 
         String query = "SELECT COUNT(*) TotalReg FROM Question WHERE Status = 'Activo';";
         try {
@@ -113,11 +113,11 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
     }
 
     @Override
-    public List<QuestionDTO> readBy(String name) throws Exception {
+    public List<QuestionDTO> readBy(String name) throws AppException {
         throw new AppException("Método readBy no implementado para QuestionDAO", null, getClass(), "readBy");
     }
 
-    public List<QuestionDTO> readAllQuestion() throws Exception {
+    public List<QuestionDTO> readAllQuestion() throws AppException {
 
         String query = "SELECT Question, idQuestion, idCategory FROM Question;";
 
@@ -137,7 +137,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
         return question;
     }
 
-    public QuestionDTO readByQuestion(Integer id) throws Exception {
+    public QuestionDTO readByQuestion(Integer id) throws AppException {
 
         String query = "SELECT Question, idQuestion FROM Question WHERE idQuestion = " + id.toString()
                 + ";";

@@ -8,6 +8,7 @@ import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
 import Infrastructure.AppException;
+import Infrastructure.AppMSG;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
@@ -93,11 +94,10 @@ public class GameScreen {
                         } else {
                             MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], true));
                             UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
-                        }
+                        } 
                     } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(null,
-                                "Error al procesar la respuesta: " + e1.getMessage(),
-                                "Error", JOptionPane.ERROR_MESSAGE);
+                        AppException e2 = new AppException("No puede validaer la respuesta", e1, null, "game()");
+                        AppMSG.showError( e2.getMessage());
                     }
                 });
             }

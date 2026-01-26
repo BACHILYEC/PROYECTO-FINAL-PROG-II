@@ -19,7 +19,7 @@ public abstract class DataHelperSQLite {
     protected DataHelperSQLite() {
     }
 
-    protected static synchronized Connection openConnection() throws Exception {
+    protected static synchronized Connection openConnection() throws AppException {
         try {
             if (conn == null) {
                 conn = DriverManager.getConnection(DBPathConnection);
