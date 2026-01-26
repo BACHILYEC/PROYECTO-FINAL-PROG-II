@@ -53,7 +53,6 @@ public class CreatePlayer {
         JButton create = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
         JPanel createPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         createPanel.setOpaque(false);
-        createPanel.setBackground(StyleConfig.ButtonPrimaryPanel());
         createPanel.add(create);
         create.addActionListener(e -> {
             try {
@@ -74,7 +73,6 @@ public class CreatePlayer {
 
         JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         backPanel.setOpaque(false);
-        backPanel.setBackground(StyleConfig.ButtonSecondaryPanel());
         backPanel.add(goBack);
 
         buttonPanel.add(createPanel);

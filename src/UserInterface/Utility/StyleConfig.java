@@ -28,14 +28,6 @@ public class StyleConfig {
         return tittle;
     }
 
-    public static Color ButtonPrimaryPanel() {
-        return new Color(139, 137, 179);
-    }
-
-    public static Color ButtonSecondaryPanel() {
-        return new Color(160, 151, 209);
-    }
-
     public static Color ButtonPrimary() {
         return new Color(217, 163, 187);
     }

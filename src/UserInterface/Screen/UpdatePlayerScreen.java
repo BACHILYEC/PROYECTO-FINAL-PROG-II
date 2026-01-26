@@ -14,7 +14,7 @@ public class UpdatePlayerScreen {
     private static JTextField txtName;
     private static JTextField txtScore;
     private static JLabel lblIdPlayer;
-    private static JComboBox<String> cmbStatus;    
+    private static JComboBox<String> cmbStatus;
     private static JLabel lblCreationDate;
     private static JLabel lblModificateDate;
     private static JTable table;
@@ -82,40 +82,40 @@ public class UpdatePlayerScreen {
     }
 
     private static void loadTableData(DefaultTableModel model) {
-    model.setRowCount(0);
-    UserPlayerDAO dao = new UserPlayerDAO();
-    try {
-        for (UserPlayerDTO dto : dao.readAllstatus(true)) {
-            Object[] row = {
-                dto.getIdPlayer(),
-                dto.getName(),
-                dto.getScore(),
-                dto.getStatus(),
-                dto.getCreationDate(),
-                dto.getModificateDate()
-            };
-            model.addRow(row);
-        }
-        
-        for (UserPlayerDTO dto : dao.readAllstatus(false)) {
-            if ("Inactivo".equals(dto.getStatus())) {
+        model.setRowCount(0);
+        UserPlayerDAO dao = new UserPlayerDAO();
+        try {
+            for (UserPlayerDTO dto : dao.readAllstatus(true)) {
                 Object[] row = {
-                    dto.getIdPlayer(),
-                    dto.getName(),
-                    dto.getScore(),
-                    dto.getStatus(),
-                    dto.getCreationDate(),
-                    dto.getModificateDate()
+                        dto.getIdPlayer(),
+                        dto.getName(),
+                        dto.getScore(),
+                        dto.getStatus(),
+                        dto.getCreationDate(),
+                        dto.getModificateDate()
                 };
                 model.addRow(row);
             }
+
+            for (UserPlayerDTO dto : dao.readAllstatus(false)) {
+                if ("Inactivo".equals(dto.getStatus())) {
+                    Object[] row = {
+                            dto.getIdPlayer(),
+                            dto.getName(),
+                            dto.getScore(),
+                            dto.getStatus(),
+                            dto.getCreationDate(),
+                            dto.getModificateDate()
+                    };
+                    model.addRow(row);
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al cargar datos: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, 
-            "Error al cargar datos: " + ex.getMessage(),
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
-    }
     }
 
     private static void loadSelectedPlayer() {
@@ -128,7 +128,9 @@ public class UpdatePlayerScreen {
                     lblIdPlayer.setText(selectedPlayer.getIdPlayer().toString());
                     txtName.setText(selectedPlayer.getName());
                     txtScore.setText(selectedPlayer.getScore().toString());
-                    cmbStatus.setSelectedItem(selectedPlayer.getStatus() != null ? selectedPlayer.getStatus() : "Activo");                    lblCreationDate.setText(selectedPlayer.getCreationDate());
+                    cmbStatus.setSelectedItem(
+                            selectedPlayer.getStatus() != null ? selectedPlayer.getStatus() : "Activo");
+                    lblCreationDate.setText(selectedPlayer.getCreationDate());
                     lblModificateDate.setText(
                             selectedPlayer.getModificateDate() != null ? selectedPlayer.getModificateDate() : "N/A");
                 }
@@ -191,13 +193,14 @@ public class UpdatePlayerScreen {
         txtScore = new JTextField(20);
         fieldsPanel.add(txtScore, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 3;
+        gbc.gridx = 0;
+        gbc.gridy = 3;
         JLabel lblStatusLabel = new JLabel("Status:");
         lblStatusLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblStatusLabel, gbc);
 
         gbc.gridx = 1;
-        cmbStatus = new JComboBox<>(new String[]{"Activo", "Inactivo"});
+        cmbStatus = new JComboBox<>(new String[] { "Activo", "Inactivo" });
         fieldsPanel.add(cmbStatus, gbc);
 
         gbc.gridx = 0;
@@ -229,7 +232,6 @@ public class UpdatePlayerScreen {
 
     private static JPanel createButtonsPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
-        panel.setBackground(StyleConfig.ButtonSecondaryPanel());
 
         JButton btnUpdate = StyleConfig.createButton("Actualizar", StyleConfig.ButtonPrimary(), 150, 40);
         btnUpdate.addActionListener(e -> updatePlayer());
@@ -313,28 +315,29 @@ public class UpdatePlayerScreen {
 
             if (success) {
                 JOptionPane.showMessageDialog(null,
-                    "Jugador actualizado correctamente",
-                    "Éxito",
-                    JOptionPane.INFORMATION_MESSAGE);
-                
+                        "Jugador actualizado correctamente",
+                        "Éxito",
+                        JOptionPane.INFORMATION_MESSAGE);
+
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
                 loadTableData(model);
-                
+
                 clearForm();
             }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null,
-                            "Error al actualizar el jugador: " + ex.getMessage(),
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,
+                    "Error al actualizar el jugador: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private static void clearForm() {
         txtName.setText("");
         txtScore.setText("");
         lblIdPlayer.setText("-");
-        cmbStatus.setSelectedIndex(0);        lblCreationDate.setText("-");
+        cmbStatus.setSelectedIndex(0);
+        lblCreationDate.setText("-");
         lblModificateDate.setText("-");
         selectedPlayer = null;
         table.clearSelection();
