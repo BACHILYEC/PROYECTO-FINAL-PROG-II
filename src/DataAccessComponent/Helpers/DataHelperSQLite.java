@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import Infrastructure.AppConfig;
 import Infrastructure.AppException;
 
 public abstract class DataHelperSQLite {
-    private static final String DBPathConnection = "jdbc:sqlite:Storage\\Database\\triv.sqlite";
+    private static final String DBPathConnection = AppConfig.getDATABASE();
     private static Connection conn = null;
 
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

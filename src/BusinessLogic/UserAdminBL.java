@@ -4,61 +4,54 @@ import java.util.List;
 
 import DataAccessComponent.DAOs.UserAdminDAO;
 import DataAccessComponent.DTOs.UserAdminDTO;
+import Infrastructure.AppException;
 
 public class UserAdminBL {
 
-    public Boolean Login(String username, String password) throws Exception {
-        UserAdminDAO userAdminDAO = new UserAdminDAO();
-        for (UserAdminDTO dto : userAdminDAO.readAllstatus(true)) {
-            if (dto.getUserName().equals(username) && dto.getPassword().equals(password)) {
-                userAdminDAO.update(dto);
-                return true;
+    public Boolean Login(String username, String password) throws AppException {
+        try {
+            UserAdminDAO userAdminDAO = new UserAdminDAO();
+            for (UserAdminDTO dto : userAdminDAO.readAllstatus(true)) {
+                if (dto.getUserName().equals(username) && dto.getPassword().equals(password)) {
+                    userAdminDAO.update(dto);
+                    return true;
+                }
             }
+            return false;
+        } catch (AppException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new AppException("Error al validar las credenciales del administrador", e, UserAdminBL.class, "Login");
         }
-        return false;
     }
 
-    public Boolean create(UserAdminDTO user) throws Exception {
+    public Boolean create(UserAdminDTO user) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
-        if (userAdminDAO.create(user)) {
-            return true;
-        }
-        return false;
+        return userAdminDAO.create(user);
     }
 
-    public Boolean Update(UserAdminDTO user) throws Exception {
+    public Boolean Update(UserAdminDTO user) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
-        if (userAdminDAO.update(user)) {
-            return true;
-        }
-        return false;
+        return userAdminDAO.update(user);
     }
 
-    public Boolean ChangeStatus(int id, Boolean status) throws Exception {
+    public Boolean ChangeStatus(int id, Boolean status) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
-        if (userAdminDAO.changestatus(id, status)) {
-            return true;
-        }
-        return false;
+        return userAdminDAO.changestatus(id, status);
     }
 
-    public List<UserAdminDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserAdminDTO> readAllstatus(boolean status) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         return userAdminDAO.readAllstatus(status);
     }
 
-    public Integer GetMaxRow() throws Exception {
+    public Integer GetMaxRow() throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         return userAdminDAO.getMaxReg();
     }
 
-    public UserAdminDTO searchByName(String username) throws Exception {
+    public UserAdminDTO searchByName(String username) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
-        try {
-            return userAdminDAO.readByName(username);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+        return userAdminDAO.readByName(username);
     }
 }

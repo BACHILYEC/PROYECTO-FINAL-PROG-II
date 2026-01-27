@@ -18,7 +18,7 @@ public class AppConfig {
 
     
     // Configuración dinámica  (Sin recompilar)
-    public static final String getDATABASE  (){ return getProperty( KEY_DB_NAME      ); }
+    public static final String getDATABASE  (){ return getProperty(KEY_DB_NAME); }
     public static final String getLOGFILE   (){ 
         String relativePath = getProperty( KEY_FILE_LOG );
         if (relativePath != null) {
