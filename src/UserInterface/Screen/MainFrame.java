@@ -3,12 +3,10 @@ package UserInterface.Screen;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Infrastructure.AppException;
-
 public class MainFrame {
     public static JFrame frame;
 
-    public static void Frame() throws AppException {
+    public static void Frame() {
         frame = new JFrame("Liminalis");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 700);

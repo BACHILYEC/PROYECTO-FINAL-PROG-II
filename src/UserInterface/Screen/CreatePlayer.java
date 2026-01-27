@@ -86,7 +86,6 @@ public class CreatePlayer {
                 components[i][j] = buttons[i][j];
             }
         }
-        // asdasd
         for (int i = 0; i < buttons[0].length; i++) {
             components[buttons.length][i] = create;
             components[buttons.length + 1][i] = goBack;

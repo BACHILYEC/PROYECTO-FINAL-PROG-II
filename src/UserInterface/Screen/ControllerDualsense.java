@@ -8,6 +8,7 @@ import javax.swing.ActionMap;
 import javax.swing.BorderFactory;
 import javax.swing.InputMap;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -89,7 +90,14 @@ public class ControllerDualsense {
                     ((JButton) components[getCurrentIndexX()][getCurrentIndexY()]).doClick();
                 } else if (components[getCurrentIndexX()][getCurrentIndexY()] instanceof JToggleButton) {
                     ((JToggleButton) components[getCurrentIndexX()][getCurrentIndexY()]).doClick();
-                } else {
+                } else if(components[getCurrentIndexX()][getCurrentIndexY()] instanceof JComboBox){
+                    @SuppressWarnings("unchecked")
+                    JComboBox<String> comboBox = (JComboBox<String>) components[getCurrentIndexX()][getCurrentIndexY()];
+                    int selectedIndex = comboBox.getSelectedIndex();
+                    int itemCount = comboBox.getItemCount();
+                    comboBox.setSelectedIndex((selectedIndex + 1) % itemCount);
+                }              
+                else {
 
                     setCurrentIndexX((getCurrentIndexX() + 1) % components.length);
                     focusComponent(getCurrentIndexX(), getCurrentIndexY(), components);
@@ -102,13 +110,13 @@ public class ControllerDualsense {
 
         for (JComponent[] componentRow : components) {
             for (JComponent component : componentRow) {
-                if (component instanceof JButton || component instanceof JToggleButton) {
+                if (component instanceof JButton || component instanceof JToggleButton|| component instanceof JComboBox) {
                     component.setBorder(BorderFactory.createEmptyBorder());
                 }
             }
         }
 
-        if (components[indexX][indexY] instanceof JButton || components[indexX][indexY] instanceof JToggleButton) {
+        if (components[indexX][indexY] instanceof JButton || components[indexX][indexY] instanceof JToggleButton|| components[indexX][indexY] instanceof JComboBox) {
             components[indexX][indexY].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
         }
     }
