@@ -22,3 +22,5 @@
 ╰──── LOG  ⚠️ 2026-01-25 22:39:05 | QuestionDAO.readAllQuestion | No se pudo establecer conexión con la base de datos: jdbc:sqlite:C:\PROYECTO-FINAL-PROG-II\app\Storage\Database\triv.sqlite
 ╭─🔥─ SHOW ⚠️ Error en Iniciar el juego 
 ╰──── LOG  ⚠️ 2026-01-25 22:39:09 | undefined.undefined | Caracoles, ocurrio un error inesperado! Contacta al administrador
+╭─🔥─ SHOW ⚠️ No se pudo actualizar el jugador con id: null 
+╰──── LOG  ⚠️ 2026-01-27 12:47:57 | UserPlayerDAO.update | Cannot invoke "java.lang.Integer.intValue()" because the return value of "DataAccessComponent.DTOs.UserPlayerDTO.getIdPlayer()" is null

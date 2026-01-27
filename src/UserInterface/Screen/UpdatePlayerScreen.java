@@ -1,12 +1,13 @@
 package UserInterface.Screen;
 
-import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,9 +16,10 @@ public class UpdatePlayerScreen {
     private static JTextField txtScore;
     private static JComboBox<String> cmbStatus;
     private static JTable table;
-    private static UserPlayerDTO selectedPlayer = null;
-    private static int row;
-    private static JComponent[][] buttons;
+    private static UserPlayerDTO selectedPlayer = new UserPlayerDTO();
+    private static JComponent[][] components = new JComponent[6][10];
+    private static ArrayList<JTextField> inputFields = new ArrayList<>();
+
 
     public static JPanel updatePlayerPanel() {
 
@@ -28,26 +30,27 @@ public class UpdatePlayerScreen {
         centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JPanel tableSection = createTableSection();
-        // centerPanel.add(tableSection);
-        // centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        centerPanel.add(tableSection);
+        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
 
         JPanel formSection = createFormSection();
         centerPanel.add(formSection);
+        JPanel keyboard = ScreenKeyboard.keyboard(inputFields);
+        JButton[][] buttons = ScreenKeyboard.getButtons();
+          for (int i = 0; i < buttons.length; i++) {
+            for (int j = 0; j < buttons[i].length; j++) {
+                components[i+1][j] = buttons[i][j];
+            }
+        }
+        centerPanel.add(keyboard);
 
         JPanel buttonsPanel = createButtonsPanel();
         centerPanel.add(buttonsPanel, BorderLayout.SOUTH);
         ControllerDualsense ControllerDualsense = new ControllerDualsense();
-        ControllerDualsense.setupKeyBindings(centerPanel, buttons);
+        ControllerDualsense.setupKeyBindings(centerPanel, components);
         ControllerDualsense.focusComponent(ControllerDualsense.getCurrentIndexX(),
                 ControllerDualsense.getCurrentIndexY(),
-                buttons);
-        System.out.println(ControllerDualsense.getCurrentIndexX() + " " + ControllerDualsense.getCurrentIndexY());
-        for (int i = 0; i < buttons.length; i++) {
-            for (int j = 0; j < buttons[i].length; j++) {
-                System.out.println("buttons[" + i + "][" + j + "]=" + buttons[i][j]);
-            }
-        }
-
+                components);
         return centerPanel;
     }
 
@@ -67,22 +70,12 @@ public class UpdatePlayerScreen {
                 return false;
             }
         };
-
         table = new JTable(model);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        table.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                loadSelectedPlayer();
-            }
-        });
-
+        table.setFocusable(false);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(new Dimension(600, 150));
         panel.add(scrollPane, BorderLayout.CENTER);
-
         loadTableData(model);
-
         return panel;
     }
 
@@ -121,36 +114,12 @@ public class UpdatePlayerScreen {
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        row = model.getRowCount();
-        buttons = new JComponent[1][3];
-    }
-
-    private static void loadSelectedPlayer() {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow >= 0) {
-            int idPlayer = (Integer) table.getValueAt(selectedRow, 0);
-            try {
-                selectedPlayer = UserPlayerBL.readById(idPlayer);
-                if (selectedPlayer != null) {
-                    txtName.setText(selectedPlayer.getName());
-                    txtScore.setText(selectedPlayer.getScore().toString());
-                    cmbStatus.setSelectedItem(
-                            selectedPlayer.getStatus() != null ? selectedPlayer.getStatus() : "Activo");
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null,
-                        "Error al cargar el jugador: " + ex.getMessage(),
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }
 
     private static JPanel createFormSection() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
-
         JLabel formLabel = new JLabel("Datos del Jugador");
         formLabel.setFont(new Font("Arial", Font.BOLD, 16));
         formLabel.setForeground(Color.BLACK);
@@ -172,6 +141,7 @@ public class UpdatePlayerScreen {
 
         gbc.gridx = 1;
         txtName = new JTextField(20);
+        inputFields.add(txtName);
         txtName.setFocusable(false);
         fieldsPanel.add(txtName, gbc);
 
@@ -183,6 +153,7 @@ public class UpdatePlayerScreen {
 
         gbc.gridx = 1;
         txtScore = new JTextField(20);
+        inputFields.add(txtScore);
         txtScore.setFocusable(false);
         fieldsPanel.add(txtScore, gbc);
 
@@ -194,6 +165,12 @@ public class UpdatePlayerScreen {
 
         gbc.gridx = 1;
         cmbStatus = new JComboBox<>(new String[] { "Activo", "Inactivo" });
+
+
+        
+     for(int i =0; i< 10; i++) {
+         components[0][i]=cmbStatus;
+     }
         cmbStatus.setFocusable(false);
         fieldsPanel.add(cmbStatus, gbc);
         panel.add(fieldsPanel);
@@ -213,24 +190,23 @@ public class UpdatePlayerScreen {
 
         JButton btnBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
         btnBack.addActionListener(e -> MainFrame.setContentPane(ScreenAdmin.MenuAdmin()));
-        buttons[0][0] = btnUpdate;
-        buttons[0][1] = btnCancel;
-        buttons[0][2] = btnBack;
+        components[5][0] = btnUpdate;
+        components[5][1] = btnCancel;
+        components[5][2] = btnBack;
+        components[5][3] = btnUpdate;
+        components[5][4] = btnCancel;
+        components[5][5] = btnBack;
+        components[5][6] = btnUpdate;
+        components[5][7] = btnCancel;
+        components[5][8] = btnBack;
+        components[5][9] = btnBack;
         panel.add(btnUpdate);
         panel.add(btnCancel);
         panel.add(btnBack);
-
         return panel;
     }
 
     private static void updatePlayer() {
-        if (selectedPlayer == null) {
-            JOptionPane.showMessageDialog(null,
-                    "Por favor seleccione un jugador de la tabla",
-                    "Advertencia",
-                    JOptionPane.WARNING_MESSAGE);
-            return;
-        }
 
         String name = txtName.getText().trim();
         if (name.isEmpty()) {
