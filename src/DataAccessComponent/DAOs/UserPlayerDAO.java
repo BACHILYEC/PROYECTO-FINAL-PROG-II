@@ -28,7 +28,6 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         if (status) {
             query += " WHERE Status = 'Activo'";
         }
-        query += " ORDER BY Score DESC;";
         List<UserPlayerDTO> players = new ArrayList<>();
         try {
             Connection conn = openConnection();
