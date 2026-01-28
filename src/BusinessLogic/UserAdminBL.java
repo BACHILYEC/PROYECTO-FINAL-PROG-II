@@ -46,7 +46,7 @@ public class UserAdminBL {
         return userAdminDAO.readAllStatus(status);
     }
 
-    public Integer GetMaxRow() throws AppException {
+    public Integer getMaxRow() throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         return userAdminDAO.getMaxReg();
     }
