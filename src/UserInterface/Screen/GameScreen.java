@@ -25,7 +25,7 @@ public class GameScreen {
     private static String category;
 
     public static JPanel game() throws AppException {
-        JLabel gameLabel = StyleConfig.tittleConfig();
+        JLabel gameLabel = StyleConfig.titleConfig();
         gameLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         gameLabel.setOpaque(false);
         JPanel gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1000, 0));
@@ -88,20 +88,20 @@ public class GameScreen {
                                 options.revalidate();
                                 options.repaint();
                             } else {
-                                UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
+                                UserPlayerBL.create(CreatePlayer.playerNameField.getText(), score[0]);
                                 MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], false));
                             }
                         } else {
                             MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], true));
-                            UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
-                        } 
+                            UserPlayerBL.create(CreatePlayer.playerNameField.getText(), score[0]);
+                        }
                     } catch (Exception e1) {
                         AppException e2 = new AppException("No puede validaer la respuesta", e1, null, "game()");
-                        AppMSG.showError( e2.getMessage());
+                        AppMSG.showError(e2.getMessage());
                     }
                 });
             }
-            JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.ButtonSecondary(), 40, 40);
+            JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.buttonSecondary(), 40, 40);
             gotoback.addActionListener(e -> {
                 MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
             });

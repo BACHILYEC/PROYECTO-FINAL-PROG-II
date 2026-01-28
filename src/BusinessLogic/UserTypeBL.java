@@ -7,9 +7,9 @@ import java.util.List;
 
 public class UserTypeBL {
 
-    public List<UserTypeDTO> GetAll(Boolean status) throws AppException {
+    public List<UserTypeDTO> getAll(Boolean status) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
-        return userTypeDAO.readAllstatus(status);
+        return userTypeDAO.readAllStatus(status);
     }
 
     public Boolean create(UserTypeDTO user) throws AppException {
@@ -17,17 +17,17 @@ public class UserTypeBL {
         return userTypeDAO.create(user);
     }
 
-    public Boolean Update(UserTypeDTO user) throws AppException {
+    public Boolean update(UserTypeDTO user) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
         return userTypeDAO.update(user);
     }
 
-    public Boolean ChangeStatus(int id, Boolean status) throws AppException {
+    public Boolean changeStatus(int id, Boolean status) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
-        return userTypeDAO.changestatus(id, status);
+        return userTypeDAO.changeStatus(id, status);
     }
 
-    public Integer GetMaxRow() throws AppException {
+    public Integer getMaxRow() throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
         return userTypeDAO.getMaxReg();
     }

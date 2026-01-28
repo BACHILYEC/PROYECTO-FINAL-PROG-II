@@ -14,11 +14,11 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class UpdatePlayerScreen {
-    private static JTextField txtName;
-    private static JTextField txtScore;
-    private static JTextField txtId;
-    private static JComboBox<String> cmbStatus;
-    private static JTable table;
+    private static JTextField nameTextField;
+    private static JTextField scoreTextField;
+    private static JTextField idTextField;
+    private static JComboBox<String> statusCombo;
+    private static JTable playerTable;
     private static UserPlayerDTO selectedPlayer = new UserPlayerDTO();
     private static JComponent[][] components = new JComponent[6][10];
     private static ArrayList<JTextField> inputFields = new ArrayList<>();
@@ -30,7 +30,7 @@ public class UpdatePlayerScreen {
         JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
         title.setMaximumSize(new Dimension(600, 120));
         title.setOpaque(false);
-        JLabel tittle = StyleConfig.tittleConfig();
+        JLabel tittle = StyleConfig.titleConfig();
         tittle.setFont(new Font("Cooper Black", Font.BOLD, 30));
         title.add(tittle);
         centerPanel.add(title, BorderLayout.NORTH);
@@ -79,9 +79,9 @@ public class UpdatePlayerScreen {
                 return false;
             }
         };
-        table = new JTable(model);
-        table.setFocusable(false);
-        JScrollPane scrollPane = new JScrollPane(table);
+        playerTable = new JTable(model);
+        playerTable.setFocusable(false);
+        JScrollPane scrollPane = new JScrollPane(playerTable);
         panel.add(scrollPane, BorderLayout.CENTER);
         loadTableData(model);
         return panel;
@@ -91,7 +91,7 @@ public class UpdatePlayerScreen {
         model.setRowCount(0);
         UserPlayerDAO dao = new UserPlayerDAO();
         try {
-            for (UserPlayerDTO dto : dao.readAllstatus(true)) {
+            for (UserPlayerDTO dto : dao.readAllStatus(true)) {
                 Object[] row = {
                         dto.getIdPlayer(),
                         dto.getName(),
@@ -103,7 +103,7 @@ public class UpdatePlayerScreen {
                 model.addRow(row);
             }
 
-            for (UserPlayerDTO dto : dao.readAllstatus(false)) {
+            for (UserPlayerDTO dto : dao.readAllStatus(false)) {
                 if ("Inactivo".equals(dto.getStatus())) {
                     Object[] row = {
                             dto.getIdPlayer(),
@@ -147,10 +147,10 @@ public class UpdatePlayerScreen {
         fieldsPanel.add(id, gbc);
 
         gbc.gridx = 1;
-        txtId = new JTextField(10);
-        txtId.setFocusable(false);
-        fieldsPanel.add(txtId, gbc);
-        inputFields.add(txtId);
+        idTextField = new JTextField(10);
+        idTextField.setFocusable(false);
+        fieldsPanel.add(idTextField, gbc);
+        inputFields.add(idTextField);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -159,10 +159,10 @@ public class UpdatePlayerScreen {
         fieldsPanel.add(lblNameLabel, gbc);
 
         gbc.gridx = 1;
-        txtName = new JTextField(10);
-        inputFields.add(txtName);
-        txtName.setFocusable(false);
-        fieldsPanel.add(txtName, gbc);
+        nameTextField = new JTextField(10);
+        inputFields.add(nameTextField);
+        nameTextField.setFocusable(false);
+        fieldsPanel.add(nameTextField, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
@@ -171,10 +171,10 @@ public class UpdatePlayerScreen {
         fieldsPanel.add(lblScoreLabel, gbc);
 
         gbc.gridx = 3;
-        txtScore = new JTextField(10);
-        inputFields.add(txtScore);
-        txtScore.setFocusable(false);
-        fieldsPanel.add(txtScore, gbc);
+        scoreTextField = new JTextField(10);
+        inputFields.add(scoreTextField);
+        scoreTextField.setFocusable(false);
+        fieldsPanel.add(scoreTextField, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 1;
@@ -183,13 +183,13 @@ public class UpdatePlayerScreen {
         fieldsPanel.add(lblStatusLabel, gbc);
 
         gbc.gridx = 3;
-        cmbStatus = new JComboBox<>(new String[] { "Activo", "Inactivo" });
+        statusCombo = new JComboBox<>(new String[] { "Activo", "Inactivo" });
 
         for (int i = 0; i < 10; i++) {
-            components[0][i] = cmbStatus;
+            components[0][i] = statusCombo;
         }
-        cmbStatus.setFocusable(false);
-        fieldsPanel.add(cmbStatus, gbc);
+        statusCombo.setFocusable(false);
+        fieldsPanel.add(statusCombo, gbc);
         panel.add(fieldsPanel);
 
         return panel;
@@ -199,13 +199,13 @@ public class UpdatePlayerScreen {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         panel.setOpaque(false);
 
-        JButton btnUpdate = StyleConfig.createButton("Actualizar", StyleConfig.ButtonPrimary(), 150, 40);
+        JButton btnUpdate = StyleConfig.createButton("Actualizar", StyleConfig.buttonPrimary(), 150, 40);
         btnUpdate.addActionListener(e -> updatePlayer());
 
-        JButton btnCancel = StyleConfig.createButton("Cancelar", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton btnCancel = StyleConfig.createButton("Cancelar", StyleConfig.buttonSecondary(), 150, 40);
         btnCancel.addActionListener(e -> clearForm());
 
-        JButton btnBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton btnBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
         btnBack.addActionListener(e -> MainFrame.setContentPane(ScreenAdmin.MenuAdmin()));
         components[5][0] = btnUpdate;
         components[5][1] = btnCancel;
@@ -225,16 +225,21 @@ public class UpdatePlayerScreen {
 
     private static void updatePlayer() {
 
-        int id = Integer.parseInt(txtId.getText());
+        int id = Integer.parseInt(idTextField.getText());
         try {
             if (id < 2) {
-                throw new AppException("ID no puede ser negativo", null, null, "updatePlayer()");
+                throw new AppException("ID no puede ser negativo");
             }
         } catch (AppException e) {
-                AppMSG.showError( e.getMessage());
+            AppException e2 = new AppException(
+                    e.getMessage(),
+                    e,
+                    UpdatePlayerScreen.class,
+                    "updatePlayer");
+            AppMSG.showError(e2.getMessage());
         }
 
-        String name = txtName.getText().trim();
+        String name = nameTextField.getText().trim();
         if (name.isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "El nombre no puede estar vacío",
@@ -251,7 +256,7 @@ public class UpdatePlayerScreen {
             return;
         }
 
-        String scoreText = txtScore.getText().trim();
+        String scoreText = scoreTextField.getText().trim();
         if (scoreText.isEmpty()) {
             JOptionPane.showMessageDialog(null,
                     "El score no puede estar vacío",
@@ -285,9 +290,9 @@ public class UpdatePlayerScreen {
         try {
             boolean success = dao.update(selectedPlayer);
 
-            String selectedStatus = (String) cmbStatus.getSelectedItem();
+            String selectedStatus = (String) statusCombo.getSelectedItem();
             boolean isActive = selectedStatus.equals("Activo");
-            dao.changestatus(selectedPlayer.getIdPlayer(), isActive);
+            dao.changeStatus(selectedPlayer.getIdPlayer(), isActive);
 
             if (success) {
                 JOptionPane.showMessageDialog(null,
@@ -295,7 +300,7 @@ public class UpdatePlayerScreen {
                         "Éxito",
                         JOptionPane.INFORMATION_MESSAGE);
 
-                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                DefaultTableModel model = (DefaultTableModel) playerTable.getModel();
                 loadTableData(model);
 
                 clearForm();
@@ -309,11 +314,11 @@ public class UpdatePlayerScreen {
     }
 
     private static void clearForm() {
-        txtId.setText("");
-        txtName.setText("");
-        txtScore.setText("");
-        cmbStatus.setSelectedIndex(0);
+        idTextField.setText("");
+        nameTextField.setText("");
+        scoreTextField.setText("");
+        statusCombo.setSelectedIndex(0);
         selectedPlayer = null;
-        table.clearSelection();
+        playerTable.clearSelection();
     }
 }

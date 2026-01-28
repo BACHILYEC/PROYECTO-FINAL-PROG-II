@@ -10,30 +10,29 @@ import Infrastructure.AppException;
 
 public class QuestionBL {
 
-    private QuestionDTO QuestionDTO;
-    private QuestionDAO QuestionDAO = new QuestionDAO();
-    
+    private QuestionDTO questionDTO;
+    private QuestionDAO questionDAO = new QuestionDAO();
 
     public QuestionDTO readByQuestion(Integer id) throws AppException {
-        QuestionDTO = QuestionDAO.readByQuestion(id);
-        return QuestionDTO;
+        questionDTO = questionDAO.readByQuestion(id);
+        return questionDTO;
     }
 
     public List<QuestionDTO> readAllQuestion() throws AppException {
-        return QuestionDAO.readAllQuestion();
+        return questionDAO.readAllQuestion();
     }
 
     public List<QuestionDTO> getQuestionsForGame() throws AppException {
         try {
             List<QuestionDTO> selectedQuestions = new ArrayList<>();
             Random random = new Random();
-            int totalRecords = QuestionDAO.getMaxReg();
+            int totalRecords = questionDAO.getMaxReg();
 
             int goal = Math.min(totalRecords, 5);
 
             while (selectedQuestions.size() < goal) {
                 int idRandom = random.nextInt(totalRecords) + 1;
-                QuestionDTO question = QuestionDAO.readByQuestion(idRandom);
+                QuestionDTO question = questionDAO.readByQuestion(idRandom);
 
                 if (question != null && !isAlreadyInList(selectedQuestions, question)) {
                     selectedQuestions.add(question);
@@ -43,12 +42,13 @@ public class QuestionBL {
         } catch (AppException e) {
             throw e;
         } catch (Exception e) {
-            throw new AppException("No se pudieron obtener las preguntas para el juego", e, QuestionBL.class, "getQuestionsForGame");
+            throw new AppException("No se pudieron obtener las preguntas para el juego", e, QuestionBL.class,
+                    "getQuestionsForGame");
         }
     }
 
-    private boolean isAlreadyInList(List<QuestionDTO> QuestionList, QuestionDTO newQuestion) throws AppException {
-        for (QuestionDTO question : QuestionList) {
+    private boolean isAlreadyInList(List<QuestionDTO> questionList, QuestionDTO newQuestion) throws AppException {
+        for (QuestionDTO question : questionList) {
             if (question.getIdQuestion().equals(newQuestion.getIdQuestion())) {
                 return true;
             }

@@ -23,7 +23,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     @Override
-    public List<UserPlayerDTO> readAllstatus(boolean status) throws AppException {
+    public List<UserPlayerDTO> readAllStatus(boolean status) throws AppException {
         String query = "SELECT idPlayer, idUserType, Name, Score, Status, ModificateDate, CreationDate FROM UserPlayer";
         if (status) {
             query += " WHERE Status = 'Activo'";
@@ -48,7 +48,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.close();
             // conn.close();
         } catch (Exception e) {
-            throw new AppException("No se pudo leer los jugadores", e, getClass(), "readAllstatus");
+            throw new AppException("No se pudo leer los jugadores", e, getClass(), "readAllStatus");
         }
         return players;
     }
@@ -98,7 +98,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws AppException {
+    public boolean changeStatus(int id, Boolean status) throws AppException {
         String query = "UPDATE UserPlayer SET Status = ? WHERE idPlayer = ?";
         String sta;
         if (status) {
@@ -115,7 +115,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             return true;
         } catch (Exception e) {
             throw new AppException("No se pudo cambiar el estado del jugador con id: " + id, e, getClass(),
-                    "changestatus");
+                    "changeStatus");
         }
     }
 

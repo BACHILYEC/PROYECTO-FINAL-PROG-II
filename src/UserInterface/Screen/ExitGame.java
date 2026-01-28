@@ -28,13 +28,13 @@ public class ExitGame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonPanel.setOpaque(false);
 
-        JButton yesButton = StyleConfig.createButton("Si", StyleConfig.ButtonPrimary(), 100, 50);
+        JButton yesButton = StyleConfig.createButton("Si", StyleConfig.buttonPrimary(), 100, 50);
         yesButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         yesButton.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
 
-        JButton noButton = StyleConfig.createButton("No", StyleConfig.ButtonSecondary(), 100, 50);
+        JButton noButton = StyleConfig.createButton("No", StyleConfig.buttonSecondary(), 100, 50);
         noButton.addActionListener(e -> {
             MainFrame.setContentPane(previousPanel);
         });

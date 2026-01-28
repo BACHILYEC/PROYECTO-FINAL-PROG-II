@@ -75,7 +75,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public List<AnswerDTO> readAllstatus(boolean status) throws AppException {
+    public List<AnswerDTO> readAllStatus(boolean status) throws AppException {
         String sta;
         if (status) {
             sta = "Activo";
@@ -94,14 +94,14 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
             }
 
         } catch (Exception e) {
-            throw new AppException("No se pudo leer las respuestas", e, getClass(), "readAllstatus");
+            throw new AppException("No se pudo leer las respuestas", e, getClass(), "readAllStatus");
         }
         return list;
     }
 
-    public List<AnswerDTO> readAllcorrectanswers(boolean status, int CorrectAnswer) throws AppException {
+    public List<AnswerDTO> readAllCorrectAnswers(boolean status, int correctAnswer) throws AppException {
         String query = "SELECT idAnswer, idQuestion, Answer, CorrectAns FROM Answer WHERE CorrectAns = '"
-                + CorrectAnswer + "';";
+                + correctAnswer + "';";
         List<AnswerDTO> list = new ArrayList<>();
         try {
             Connection conn = openConnection();
@@ -156,7 +156,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws AppException {
+    public boolean changeStatus(int id, Boolean status) throws AppException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String query = "UPDATE Answer SET Status = ?, ModificateDate = ? WHERE idAnswer '" + id + "';";
@@ -176,7 +176,7 @@ public class AnswerDAO extends DataHelperSQLite implements IDAO<AnswerDTO> {
 
         } catch (Exception e) {
 
-            throw new AppException("No se pudo cambiar el estado de la respuesta", e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado de la respuesta", e, getClass(), "changeStatus");
         }
     }
 

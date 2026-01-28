@@ -21,24 +21,24 @@ public class ScreenAdmin {
         ImageBackgroundPanel panel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
         panel.setLayout(new BorderLayout());
-        JLabel tittle = StyleConfig.tittleConfig();
+        JLabel tittle = StyleConfig.titleConfig();
         panel.add(tittle, BorderLayout.NORTH);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 10, 50, 10));
         buttonPanel.setOpaque(false);
-        JButton Exit = StyleConfig.createButton("Salir", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton Exit = StyleConfig.createButton("Salir", StyleConfig.buttonSecondary(), 150, 40);
         Exit.addActionListener(e -> {
             System.exit(0);
         });
-        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
         String[] buttonLabels = { "Tabla De Jugadores", "Modificar Jugador", "Buscar Jugador" };
 
         for (int i = 0; i < buttonLabels.length; i++) {
-            JButton boton = StyleConfig.createButton(buttonLabels[i], StyleConfig.ButtonPrimary(), 200, 50);
+            JButton boton = StyleConfig.createButton(buttonLabels[i], StyleConfig.buttonPrimary(), 200, 50);
             boton.setMaximumSize(new Dimension(200, 75));
             boton.setAlignmentX(Component.LEFT_ALIGNMENT);
             buttonPanel.add(boton);

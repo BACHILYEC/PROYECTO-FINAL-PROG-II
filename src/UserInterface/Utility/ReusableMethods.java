@@ -43,7 +43,7 @@ public class ReusableMethods {
         model.setRowCount(0);
         UserAdminBL BL = new UserAdminBL();
         try {
-            for (UserAdminDTO dto : BL.readAllstatus(status)) {
+            for (UserAdminDTO dto : BL.readAllStatus(status)) {
                 String[] row = { dto.getUserName(), dto.getLastLogin(), dto.getIdAdministrator().toString() };
                 model.addRow(row);
             }
@@ -128,7 +128,7 @@ public class ReusableMethods {
         frame.repaint();
     }
 
-    public static JButton Button_Exit(String text, Dimension size) {
+    public static JButton buttonExit(String text, Dimension size) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.addActionListener(e -> {
@@ -147,7 +147,7 @@ public class ReusableMethods {
         return url;
     }
 
-    public static URL getTittle() {
+    public static URL getTitle() {
         URL url = ReusableMethods.getImage("/UserInterface/Resources/icon.png");
         return url;
     }

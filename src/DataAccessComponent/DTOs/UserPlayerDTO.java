@@ -1,118 +1,118 @@
 package DataAccessComponent.DTOs;
 
 public class UserPlayerDTO {
-    private Integer IdPlayer;
-    private Integer IdUserType;
-    private String  Name;
-    private Integer Score;
-    private String  Status;
+    private Integer idPlayer;
+    private Integer idUserType;
+    private String name;
+    private Integer score;
+    private String status;
 
-    private String CreationDate;
-    private String ModificateDate;
+    private String creationDate;
+    private String modificateDate;
 
     public UserPlayerDTO() {
     }
 
     public UserPlayerDTO(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score) {
-        IdPlayer = idPlayer;
-        IdUserType = idUserType;
-        Name = name;
-        Score = score;
+        this.idPlayer = idPlayer;
+        this.idUserType = idUserType;
+        this.name = name;
+        this.score = score;
     }
 
     public UserPlayerDTO(Integer idPlayer, String name, Integer score) {
-        IdPlayer = idPlayer;
-        Name = name;
-        Score = score;
+        this.idPlayer = idPlayer;
+        this.name = name;
+        this.score = score;
     }
 
     public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate) {
-        IdPlayer = idPlayer;
-        IdUserType = idUserType;
-        Name = name;
-        Score = score;
-        CreationDate = creationDate;
+        this.idPlayer = idPlayer;
+        this.idUserType = idUserType;
+        this.name = name;
+        this.score = score;
+        this.creationDate = creationDate;
     }
 
     public UserPlayerDTO(Integer idPlayer, Integer idUserType, String name, Integer score, String creationDate,
             String modificateDate) {
-        IdPlayer = idPlayer;
-        IdUserType = idUserType;
-        Name = name;
-        Score = score;
-        CreationDate = creationDate;
-        ModificateDate = modificateDate;
+        this.idPlayer = idPlayer;
+        this.idUserType = idUserType;
+        this.name = name;
+        this.score = score;
+        this.creationDate = creationDate;
+        this.modificateDate = modificateDate;
     }
 
     public Integer getIdPlayer() {
-        return IdPlayer;
+        return idPlayer;
     }
 
-    public void setIdPlayer(Integer IdPlayer) {
-        this.IdPlayer = IdPlayer;
+    public void setIdPlayer(Integer idPlayer) {
+        this.idPlayer = idPlayer;
     }
 
     public Integer getIdUserType() {
-        return IdUserType;
+        return idUserType;
     }
 
-    public void setIdUserType(Integer IdUserType) {
-        this.IdUserType = IdUserType;
+    public void setIdUserType(Integer idUserType) {
+        this.idUserType = idUserType;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getScore() {
-        return Score;
+        return score;
     }
 
-    public void setScore(Integer Score) {
-        this.Score = Score;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public String getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
-    public void setCreationDate(String CreationDate) {
-        this.CreationDate = CreationDate;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getModificateDate() {
-        return ModificateDate;
+        return modificateDate;
     }
 
-    public void setModificateDate(String ModificateDate) {
-        this.ModificateDate = ModificateDate;
+    public void setModificateDate(String modificateDate) {
+        this.modificateDate = modificateDate;
     }
 
     @Override
     public String toString() {
         return getClass().getName()
-                + "\n IdPlayer: " + getIdPlayer()
-                + "\n IdUserType: " + getIdUserType()
-                + "\n Name: " + getName()
-                + "\n Score: " + getScore()
-                + "\n Status: " + getStatus()
-                + "\n CreationDate: " + getCreationDate()
-                + "\n ModificateDate: " + getModificateDate();
+                + "\n idPlayer: " + getIdPlayer()
+                + "\n idUserType: " + getIdUserType()
+                + "\n name: " + getName()
+                + "\n score: " + getScore()
+                + "\n status: " + getStatus()
+                + "\n creationDate: " + getCreationDate()
+                + "\n modificateDate: " + getModificateDate();
     }
 }

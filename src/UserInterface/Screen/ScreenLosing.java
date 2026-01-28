@@ -10,7 +10,7 @@ import UserInterface.Utility.StyleConfig;
 public class ScreenLosing {
     public static JPanel losingScreen(int score, Boolean end) {
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 30);
-        JLabel tittle = StyleConfig.tittleConfig();
+        JLabel tittle = StyleConfig.titleConfig();
         JPanel tittlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         tittlePanel.setOpaque(false);
         tittlePanel.add(tittle);
@@ -38,7 +38,7 @@ public class ScreenLosing {
         scorePanel.add(scoreLabel);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.setOpaque(false);
-        JButton retryButton = StyleConfig.createButton("Volver a Jugar", StyleConfig.ButtonPrimary(), 150, 40);
+        JButton retryButton = StyleConfig.createButton("Volver a Jugar", StyleConfig.buttonPrimary(), 150, 40);
         retryButton.addActionListener(e -> {
             try {
                 MainFrame.setContentPane(GameScreen.game());
@@ -47,10 +47,16 @@ public class ScreenLosing {
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
-        JButton exitButton = StyleConfig.createButton("Volver al Menú", StyleConfig.ButtonPrimary(), 150, 40);
+        JButton exitButton = StyleConfig.createButton("Volver al Menú", StyleConfig.buttonPrimary(), 150, 40);
         exitButton.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
+        JComponent[][] components = new JComponent[2][2];
+        components[0][0] = retryButton;
+        components[0][1] = exitButton;
+        ControllerDualsense dl = new ControllerDualsense();
+        dl.setupKeyBindings(buttonPanel, components);
+        dl.focusComponent(dl.getCurrentIndexX(), dl.getCurrentIndexY(), components);
         buttonPanel.add(retryButton);
         buttonPanel.add(exitButton);
         centerPanel.add(endPanel);

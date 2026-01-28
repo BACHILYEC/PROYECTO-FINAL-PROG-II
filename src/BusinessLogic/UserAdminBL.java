@@ -8,10 +8,10 @@ import Infrastructure.AppException;
 
 public class UserAdminBL {
 
-    public Boolean Login(String username, String password) throws AppException {
+    public Boolean login(String username, String password) throws AppException {
         try {
             UserAdminDAO userAdminDAO = new UserAdminDAO();
-            for (UserAdminDTO dto : userAdminDAO.readAllstatus(true)) {
+            for (UserAdminDTO dto : userAdminDAO.readAllStatus(true)) {
                 if (dto.getUserName().equals(username) && dto.getPassword().equals(password)) {
                     userAdminDAO.update(dto);
                     return true;
@@ -21,7 +21,8 @@ public class UserAdminBL {
         } catch (AppException e) {
             throw e;
         } catch (Exception e) {
-            throw new AppException("Error al validar las credenciales del administrador", e, UserAdminBL.class, "Login");
+            throw new AppException("Error al validar las credenciales del administrador", e, UserAdminBL.class,
+                    "login");
         }
     }
 
@@ -30,19 +31,19 @@ public class UserAdminBL {
         return userAdminDAO.create(user);
     }
 
-    public Boolean Update(UserAdminDTO user) throws AppException {
+    public Boolean update(UserAdminDTO user) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
         return userAdminDAO.update(user);
     }
 
-    public Boolean ChangeStatus(int id, Boolean status) throws AppException {
+    public Boolean changeStatus(int id, Boolean status) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
-        return userAdminDAO.changestatus(id, status);
+        return userAdminDAO.changeStatus(id, status);
     }
 
-    public List<UserAdminDTO> readAllstatus(boolean status) throws AppException {
+    public List<UserAdminDTO> readAllStatus(boolean status) throws AppException {
         UserAdminDAO userAdminDAO = new UserAdminDAO();
-        return userAdminDAO.readAllstatus(status);
+        return userAdminDAO.readAllStatus(status);
     }
 
     public Integer GetMaxRow() throws AppException {

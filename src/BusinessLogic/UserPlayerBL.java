@@ -13,7 +13,7 @@ public class UserPlayerBL {
             UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
             if (exists(username)) {
                 int id = getIdByUsername(username);
-                return Update(username, score, id);
+                return update(username, score, id);
             } else {
                 UserPlayerDTO userPlayerDTO = new UserPlayerDTO();
                 userPlayerDTO.setIdUserType(1);
@@ -36,7 +36,8 @@ public class UserPlayerBL {
         } catch (AppException e) {
             throw e;
         } catch (Exception e) {
-            throw new AppException("No se pudo verificar la existencia del jugador: " + username, e, UserPlayerBL.class, "exists");
+            throw new AppException("No se pudo verificar la existencia del jugador: " + username, e, UserPlayerBL.class,
+                    "exists");
         }
     }
 
@@ -51,16 +52,17 @@ public class UserPlayerBL {
         } catch (AppException e) {
             throw e;
         } catch (Exception e) {
-            throw new AppException("Error al obtener el ID del jugador: " + username, e, UserPlayerBL.class, "getIdByUsername");
+            throw new AppException("Error al obtener el ID del jugador: " + username, e, UserPlayerBL.class,
+                    "getIdByUsername");
         }
     }
 
     public static List<UserPlayerDTO> getAllActivePlayers(boolean status) throws AppException {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
-        return userPlayerDAO.readAllstatus(status);
+        return userPlayerDAO.readAllStatus(status);
     }
 
-    public static Boolean Update(String username, Integer score, int id) throws AppException {
+    public static Boolean update(String username, Integer score, int id) throws AppException {
         try {
             UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
             UserPlayerDTO userPlayerDTO = new UserPlayerDTO();
@@ -71,18 +73,18 @@ public class UserPlayerBL {
         } catch (AppException e) {
             throw e;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar el jugador: " + username, e, UserPlayerBL.class, "Update");
+            throw new AppException("No se pudo actualizar el jugador: " + username, e, UserPlayerBL.class, "update");
         }
     }
 
-    public static boolean AllUpdate(UserPlayerDTO user) throws AppException {
+    public static boolean updateAll(UserPlayerDTO user) throws AppException {
         try {
             UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
             return userPlayerDAO.update(user);
         } catch (AppException e) {
             throw e;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar los datos del jugador", e, UserPlayerBL.class, "AllUpdate");
+            throw new AppException("No se pudo actualizar los datos del jugador", e, UserPlayerBL.class, "updateAll");
         }
     }
 
@@ -98,7 +100,7 @@ public class UserPlayerBL {
 
     public List<UserPlayerDTO> getAllPlayers() throws AppException {
         UserPlayerDAO userPlayerDAO = new UserPlayerDAO();
-        return userPlayerDAO.readAllstatus(true);
+        return userPlayerDAO.readAllStatus(true);
     }
 
 }

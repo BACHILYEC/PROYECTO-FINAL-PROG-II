@@ -18,7 +18,7 @@ public class LoginScreen {
         ImageBackgroundPanel mainPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
         JPanel tittle = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel label = StyleConfig.tittleConfig();
+        JLabel label = StyleConfig.titleConfig();
         tittle.setOpaque(false);
         tittle.add(label);
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
@@ -34,7 +34,7 @@ public class LoginScreen {
         JToggleButton showPasswordButton = new JToggleButton("Ver");
         showPasswordButton.setPreferredSize(new Dimension(50, 23));
         showPasswordButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
-        showPasswordButton.setBackground(StyleConfig.ButtonSecondary());
+        showPasswordButton.setBackground(StyleConfig.buttonSecondary());
         showPasswordButton.addActionListener(e -> {
             if (showPasswordButton.isSelected()) {
                 passwordField.setEchoChar((char) 0);
@@ -62,7 +62,7 @@ public class LoginScreen {
         mainPanel.add(tittle);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setOpaque(false);
-        JButton loginButton = StyleConfig.createButton("Login", StyleConfig.ButtonPrimary(), 200, 50);
+        JButton loginButton = StyleConfig.createButton("Login", StyleConfig.buttonPrimary(), 200, 50);
         loginButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.add(loginButton);
         loginButton.addActionListener(a -> {
@@ -94,7 +94,7 @@ public class LoginScreen {
         });
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanelBack.setOpaque(false);
-        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
         buttonPanelBack.add(GoToBack);
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
