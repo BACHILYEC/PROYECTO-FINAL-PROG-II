@@ -4,35 +4,35 @@ import java.awt.*;
 import javax.swing.*;
 
 public class StyleConfig {
-    public static JLabel tittleConfig() {
-        Font tittlefont = new Font("Cooper Black", Font.BOLD, 40);
-        Color tittleColorPanel = new Color(173, 160, 219);
-        JLabel tittle = new JLabel("LIMINALIS", SwingConstants.LEFT);
-        tittle.setBorder(BorderFactory.createEmptyBorder(30, 10, 10, 20));
-        tittle.setOpaque(false);
-        tittle.setBackground(tittleColorPanel);
-        tittle.setForeground(Color.WHITE);
-        tittle.setFont(tittlefont);
-        return tittle;
+    public static JLabel titleConfig() {
+        Font titleFont = new Font("Cooper Black", Font.BOLD, 40);
+        Color titleColorPanel = new Color(173, 160, 219);
+        JLabel title = new JLabel("LIMINALIS", SwingConstants.LEFT);
+        title.setBorder(BorderFactory.createEmptyBorder(30, 10, 10, 20));
+        title.setOpaque(false);
+        title.setBackground(titleColorPanel);
+        title.setForeground(Color.WHITE);
+        title.setFont(titleFont);
+        return title;
     }
 
     public static JLabel questionLabel(String question) {
-        Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 18);
-        Color tittleColorPanel = new Color(225, 210, 250);
-        JLabel tittle = new JLabel(question, SwingConstants.CENTER);
-        tittle.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
-        tittle.setOpaque(true);
-        tittle.setBackground(tittleColorPanel);
-        tittle.setForeground(Color.BLACK);
-        tittle.setFont(tittlefont);
-        return tittle;
+        Font titleFont = new Font("Comic Sans MS", Font.BOLD, 18);
+        Color titleColorPanel = new Color(225, 210, 250);
+        JLabel title = new JLabel(question, SwingConstants.CENTER);
+        title.setBorder(BorderFactory.createLineBorder(Color.black, 1, true));
+        title.setOpaque(true);
+        title.setBackground(titleColorPanel);
+        title.setForeground(Color.BLACK);
+        title.setFont(titleFont);
+        return title;
     }
 
-    public static Color ButtonPrimary() {
+    public static Color buttonPrimary() {
         return new Color(217, 163, 187);
     }
 
-    public static Color ButtonSecondary() {
+    public static Color buttonSecondary() {
         return new Color(171, 157, 204);
     }
 
@@ -40,9 +40,9 @@ public class StyleConfig {
         return new Color(218, 209, 237);
     }
 
-    public static JButton createButton(String text, Color backgroundColor, int a, int b) {
+    public static JButton createButton(String text, Color backgroundColor, int width, int height) {
         JButton button = new JButton(text);
-        button.setPreferredSize(new Dimension(a, b));
+        button.setPreferredSize(new Dimension(width, height));
         button.setBackground(backgroundColor);
         button.setForeground(Color.black);
         button.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));

@@ -37,7 +37,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
     }
 
     @Override
-    public List<UserAdminDTO> readAllstatus(boolean status) throws AppException {
+    public List<UserAdminDTO> readAllStatus(boolean status) throws AppException {
         String query = "SELECT idAdmin, UserName, Password, LastLogin FROM UserAdmin";
         if (status) {
             query += " WHERE Status = 'Activo';";
@@ -52,7 +52,7 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
                 administrators.add(admin);
             }
         } catch (Exception e) {
-            throw new AppException("No se pudo leer los administradores", e, getClass(), "readAllstatus");
+            throw new AppException("No se pudo leer los administradores", e, getClass(), "readAllStatus");
         }
         return administrators;
     }
@@ -70,7 +70,8 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo crear el usuario administrador: " + entity.getUserName(), e, getClass(), "create");
+            throw new AppException("No se pudo crear el usuario administrador: " + entity.getUserName(), e, getClass(),
+                    "create");
         }
     }
 
@@ -87,12 +88,14 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar el usuario administrador con id: " + entity.getIdAdministrator(), e, getClass(), "update");
+            throw new AppException(
+                    "No se pudo actualizar el usuario administrador con id: " + entity.getIdAdministrator(), e,
+                    getClass(), "update");
         }
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws AppException {
+    public boolean changeStatus(int id, Boolean status) throws AppException {
         String query = "UPDATE UserAdmin SET Status = ? WHERE idAdmin = ?;";
         String sta;
         if (status) {
@@ -108,7 +111,8 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo cambiar el estado del usuario administrador con id: " + id, e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado del usuario administrador con id: " + id, e,
+                    getClass(), "changeStatus");
         }
     }
 
@@ -123,7 +127,8 @@ public class UserAdminDAO extends DataHelperSQLite implements IDAO<UserAdminDTO>
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
-            throw new AppException("No se pudo obtener el número máximo de registros de administradores", e, getClass(), "getMaxReg");
+            throw new AppException("No se pudo obtener el número máximo de registros de administradores", e, getClass(),
+                    "getMaxReg");
         }
         return 0;
     }

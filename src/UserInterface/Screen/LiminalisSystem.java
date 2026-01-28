@@ -1,9 +1,9 @@
 package UserInterface.Screen;
 
 public class LiminalisSystem {
-    public static void StartGame() {
+    public static void startGame() {
         try {
-            MainFrame.Frame();
+            MainFrame.createFrame();
         } catch (Exception e) {
             e.printStackTrace();
         }

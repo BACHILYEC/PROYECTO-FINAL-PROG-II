@@ -22,7 +22,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
     }
 
     @Override
-    public List<CategoryDTO> readAllstatus(boolean status) throws AppException {
+    public List<CategoryDTO> readAllStatus(boolean status) throws AppException {
         String query = "SELECT idCategory, CategoryName, Description FROM Category";
         if (status) {
             query += " WHERE Status = 'ctive';";
@@ -37,7 +37,7 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
                 categories.add(category);
             }
         } catch (Exception e) {
-            throw new AppException("No se pudo leer las categorías", e, getClass(), "readAllstatus");
+            throw new AppException("No se pudo leer las categorías", e, getClass(), "readAllStatus");
         }
         return categories;
     }
@@ -70,12 +70,13 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar la categoría con id: " + entity.getIdCategory(), e, getClass(), "update");
+            throw new AppException("No se pudo actualizar la categoría con id: " + entity.getIdCategory(), e,
+                    getClass(), "update");
         }
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws AppException {
+    public boolean changeStatus(int id, Boolean status) throws AppException {
         String query = "UPDATE Category SET Status = ? WHERE idCategory = ?;";
         String sta;
         if (status) {
@@ -91,7 +92,8 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo cambiar el estado de la categoría con id: " + id, e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado de la categoría con id: " + id, e, getClass(),
+                    "changeStatus");
         }
     }
 
@@ -106,7 +108,8 @@ public class CategoryDAO extends DataHelperSQLite implements IDAO<CategoryDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
-            throw new AppException("No se pudo obtener el número máximo de registros de categorías activas", e, getClass(), "getMaxReg");
+            throw new AppException("No se pudo obtener el número máximo de registros de categorías activas", e,
+                    getClass(), "getMaxReg");
         }
         return 0;
     }

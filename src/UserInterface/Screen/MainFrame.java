@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 public class MainFrame {
     public static JFrame frame;
 
-    public static void Frame() {
+    public static void createFrame() {
         frame = new JFrame("Liminalis");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 700);

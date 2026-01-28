@@ -3,6 +3,7 @@ package UserInterface.Screen;
 import java.awt.*;
 import javax.swing.*;
 
+import Infrastructure.AppException;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
@@ -10,7 +11,7 @@ import UserInterface.Utility.StyleConfig;
 public class ScreenLosing {
     public static JPanel losingScreen(int score, Boolean end) {
         Font tittlefont = new Font("Comic Sans MS", Font.BOLD, 30);
-        JLabel tittle = StyleConfig.tittleConfig();
+        JLabel tittle = StyleConfig.titleConfig();
         JPanel tittlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         tittlePanel.setOpaque(false);
         tittlePanel.add(tittle);
@@ -32,34 +33,55 @@ public class ScreenLosing {
         scorePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scorePanel.setOpaque(false);
         JLabel scoreLabel = new JLabel("Tu puntaje final es: " + score, SwingConstants.CENTER);
-        scoreLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 100, 10));
+        scoreLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         scoreLabel.setForeground(Color.black);
         scoreLabel.setFont(tittlefont);
         scorePanel.add(scoreLabel);
+        JPanel correct = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        correct.setBorder(BorderFactory.createEmptyBorder(10, 10, 100, 10));
+        correct.setOpaque(false);
+        JLabel correctAns = new JLabel("Respuesta correcta: " + GameScreen.correctAnswer, SwingConstants.CENTER);
+        correctAns.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        correctAns.setFont(tittlefont);
+        correctAns.setForeground(Color.black);
+        correct.add(correctAns);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.setOpaque(false);
-        JButton retryButton = StyleConfig.createButton("Volver a Jugar", StyleConfig.ButtonPrimary(), 150, 40);
+        JButton retryButton = StyleConfig.createButton("Volver a Jugar", StyleConfig.buttonPrimary(), 150, 40);
         retryButton.addActionListener(e -> {
             try {
                 MainFrame.setContentPane(GameScreen.game());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al iniciar el juego: " + ex.getMessage(),
+            } catch (AppException appEx) {
+                JOptionPane.showMessageDialog(null, "Error al iniciar el juego: " + appEx.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                throw new RuntimeException(
+                        new AppException("Error al cargar pantalla de juego", ex, ScreenLosing.class, "losingScreen"));
             }
         });
-        JButton exitButton = StyleConfig.createButton("Volver al Menú", StyleConfig.ButtonPrimary(), 150, 40);
+        JButton exitButton = StyleConfig.createButton("Volver al Menú", StyleConfig.buttonPrimary(), 150, 40);
         exitButton.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
+<<<<<<< HEAD
         JComponent[][] buttons = { { retryButton, exitButton } };
         ControllerDualsense controllerDualsense = new ControllerDualsense();
         controllerDualsense.setupKeyBindings(buttonPanel, buttons);
         controllerDualsense.focusComponent(controllerDualsense.getCurrentIndexX(),
                 controllerDualsense.getCurrentIndexY(), buttons);
+=======
+        JComponent[][] components = new JComponent[2][2];
+        components[0][0] = retryButton;
+        components[0][1] = exitButton;
+        ControllerDualsense dl = new ControllerDualsense();
+        dl.setupKeyBindings(buttonPanel, components);
+        dl.focusComponent(dl.getCurrentIndexX(), dl.getCurrentIndexY(), components);
+>>>>>>> f64bf246a7c1600daa852d7c6f90bc3188af209e
         buttonPanel.add(retryButton);
         buttonPanel.add(exitButton);
         centerPanel.add(endPanel);
         centerPanel.add(scorePanel);
+        centerPanel.add(correct);
         centerPanel.add(buttonPanel);
         backgroundPanel.add(centerPanel);
 

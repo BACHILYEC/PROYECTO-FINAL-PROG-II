@@ -2,15 +2,15 @@ package DataAccessComponent.DTOs;
 
 public class UserAdminDTO {
 
-    private Integer IdAdministrator;
-    private Integer IdUserType;
-    private String UserName;
-    private String Password;
-    private String CreationDate;
-    private String LastLogin;
+    private Integer idAdministrator;
+    private Integer idUserType;
+    private String userName;
+    private String password;
+    private String creationDate;
+    private String lastLogin;
 
     public UserAdminDTO(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public UserAdminDTO() {
@@ -27,74 +27,74 @@ public class UserAdminDTO {
     }
 
     public UserAdminDTO(Integer idAdministrator, String userName, String lastLogin) {
-        IdAdministrator = idAdministrator;
-        UserName = userName;
-        LastLogin = lastLogin;
+        this.idAdministrator = idAdministrator;
+        this.userName = userName;
+        this.lastLogin = lastLogin;
     }
 
     public UserAdminDTO(Integer idAdministrator, String userName, String password, String lastLogin) {
-        IdAdministrator = idAdministrator;
-        UserName = userName;
-        Password = password;
-        LastLogin = lastLogin;
+        this.idAdministrator = idAdministrator;
+        this.userName = userName;
+        this.password = password;
+        this.lastLogin = lastLogin;
     }
 
     public Integer getIdAdministrator() {
-        return IdAdministrator;
+        return idAdministrator;
     }
 
-    public void setIdAdministrator(Integer IdAdministrator) {
-        this.IdAdministrator = IdAdministrator;
+    public void setIdAdministrator(Integer idAdministrator) {
+        this.idAdministrator = idAdministrator;
     }
 
     public Integer getIdUserType() {
-        return IdUserType;
+        return idUserType;
     }
 
-    public void setIdUserType(Integer IdUserType) {
-        this.IdUserType = IdUserType;
+    public void setIdUserType(Integer idUserType) {
+        this.idUserType = idUserType;
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
-    public void setUserName(String UserName) {
-        this.UserName = UserName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
-    public void setCreationDate(String CreationDate) {
-        this.CreationDate = CreationDate;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getLastLogin() {
-        return LastLogin;
+        return lastLogin;
     }
 
-    public void setLastLogin(String LastLogin) {
-        this.LastLogin = LastLogin;
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
     @Override
     public String toString() {
         return getClass().getName()
-                + "\n IdAdministrator: " + getIdAdministrator()
-                + "\n IdUserType: " + getIdUserType()
-                + "\n UserName: " + getUserName()
-                + "\n Password: " + getPassword()
-                + "\n CreationDate: " + getCreationDate()
-                + "\n LastLogin: " + getLastLogin();
+                + "\n idAdministrator: " + getIdAdministrator()
+                + "\n idUserType: " + getIdUserType()
+                + "\n userName: " + getUserName()
+                + "\n password: " + getPassword()
+                + "\n creationDate: " + getCreationDate()
+                + "\n lastLogin: " + getLastLogin();
     }
 }

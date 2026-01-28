@@ -7,20 +7,21 @@ import javax.swing.*;
 
 import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 
 public class SearchPlayerScreen {
         private static JComponent[][] components;
-        private static JTextField nameTextField;
-        private static JTextField idTextField;
+        private static JTextField searchNameTextField;
+        private static JTextField searchIdTextField;
 
         public static JPanel searchPlayerPanel() {
 
                 ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(ReusableMethods.getImageBackground());
                 centerPanel.add(Box.createVerticalGlue());
-                JLabel tittle = StyleConfig.tittleConfig();
+                JLabel tittle = StyleConfig.titleConfig();
                 JPanel tittlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
                 tittlePanel.setOpaque(false);
                 tittlePanel.add(tittle);
@@ -33,9 +34,10 @@ public class SearchPlayerScreen {
                 searchByNamePanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
                 JLabel nameLabel = new JLabel("Buscar por Nombre:");
                 nameLabel.setFont(labelFont);
-                nameTextField = new JTextField(15);
+                searchNameTextField = new JTextField(15);
+                searchNameTextField.setFocusable(false);
                 searchByNamePanel.add(nameLabel);
-                searchByNamePanel.add(nameTextField);
+                searchByNamePanel.add(searchNameTextField);
                 centerPanel.add(searchByNamePanel);
                 centerPanel.add(Box.createVerticalGlue());
 
@@ -44,34 +46,40 @@ public class SearchPlayerScreen {
                 searchByIdPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
                 JLabel idLabel = new JLabel("Buscar por ID:");
                 idLabel.setFont(labelFont);
-                idTextField = new JTextField(15);
+                searchIdTextField = new JTextField(15);
+                searchIdTextField.setFocusable(false);
                 searchByIdPanel.add(idLabel);
-                searchByIdPanel.add(idTextField);
+                searchByIdPanel.add(searchIdTextField);
                 centerPanel.add(searchByIdPanel);
 
                 JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
                 buttonPanel.setOpaque(false);
 
-                JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.ButtonPrimary(),
+                JButton searchByNameButton = StyleConfig.createButton("Buscar por Nombre", StyleConfig.buttonPrimary(),
                                 200, 50);
 
                 searchByNameButton.addActionListener(e -> searchByName(centerPanel));
                 buttonPanel.add(searchByNameButton);
 
-                JButton searchByIdButton = StyleConfig.createButton("Buscar por ID", StyleConfig.ButtonPrimary(), 200,
+                JButton searchByIdButton = StyleConfig.createButton("Buscar por ID", StyleConfig.buttonPrimary(), 200,
                                 50);
                 searchByIdButton.addActionListener(e -> searchById(centerPanel));
                 buttonPanel.add(searchByIdButton);
 
-                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+                JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
                 GoToBack.addActionListener(e -> {
-                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                        try {
+                                MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                        } catch (Exception ex) {
+                                throw new RuntimeException(new AppException("Error al regresar", ex,
+                                                SearchPlayerScreen.class, "searchPlayerPanel"));
+                        }
                 });
                 buttonPanel.add(GoToBack);
 
                 ArrayList<JTextField> input = new ArrayList<>();
-                input.add(nameTextField);
-                input.add(idTextField);
+                input.add(searchNameTextField);
+                input.add(searchIdTextField);
                 JPanel keyboard = ScreenKeyboard.keyboard(input);
 
                 GoToBack.addActionListener(e -> {
@@ -116,7 +124,7 @@ public class SearchPlayerScreen {
 
         private static void searchByName(JPanel parentPanel) {
                 try {
-                        String username = nameTextField.getText();
+                        String username = searchNameTextField.getText();
 
                         if (username == null || username.trim().isEmpty()) {
                                 JOptionPane.showMessageDialog(
@@ -142,8 +150,8 @@ public class SearchPlayerScreen {
                                                 "Jugador Encontrado",
                                                 JOptionPane.INFORMATION_MESSAGE);
 
-                                nameTextField.setText("");
-                                idTextField.setText("");
+                                searchNameTextField.setText("");
+                                searchIdTextField.setText("");
                         } else {
                                 JOptionPane.showMessageDialog(
                                                 parentPanel,
@@ -164,7 +172,7 @@ public class SearchPlayerScreen {
 
         private static void searchById(JPanel parentPanel) {
                 try {
-                        String idInput = idTextField.getText();
+                        String idInput = searchIdTextField.getText();
 
                         if (idInput == null || idInput.trim().isEmpty()) {
                                 JOptionPane.showMessageDialog(
@@ -194,7 +202,7 @@ public class SearchPlayerScreen {
                                                 "ID: " + playerDTO.getIdPlayer() + "\n" +
                                                 "Nombre: " + playerDTO.getName() + "\n" +
                                                 "Score: " + playerDTO.getScore();
-                                nameTextField.setText("");
+                                searchNameTextField.setText("");
 
                                 JOptionPane.showMessageDialog(
                                                 parentPanel,
@@ -202,7 +210,7 @@ public class SearchPlayerScreen {
                                                 "Jugador Encontrado",
                                                 JOptionPane.INFORMATION_MESSAGE);
 
-                                idTextField.setText("");
+                                searchIdTextField.setText("");
                         } else {
                                 JOptionPane.showMessageDialog(
                                                 parentPanel,

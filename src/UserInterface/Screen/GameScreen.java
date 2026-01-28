@@ -18,14 +18,14 @@ import java.util.ArrayList;
 
 public class GameScreen {
     private static String question;
-    private static String correctAnswer;
+    public static String correctAnswer;
     private static Integer indexAnswer;
     private static String[] answers;
     private static Integer indexCategory;
     private static String category;
 
     public static JPanel game() throws AppException {
-        JLabel gameLabel = StyleConfig.tittleConfig();
+        JLabel gameLabel = StyleConfig.titleConfig();
         gameLabel.setBorder(BorderFactory.createEmptyBorder(50, 0, 0, 0));
         gameLabel.setOpaque(false);
         JPanel gamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1000, 0));
@@ -88,22 +88,29 @@ public class GameScreen {
                                 options.revalidate();
                                 options.repaint();
                             } else {
-                                UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
+                                UserPlayerBL.create(CreatePlayer.playerNameField.getText(), score[0]);
                                 MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], false));
                             }
                         } else {
                             MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], true));
-                            UserPlayerBL.create(CreatePlayer.nameField.getText(), score[0]);
-                        } 
+                            UserPlayerBL.create(CreatePlayer.playerNameField.getText(), score[0]);
+                        }
                     } catch (Exception e1) {
                         AppException e2 = new AppException("No puede validaer la respuesta", e1, null, "game()");
-                        AppMSG.showError( e2.getMessage());
+                        AppMSG.showError(e2.getMessage());
                     }
                 });
             }
-            JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.ButtonSecondary(), 40, 40);
+            JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.buttonSecondary(), 40, 40);
             gotoback.addActionListener(e -> {
-                MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
+                try {
+                    MainFrame.setContentPane(ExitGame.confirmExitPanel(backgroundPanel));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(backgroundPanel, "Error al salir del juego: " + ex.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    new AppException("Error al salir del juego", ex, GameScreen.class, "game()");
+                }
             });
             options.add(gotoback);
             backgroundPanel.add(options);
@@ -126,7 +133,9 @@ public class GameScreen {
     }
 
     public static int randomNumber(int max) {
-        return (int) (Math.random() * max);
+        int s = (int) (Math.random() * max);
+        return s;
+
     }
 
     public static ArrayList<QuestionDTO> getQuestion() throws Exception {

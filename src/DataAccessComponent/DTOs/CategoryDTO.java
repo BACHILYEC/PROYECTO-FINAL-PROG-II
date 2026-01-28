@@ -1,77 +1,77 @@
 package DataAccessComponent.DTOs;
 
 public class CategoryDTO {
-    private Integer IdCategory;
-    private String Name;
-    private String Description;
-    private String CreationDate;
-    private String ModificateDate;
+    private Integer idCategory;
+    private String name;
+    private String description;
+    private String creationDate;
+    private String modificateDate;
 
     public CategoryDTO() {
     }
 
     public CategoryDTO(Integer idCategory, String name, String description) {
-        IdCategory = idCategory;
-        Name = name;
-        Description = description;
+        this.idCategory = idCategory;
+        this.name = name;
+        this.description = description;
     }
 
     public CategoryDTO(Integer idCategory, String name, String description, String creationDate,
             String modificateDate) {
-        IdCategory = idCategory;
-        Name = name;
-        Description = description;
-        CreationDate = creationDate;
-        ModificateDate = modificateDate;
+        this.idCategory = idCategory;
+        this.name = name;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.modificateDate = modificateDate;
     }
 
     public Integer getIdCategory() {
-        return IdCategory;
+        return idCategory;
     }
 
-    public void setIdCategory(Integer IdCategory) {
-        this.IdCategory = IdCategory;
+    public void setIdCategory(Integer idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
-    public void setCreationDate(String CreationDate) {
-        this.CreationDate = CreationDate;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getModificateDate() {
-        return ModificateDate;
+        return modificateDate;
     }
 
-    public void setModificateDate(String ModificateDate) {
-        this.ModificateDate = ModificateDate;
+    public void setModificateDate(String modificateDate) {
+        this.modificateDate = modificateDate;
     }
 
     @Override
     public String toString() {
         return getClass().getName()
-                + "\n IdCategory: " + getIdCategory()
-                + "\n Name: " + getName()
-                + "\n Description: " + getDescription()
-                + "\n CreationDate: " + getCreationDate()
-                + "\n ModificateDate: " + getModificateDate();
+                + "\n idCategory: " + getIdCategory()
+                + "\n name: " + getName()
+                + "\n description: " + getDescription()
+                + "\n creationDate: " + getCreationDate()
+                + "\n modificateDate: " + getModificateDate();
     }
 }

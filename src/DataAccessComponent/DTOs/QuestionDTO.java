@@ -2,88 +2,88 @@ package DataAccessComponent.DTOs;
 
 public class QuestionDTO {
     public QuestionDTO(String question, Integer idQuestion) {
-        IdQuestion = idQuestion;
-        Question = question;
+        this.idQuestion = idQuestion;
+        this.question = question;
     }
 
-    private Integer IdQuestion;
-    private Integer IdCategory;
-    private String Question;
-    private String CreationDate;
-    private String ModificateDate;
+    private Integer idQuestion;
+    private Integer idCategory;
+    private String question;
+    private String creationDate;
+    private String modificateDate;
 
     public QuestionDTO() {
     }
 
-    public QuestionDTO(String Question) {
-        this.Question = Question;
+    public QuestionDTO(String question) {
+        this.question = question;
 
     }
 
-    public QuestionDTO(Integer idQuestion, Integer idCategory, String Question) {
-        this.Question = Question;
-        this.IdQuestion = idQuestion;
-        this.IdCategory = idCategory;
+    public QuestionDTO(Integer idQuestion, Integer idCategory, String question) {
+        this.question = question;
+        this.idQuestion = idQuestion;
+        this.idCategory = idCategory;
 
     }
 
     public QuestionDTO(Integer idQuestion, Integer idCategory, String question, String creationDate,
             String modificateDate) {
-        IdQuestion = idQuestion;
-        IdCategory = idCategory;
-        Question = question;
-        CreationDate = creationDate;
-        ModificateDate = modificateDate;
+        this.idQuestion = idQuestion;
+        this.idCategory = idCategory;
+        this.question = question;
+        this.creationDate = creationDate;
+        this.modificateDate = modificateDate;
     }
 
     public Integer getIdQuestion() {
-        return IdQuestion;
+        return idQuestion;
     }
 
-    public void setIdQuestion(Integer IdQuestion) {
-        this.IdQuestion = IdQuestion;
+    public void setIdQuestion(Integer idQuestion) {
+        this.idQuestion = idQuestion;
     }
 
     public Integer getIdCategory() {
-        return IdCategory;
+        return idCategory;
     }
 
-    public void setIdCategory(Integer IdCategory) {
-        this.IdCategory = IdCategory;
+    public void setIdCategory(Integer idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getQuestion() {
-        return Question;
+        return question;
     }
 
-    public void setQuestion(String Question) {
-        this.Question = Question;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
-    public void setCreationDate(String CreationDate) {
-        this.CreationDate = CreationDate;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getModificateDate() {
-        return ModificateDate;
+        return modificateDate;
     }
 
-    public void setModificateDate(String ModificateDate) {
-        this.ModificateDate = ModificateDate;
+    public void setModificateDate(String modificateDate) {
+        this.modificateDate = modificateDate;
     }
 
     @Override
     public String toString() {
         return getClass().getName()
-                + "\n IdQuestion: " + getIdQuestion()
-                + "\n IdCategory: " + getIdCategory()
-                + "\n Question: " + getQuestion()
-                + "\n CreationDate: " + getCreationDate()
-                + "\n ModificateDate: " + getModificateDate();
+                + "\n idQuestion: " + getIdQuestion()
+                + "\n idCategory: " + getIdCategory()
+                + "\n question: " + getQuestion()
+                + "\n creationDate: " + getCreationDate()
+                + "\n modificateDate: " + getModificateDate();
     }
 
 }

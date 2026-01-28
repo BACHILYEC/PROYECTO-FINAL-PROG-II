@@ -16,12 +16,12 @@ import java.sql.Statement;
 public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
 
     @Override
-    public List<UserTypeDTO> readBy(String name) throws Exception {
-        return null;
+    public List<UserTypeDTO> readBy(String name) throws AppException {
+        throw new AppException("Método readBy no implementado para UserTypeDAO", null, getClass(), "readBy");
     }
 
     @Override
-    public List<UserTypeDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserTypeDTO> readAllStatus(boolean status) throws AppException {
         String query = "SELECT IdUserType, Name, Description, CreationDate, ModificateDate FROM UserType";
         if (status) {
             query += " WHERE Status = 'Activo';";
@@ -37,13 +37,15 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
                 userTypes.add(userType);
             }
         } catch (Exception e) {
-            throw new AppException("No se pudo leer los tipos de usuario con estado: " + (status ? "Activo" : "Inactivo"), e, getClass(), "readAllstatus");
+            throw new AppException(
+                    "No se pudo leer los tipos de usuario con estado: " + (status ? "Activo" : "Inactivo"), e,
+                    getClass(), "readAllStatus");
         }
         return userTypes;
     }
 
     @Override
-    public boolean create(UserTypeDTO entity) throws Exception {
+    public boolean create(UserTypeDTO entity) throws AppException {
         String query = "INSERT INTO UserType (Name, Description) "
                 + "VALUES (?, ?);";
         try {
@@ -59,45 +61,47 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     }
 
     @Override
-    public boolean update(UserTypeDTO entity) throws Exception {
+    public boolean update(UserTypeDTO entity) throws AppException {
         String query = "UPDATE UserType SET Name = ?, Description = ?, ModificateDate = ? WHERE IdUserType = ?;";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getName());
             pstmt.setString(2, entity.getDescription());
-            pstmt.setString(3, getDataTimeNow());
+            pstmt.setString(3, getDateTimeNow());
             pstmt.setInt(4, entity.getIdUserType());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo actualizar el tipo de usuario con id: " + entity.getIdUserType(), e, getClass(), "update");
+            throw new AppException("No se pudo actualizar el tipo de usuario con id: " + entity.getIdUserType(), e,
+                    getClass(), "update");
         }
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
+    public boolean changeStatus(int id, Boolean status) throws AppException {
         String query = "UPDATE UserType SET Status = ? WHERE IdUserType = ?;";
-        String sta;
+        String statusString;
         if (status) {
-            sta = "Activo";
+            statusString = "Activo";
         } else {
-            sta = "Inactivo";
+            statusString = "Inactivo";
         }
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, sta);
+            pstmt.setString(1, statusString);
             pstmt.setInt(2, id);
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
-            throw new AppException("No se pudo cambiar el estado del tipo de usuario con id: " + id, e, getClass(), "changestatus");
+            throw new AppException("No se pudo cambiar el estado del tipo de usuario con id: " + id, e, getClass(),
+                    "changeStatus");
         }
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
+    public Integer getMaxReg() throws AppException {
         String query = "SELECT COUNT(*) TotalReg FROM UserType" +
                 " WHERE Estado = 'Activo';";
         try {
@@ -108,7 +112,8 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
                 return rs.getInt("TotalReg");
             }
         } catch (SQLException e) {
-            throw new AppException("No se pudo obtener el número máximo de registros de tipos de usuario activos", e, getClass(), "getMaxReg");
+            throw new AppException("No se pudo obtener el número máximo de registros de tipos de usuario activos", e,
+                    getClass(), "getMaxReg");
         }
         return 0;
     }

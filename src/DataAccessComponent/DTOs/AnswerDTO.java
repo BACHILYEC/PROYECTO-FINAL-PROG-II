@@ -3,49 +3,49 @@ package DataAccessComponent.DTOs;
 public class AnswerDTO {
 
     public AnswerDTO(Integer idAnswer, Integer idQuestion, String answer) {
-        IdAnswer = idAnswer;
-        IdQuestion = idQuestion;
-        Answer = answer;
+        this.idAnswer = idAnswer;
+        this.idQuestion = idQuestion;
+        this.answer = answer;
     }
 
     public AnswerDTO(Integer idAnswer, Integer idQuestion, String answer, Integer correctAnswer, String status) {
-        IdAnswer = idAnswer;
-        IdQuestion = idQuestion;
-        Answer = answer;
-        CorrectAnswer = correctAnswer;
-        Status = status;
+        this.idAnswer = idAnswer;
+        this.idQuestion = idQuestion;
+        this.answer = answer;
+        this.correctAnswer = correctAnswer;
+        this.status = status;
     }
 
     public AnswerDTO(Integer idAnswer, String answer) {
-        IdAnswer = idAnswer;
-        Answer = answer;
+        this.idAnswer = idAnswer;
+        this.answer = answer;
     }
 
-    private Integer IdAnswer;
-    private Integer IdQuestion;
-    private String Answer;
-    private Integer CorrectAnswer;
-    private String CreationDate;
-    private String ModificateDate;
-    private String Status;
+    private Integer idAnswer;
+    private Integer idQuestion;
+    private String answer;
+    private Integer correctAnswer;
+    private String creationDate;
+    private String modificateDate;
+    private String status;
 
     public AnswerDTO(String answer) {
-        Answer = answer;
+        this.answer = answer;
     }
 
     public AnswerDTO(Integer idAnswer, Integer idQuestion, String answer, Integer correctAnswer) {
-        IdAnswer = idAnswer;
-        IdQuestion = idQuestion;
-        Answer = answer;
-        CorrectAnswer = correctAnswer;
+        this.idAnswer = idAnswer;
+        this.idQuestion = idQuestion;
+        this.answer = answer;
+        this.correctAnswer = correctAnswer;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        Status = status;
+        this.status = status;
     }
 
     public AnswerDTO() {
@@ -60,72 +60,72 @@ public class AnswerDTO {
             String creationDate,
             String modificateDate) {
 
-        this.IdAnswer = idAnswer;
-        this.IdQuestion = idQuestion;
-        this.Answer = answer;
-        this.CorrectAnswer = correctAnswer;
-        this.Status = status;
-        this.CreationDate = creationDate;
-        this.ModificateDate = modificateDate;
+        this.idAnswer = idAnswer;
+        this.idQuestion = idQuestion;
+        this.answer = answer;
+        this.correctAnswer = correctAnswer;
+        this.status = status;
+        this.creationDate = creationDate;
+        this.modificateDate = modificateDate;
     }
 
     public Integer getIdAnswer() {
-        return IdAnswer;
+        return idAnswer;
     }
 
     public void setIdAnswer(Integer idAnswer) {
-        this.IdAnswer = idAnswer;
+        this.idAnswer = idAnswer;
     }
 
     public Integer getIdQuestion() {
-        return IdQuestion;
+        return idQuestion;
     }
 
     public void setIdQuestion(Integer idQuestion) {
-        this.IdQuestion = idQuestion;
+        this.idQuestion = idQuestion;
     }
 
     public String getAnswer() {
-        return Answer;
+        return answer;
     }
 
     public void setAnswer(String answer) {
-        this.Answer = answer;
+        this.answer = answer;
     }
 
     public Integer getCorrectAnswer() {
-        return CorrectAnswer;
+        return correctAnswer;
     }
 
     public void setCorrectAnswer(Integer correctAnswer) {
-        this.CorrectAnswer = correctAnswer;
+        this.correctAnswer = correctAnswer;
     }
 
     public String getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
     public void setCreationDate(String creationDate) {
-        this.CreationDate = creationDate;
+        this.creationDate = creationDate;
     }
 
     public String getModificateDate() {
-        return ModificateDate;
+        return modificateDate;
     }
 
     public void setModificateDate(String modificateDate) {
-        this.ModificateDate = modificateDate;
+        this.modificateDate = modificateDate;
     }
 
     @Override
     public String toString() {
         return getClass().getName()
-                + "\n IdAnswer: " + IdAnswer
-                + "\n IdQuestion: " + IdQuestion
-                + "\n Answer: " + Answer
-                + "\n CorrectAnswer: " + CorrectAnswer
-                + "\n Status: " + Status
-                + "\n CreationDate: " + CreationDate
-                + "\n ModificateDate: " + ModificateDate;
+                + "\n idAnswer: " + idAnswer
+                + "\n idQuestion: " + idQuestion
+                + "\n answer: " + answer
+                + "\n correctAnswer: " + correctAnswer
+                + "\n status: " + status
+                + "\n creationDate: " + creationDate
+                + "\n modificateDate: " + modificateDate;
     }
 }

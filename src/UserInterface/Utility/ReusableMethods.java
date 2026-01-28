@@ -23,6 +23,7 @@ import BusinessLogic.UserAdminBL;
 import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.UserAdminDTO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
 
 public class ReusableMethods {
 
@@ -43,14 +44,18 @@ public class ReusableMethods {
         model.setRowCount(0);
         UserAdminBL BL = new UserAdminBL();
         try {
-            for (UserAdminDTO dto : BL.readAllstatus(status)) {
+            for (UserAdminDTO dto : BL.readAllStatus(status)) {
                 String[] row = { dto.getUserName(), dto.getLastLogin(), dto.getIdAdministrator().toString() };
                 model.addRow(row);
             }
-        } catch (
-
-        Exception ex) {
-            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage());
+        } catch (AppException appEx) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos de administradores: " + appEx.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            new AppException("Error al cargar tabla de administradores", ex, ReusableMethods.class,
+                    "createTableAdmin()");
         }
         return scrollPane;
     }
@@ -65,8 +70,8 @@ public class ReusableMethods {
             }
         };
         TableColumnModel columnModel = data.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(50);
-        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(0).setPreferredWidth(100);
+        columnModel.getColumn(1).setPreferredWidth(100);
         columnModel.getColumn(2).setPreferredWidth(100);
         columnModel.getColumn(3).setPreferredWidth(100);
         columnModel.getColumn(4).setPreferredWidth(100);
@@ -81,10 +86,13 @@ public class ReusableMethods {
                         dto.getModificateDate() };
                 model.addRow(row);
             }
-        } catch (
-
-        Exception ex) {
-            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage());
+        } catch (AppException appEx) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos de jugadores: " + appEx.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            new AppException("Error al cargar tabla de usuarios", ex, ReusableMethods.class, "createTableUser()");
         }
         return scrollPane;
     }
@@ -113,10 +121,13 @@ public class ReusableMethods {
                         dto.getModificateDate() };
                 model.addRow(row);
             }
-        } catch (
-
-        Exception ex) {
-            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage());
+        } catch (AppException appEx) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos de jugadores: " + appEx.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(panel, "Error al obtener datos: " + ex.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            new AppException("Error al cargar tabla de jugadores", ex, ReusableMethods.class, "createTablePlayer()");
         }
         return scrollPane;
     }
@@ -128,7 +139,7 @@ public class ReusableMethods {
         frame.repaint();
     }
 
-    public static JButton Button_Exit(String text, Dimension size) {
+    public static JButton buttonExit(String text, Dimension size) {
         JButton button = new JButton(text);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.addActionListener(e -> {
@@ -151,7 +162,7 @@ public class ReusableMethods {
         return url;
     }
 
-    public static URL getTittle() {
+    public static URL getTitle() {
         URL url = ReusableMethods.getImage("/UserInterface/Resources/icon.png");
         return url;
     }

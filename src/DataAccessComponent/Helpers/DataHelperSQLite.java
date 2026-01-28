@@ -12,11 +12,11 @@ import Infrastructure.AppException;
 
 public abstract class DataHelperSQLite {
 
-    private static Connection conn = null;
+    private static Connection connection = null;
 
     private static final String APP_NAME = "Liminalis";
 
-    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private LocalDateTime now = LocalDateTime.now();
 
     protected DataHelperSQLite() {
@@ -24,9 +24,9 @@ public abstract class DataHelperSQLite {
 
     protected static synchronized Connection openConnection() throws AppException {
         try {
-            if (conn == null) {
+            if (connection == null) {
                 Path dbPath = getDatabasePath();
-                conn = DriverManager.getConnection("jdbc:sqlite:" + dbPath.toString());
+                connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath.toString());
             }
         } catch (SQLException e) {
             throw new AppException(
@@ -35,7 +35,7 @@ public abstract class DataHelperSQLite {
                     DataHelperSQLite.class,
                     "openConnection");
         }
-        return conn;
+        return connection;
     }
 
     protected static Path getDatabasePath() {
@@ -48,7 +48,7 @@ public abstract class DataHelperSQLite {
                 "triv.sqlite");
     }
 
-    protected String getDataTimeNow() {
-        return dtf.format(now);
+    protected String getDateTimeNow() {
+        return dateTimeFormatter.format(now);
     }
 }

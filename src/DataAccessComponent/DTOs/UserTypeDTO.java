@@ -1,71 +1,71 @@
 package DataAccessComponent.DTOs;
 
 public class UserTypeDTO {
-    private Integer IdUserType;
-    private String Name;
-    private String Description;
-    private String CreationDate;
-    private String ModificateDate;
+    private Integer idUserType;
+    private String name;
+    private String description;
+    private String creationDate;
+    private String modificateDate;
 
     public UserTypeDTO() {
     }
 
     public UserTypeDTO(Integer idUserType, String name, String description, String creationDate,
             String modificateDate) {
-        IdUserType = idUserType;
-        Name = name;
-        Description = description;
-        CreationDate = creationDate;
-        ModificateDate = modificateDate;
+        this.idUserType = idUserType;
+        this.name = name;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.modificateDate = modificateDate;
     }
 
     public Integer getIdUserType() {
-        return IdUserType;
+        return idUserType;
     }
 
-    public void setIdUserType(Integer IdUserType) {
-        this.IdUserType = IdUserType;
+    public void setIdUserType(Integer idUserType) {
+        this.idUserType = idUserType;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public void setName(String Name) {
-        this.Name = Name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
-    public void setDescription(String Description) {
-        this.Description = Description;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
-    public void setCreationDate(String CreationDate) {
-        this.CreationDate = CreationDate;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getModificateDate() {
-        return ModificateDate;
+        return modificateDate;
     }
 
-    public void setModificateDate(String ModificateDate) {
-        this.ModificateDate = ModificateDate;
+    public void setModificateDate(String modificateDate) {
+        this.modificateDate = modificateDate;
     }
 
     @Override
     public String toString() {
         return getClass().getName()
-                + "\n IdUserType: " + getIdUserType()
-                + "\n Name: " + getName()
-                + "\n Description: " + getDescription()
-                + "\n CreationDate: " + getCreationDate()
-                + "\n ModificateDate: " + getModificateDate();
+                + "\n idUserType: " + getIdUserType()
+                + "\n name: " + getName()
+                + "\n description: " + getDescription()
+                + "\n creationDate: " + getCreationDate()
+                + "\n modificateDate: " + getModificateDate();
     }
 }

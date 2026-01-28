@@ -15,7 +15,7 @@ import java.sql.Statement;
 public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
 
     @Override
-    public List<QuestionDTO> readAllstatus(boolean status) throws AppException {
+    public List<QuestionDTO> readAllStatus(boolean status) throws AppException {
 
         String query = "SELECT idQuestion, idCategory, Question, CreationDate, ModificateDate FROM Question";
         if (status) {
@@ -32,7 +32,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
                 question.add(questionDTO);
             }
         } catch (Exception e) {
-            throw new AppException("No se pudo leer las preguntas", e, getClass(), "readAllstatus");
+            throw new AppException("No se pudo leer las preguntas", e, getClass(), "readAllStatus");
         }
         return question;
     }
@@ -73,7 +73,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws AppException {
+    public boolean changeStatus(int id, Boolean status) throws AppException {
 
         String query = "UPDATE Question SET Status = ? WHERE idQuestion = ?;";
         String sta;
@@ -91,7 +91,7 @@ public class QuestionDAO extends DataHelperSQLite implements IDAO<QuestionDTO> {
             return true;
         } catch (Exception e) {
             throw new AppException("No se pudo cambiar el estado de la pregunta con id: " + id, e, getClass(),
-                    "changestatus");
+                    "changeStatus");
         }
     }
 

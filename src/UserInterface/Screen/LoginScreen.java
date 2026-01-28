@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import BusinessLogic.UserAdminBL;
 import DataAccessComponent.DTOs.UserAdminDTO;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
@@ -18,7 +19,7 @@ public class LoginScreen {
         ImageBackgroundPanel mainPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
         JPanel tittle = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JLabel label = StyleConfig.tittleConfig();
+        JLabel label = StyleConfig.titleConfig();
         tittle.setOpaque(false);
         tittle.add(label);
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
@@ -34,7 +35,7 @@ public class LoginScreen {
         JToggleButton showPasswordButton = new JToggleButton("Ver");
         showPasswordButton.setPreferredSize(new Dimension(50, 23));
         showPasswordButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 12));
-        showPasswordButton.setBackground(StyleConfig.ButtonSecondary());
+        showPasswordButton.setBackground(StyleConfig.buttonSecondary());
         showPasswordButton.addActionListener(e -> {
             if (showPasswordButton.isSelected()) {
                 passwordField.setEchoChar((char) 0);
@@ -62,7 +63,7 @@ public class LoginScreen {
         mainPanel.add(tittle);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanel.setOpaque(false);
-        JButton loginButton = StyleConfig.createButton("Login", StyleConfig.ButtonPrimary(), 200, 50);
+        JButton loginButton = StyleConfig.createButton("Login", StyleConfig.buttonPrimary(), 200, 50);
         loginButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         buttonPanel.add(loginButton);
         loginButton.addActionListener(a -> {
@@ -76,25 +77,27 @@ public class LoginScreen {
                 } else {
                     try {
                         UserAdminDTO dto = BL.searchByName(username);
-                        if (dto.getPassword().equals(password)) {
-
+                        if (dto != null && dto.getPassword().equals(password)) {
                             MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                             return;
+                        } else {
+                            throw new AppException("Usuario o contraseña incorrectos");
                         }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(mainPanel, "Usuario o contraseña incorrectos.");
-                        e.printStackTrace();
+                    } catch (AppException appEx) {
+                        JOptionPane.showMessageDialog(mainPanel, appEx.getMessage());
                         usernameField.setText("");
                         passwordField.setText("");
+                    } catch (Exception e) {
+                        throw new AppException("Error al validar credenciales: ");
                     }
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(mainPanel, "Error: " + e.getMessage());
+            } catch (AppException appEx) {
+                JOptionPane.showMessageDialog(mainPanel, "Error: " + appEx.getMessage());
             }
         });
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         buttonPanelBack.setOpaque(false);
-        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
         buttonPanelBack.add(GoToBack);
         GoToBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());

@@ -9,7 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 
 public class ExitGame {
@@ -28,13 +30,20 @@ public class ExitGame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));
         buttonPanel.setOpaque(false);
 
-        JButton yesButton = StyleConfig.createButton("Si", StyleConfig.ButtonPrimary(), 100, 50);
+        JButton yesButton = StyleConfig.createButton("Si", StyleConfig.buttonPrimary(), 100, 50);
         yesButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         yesButton.addActionListener(e -> {
-            MainFrame.setContentPane(MainMenu.gameMenu());
+            try {
+                MainFrame.setContentPane(MainMenu.gameMenu());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(confirmPanel,
+                        new AppException("Error al regresar al menú", ex, ExitGame.class, "confirmExitPanel")
+                                .getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
-        JButton noButton = StyleConfig.createButton("No", StyleConfig.ButtonSecondary(), 100, 50);
+        JButton noButton = StyleConfig.createButton("No", StyleConfig.buttonSecondary(), 100, 50);
         noButton.addActionListener(e -> {
             MainFrame.setContentPane(previousPanel);
         });

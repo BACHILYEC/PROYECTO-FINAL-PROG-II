@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import BusinessLogic.UserPlayerBL;
 import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -12,13 +13,13 @@ import UserInterface.Utility.ReusableMethods;
 
 public class CreatePlayer {
     private static JComponent[][] components;
-    public static JTextField nameField;
+    public static JTextField playerNameField;
 
     public static JPanel createPlayerPanel() {
 
         Font login = new Font("Comic Sans MS", Font.BOLD, 18);
 
-        JLabel tittle = StyleConfig.tittleConfig();
+        JLabel tittle = StyleConfig.titleConfig();
         JPanel label = new JPanel(new FlowLayout(FlowLayout.CENTER));
         ImageBackgroundPanel namePanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
@@ -32,12 +33,12 @@ public class CreatePlayer {
         textPanel.setOpaque(false);
         JLabel nameLabel = new JLabel("Nombre de Jugador:");
         nameLabel.setFont(login);
-        nameField = new JTextField(10);
+        playerNameField = new JTextField(10);
         textPanel.add(nameLabel);
-        textPanel.add(nameField);
+        textPanel.add(playerNameField);
 
         ArrayList<JTextField> input = new ArrayList<>();
-        input.add(nameField);
+        input.add(playerNameField);
         JPanel keyboard = ScreenKeyboard.keyboard(input);
         keyboard.setOpaque(false);
         JPanel centerContent = new JPanel(new BorderLayout());
@@ -50,23 +51,33 @@ public class CreatePlayer {
         buttonPanel.setOpaque(false);
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.add(keyboard);
-        JButton create = StyleConfig.createButton("Jugar", StyleConfig.ButtonPrimary(), 200, 50);
+        JButton create = StyleConfig.createButton("Jugar", StyleConfig.buttonPrimary(), 200, 50);
         JPanel createPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         createPanel.setOpaque(false);
         createPanel.add(create);
         create.addActionListener(e -> {
             try {
-                if (nameField.getText().trim().isEmpty()) {
+                if (playerNameField.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(namePanel, "Nombre no Valido", "Error", JOptionPane.ERROR_MESSAGE);
                     MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
                 } else {
-                    MainFrame.setContentPane(GameScreen.game());
+                    try {
+                        UserPlayerBL playerBL = new UserPlayerBL();
+                        playerBL.create(playerNameField.getText().trim(), 0);
+
+                        MainFrame.setContentPane(GameScreen.game());
+                    } catch (AppException appEx) {
+                        throw new AppException("Error al crear jugador: " + appEx.getMessage(), appEx,
+                                CreatePlayer.class, "createPlayerPanel");
+                    }
                 }
-            } catch (AppException e1) {
-                e1.printStackTrace();
+            } catch (AppException appEx) {
+                JOptionPane.showMessageDialog(namePanel, appEx.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                appEx.printStackTrace();
             }
         });
-        JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.ButtonSecondary(), 150, 40);
+        JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
         goBack.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
