@@ -64,6 +64,7 @@ public class CreatePlayer {
                     try {
                         UserPlayerBL playerBL = new UserPlayerBL();
                         playerBL.create(playerNameField.getText().trim(), 0);
+
                         MainFrame.setContentPane(GameScreen.game());
                     } catch (AppException appEx) {
                         throw new AppException("Error al crear jugador: " + appEx.getMessage(), appEx,

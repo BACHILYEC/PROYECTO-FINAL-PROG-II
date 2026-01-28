@@ -46,7 +46,6 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             }
             rs.close();
             pstmt.close();
-            // conn.close();
         } catch (Exception e) {
             throw new AppException("No se pudo leer los jugadores", e, getClass(), "readAllStatus");
         }

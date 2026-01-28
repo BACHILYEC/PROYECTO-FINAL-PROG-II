@@ -104,9 +104,10 @@ public class GameScreen {
             JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.buttonSecondary(), 40, 40);
             gotoback.addActionListener(e -> {
                 try {
-                    MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
+                    MainFrame.setContentPane(ExitGame.confirmExitPanel(backgroundPanel));
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(gamePanel, "Error al salir del juego: " + ex.getMessage(), "Error",
+                    JOptionPane.showMessageDialog(backgroundPanel, "Error al salir del juego: " + ex.getMessage(),
+                            "Error",
                             JOptionPane.ERROR_MESSAGE);
                     new AppException("Error al salir del juego", ex, GameScreen.class, "game()");
                 }
