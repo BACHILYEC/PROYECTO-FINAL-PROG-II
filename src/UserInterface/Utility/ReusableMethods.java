@@ -168,7 +168,7 @@ public class ReusableMethods {
     }
 
     public static URL getQR() {
-        URL url = ReusableMethods.getImage("/UserInterface/Resources/QR.png");
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/icon1.png");
         return url;
     }
 

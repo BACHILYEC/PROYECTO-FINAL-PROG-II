@@ -15,6 +15,7 @@ public class MainMenu {
     public static JPanel gameMenu() {
         JPanel main = new JPanel(new BorderLayout());
         JLabel tittle = StyleConfig.titleConfig();
+        tittle.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 60));
         ImageBackgroundPanel backgroundPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
         backgroundPanel.add(tittle);
@@ -70,9 +71,18 @@ public class MainMenu {
         JPanel icon = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         ImageIcon icontittle = new ImageIcon(ReusableMethods.getTitle());
         ImageIcon iconQR = new ImageIcon(ReusableMethods.getQR());
-        JPanel QRPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        Image QR = iconQR.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        iconQR = new ImageIcon(QR);
+        JPanel QRPanel = new JPanel();
+        QRPanel.setLayout(new BoxLayout(QRPanel, BoxLayout.Y_AXIS));
+        JLabel qrmensage = new JLabel("Manual de Usuario", SwingConstants.CENTER);
+        qrmensage.setOpaque(false);
+        qrmensage.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+        QRPanel.add(qrmensage);
+        qrmensage.setBorder(BorderFactory.createEmptyBorder(0, 15, 0, 10));
         JLabel labelQR = new JLabel(iconQR);
         JLabel labelIcon = new JLabel(icontittle);
+        labelIcon.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
         icon.setOpaque(false);
         icon.add(labelIcon);
         QRPanel.setOpaque(false);

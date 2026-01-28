@@ -63,20 +63,12 @@ public class ScreenLosing {
         exitButton.addActionListener(e -> {
             MainFrame.setContentPane(MainMenu.gameMenu());
         });
-<<<<<<< HEAD
-        JComponent[][] buttons = { { retryButton, exitButton } };
-        ControllerDualsense controllerDualsense = new ControllerDualsense();
-        controllerDualsense.setupKeyBindings(buttonPanel, buttons);
-        controllerDualsense.focusComponent(controllerDualsense.getCurrentIndexX(),
-                controllerDualsense.getCurrentIndexY(), buttons);
-=======
         JComponent[][] components = new JComponent[2][2];
         components[0][0] = retryButton;
         components[0][1] = exitButton;
         ControllerDualsense dl = new ControllerDualsense();
         dl.setupKeyBindings(buttonPanel, components);
         dl.focusComponent(dl.getCurrentIndexX(), dl.getCurrentIndexY(), components);
->>>>>>> f64bf246a7c1600daa852d7c6f90bc3188af209e
         buttonPanel.add(retryButton);
         buttonPanel.add(exitButton);
         centerPanel.add(endPanel);
