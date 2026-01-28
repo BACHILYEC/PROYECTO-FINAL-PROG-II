@@ -2,6 +2,8 @@ package UserInterface.Screen;
 
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
+import Infrastructure.AppMSG;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
@@ -14,32 +16,38 @@ import javax.swing.table.DefaultTableModel;
 public class UpdatePlayerScreen {
     private static JTextField txtName;
     private static JTextField txtScore;
+    private static JTextField txtId;
     private static JComboBox<String> cmbStatus;
     private static JTable table;
     private static UserPlayerDTO selectedPlayer = new UserPlayerDTO();
     private static JComponent[][] components = new JComponent[6][10];
     private static ArrayList<JTextField> inputFields = new ArrayList<>();
 
-
     public static JPanel updatePlayerPanel() {
 
         ImageBackgroundPanel centerPanel = new ImageBackgroundPanel(
                 ReusableMethods.getImageBackground());
-        JLabel title = StyleConfig.tittleConfig();
+        JPanel title = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        title.setMaximumSize(new Dimension(600, 120));
+        title.setOpaque(false);
+        JLabel tittle = StyleConfig.tittleConfig();
+        tittle.setFont(new Font("Cooper Black", Font.BOLD, 30));
+        title.add(tittle);
         centerPanel.add(title, BorderLayout.NORTH);
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         JPanel tableSection = createTableSection();
         centerPanel.add(tableSection);
-        centerPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        tableSection.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         JPanel formSection = createFormSection();
+        formSection.setMaximumSize(new Dimension(600, 50));
         centerPanel.add(formSection);
         JPanel keyboard = ScreenKeyboard.keyboard(inputFields);
+        keyboard.setPreferredSize(new Dimension(600, 150));
         JButton[][] buttons = ScreenKeyboard.getButtons();
-          for (int i = 0; i < buttons.length; i++) {
+        for (int i = 0; i < buttons.length; i++) {
             for (int j = 0; j < buttons[i].length; j++) {
-                components[i+1][j] = buttons[i][j];
+                components[i + 1][j] = buttons[i][j];
             }
         }
         centerPanel.add(keyboard);
@@ -56,6 +64,7 @@ public class UpdatePlayerScreen {
 
     private static JPanel createTableSection() {
         JPanel panel = new JPanel(new BorderLayout());
+        panel.setPreferredSize(new Dimension(600, 150));
         panel.setOpaque(false);
 
         JLabel tableLabel = new JLabel("Seleccione un jugador:");
@@ -73,7 +82,6 @@ public class UpdatePlayerScreen {
         table = new JTable(model);
         table.setFocusable(false);
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(new Dimension(600, 150));
         panel.add(scrollPane, BorderLayout.CENTER);
         loadTableData(model);
         return panel;
@@ -125,7 +133,6 @@ public class UpdatePlayerScreen {
         formLabel.setForeground(Color.BLACK);
         formLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(formLabel);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
 
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
         fieldsPanel.setOpaque(false);
@@ -135,42 +142,52 @@ public class UpdatePlayerScreen {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        JLabel id = new JLabel("ID:");
+        id.setForeground(Color.BLACK);
+        fieldsPanel.add(id, gbc);
+
+        gbc.gridx = 1;
+        txtId = new JTextField(10);
+        txtId.setFocusable(false);
+        fieldsPanel.add(txtId, gbc);
+        inputFields.add(txtId);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         JLabel lblNameLabel = new JLabel("Nombre:");
         lblNameLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblNameLabel, gbc);
 
         gbc.gridx = 1;
-        txtName = new JTextField(20);
+        txtName = new JTextField(10);
         inputFields.add(txtName);
         txtName.setFocusable(false);
         fieldsPanel.add(txtName, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridx = 2;
+        gbc.gridy = 0;
         JLabel lblScoreLabel = new JLabel("Score:");
         lblScoreLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblScoreLabel, gbc);
 
-        gbc.gridx = 1;
-        txtScore = new JTextField(20);
+        gbc.gridx = 3;
+        txtScore = new JTextField(10);
         inputFields.add(txtScore);
         txtScore.setFocusable(false);
         fieldsPanel.add(txtScore, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridx = 2;
+        gbc.gridy = 1;
         JLabel lblStatusLabel = new JLabel("Status:");
         lblStatusLabel.setForeground(Color.BLACK);
         fieldsPanel.add(lblStatusLabel, gbc);
 
-        gbc.gridx = 1;
+        gbc.gridx = 3;
         cmbStatus = new JComboBox<>(new String[] { "Activo", "Inactivo" });
 
-
-        
-     for(int i =0; i< 10; i++) {
-         components[0][i]=cmbStatus;
-     }
+        for (int i = 0; i < 10; i++) {
+            components[0][i] = cmbStatus;
+        }
         cmbStatus.setFocusable(false);
         fieldsPanel.add(cmbStatus, gbc);
         panel.add(fieldsPanel);
@@ -207,6 +224,15 @@ public class UpdatePlayerScreen {
     }
 
     private static void updatePlayer() {
+
+        int id = Integer.parseInt(txtId.getText());
+        try {
+            if (id < 2) {
+                throw new AppException("ID no puede ser negativo", null, null, "updatePlayer()");
+            }
+        } catch (AppException e) {
+                AppMSG.showError( e.getMessage());
+        }
 
         String name = txtName.getText().trim();
         if (name.isEmpty()) {
@@ -251,7 +277,7 @@ public class UpdatePlayerScreen {
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        selectedPlayer.setIdPlayer(id);
         selectedPlayer.setName(name);
         selectedPlayer.setScore(score);
 
@@ -283,6 +309,7 @@ public class UpdatePlayerScreen {
     }
 
     private static void clearForm() {
+        txtId.setText("");
         txtName.setText("");
         txtScore.setText("");
         cmbStatus.setSelectedIndex(0);

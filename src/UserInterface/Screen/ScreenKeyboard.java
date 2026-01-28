@@ -11,6 +11,7 @@ public class ScreenKeyboard {
     static Boolean mayus = true;
     static Boolean textfield = true;
     static JButton[][] buttons = new JButton[4][10];
+    static int ind = 0;
 
     public static JButton[][] getButtons() {
         return buttons;
@@ -27,7 +28,6 @@ public class ScreenKeyboard {
         panelKeyboard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panelKeyboard.setOpaque(false);
         final String[] key = { "" };
-        final String[] temp = { "" };
         final String[][] keysMayus = {
                 { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" },
                 { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" },
@@ -42,8 +42,7 @@ public class ScreenKeyboard {
         };
         keys = keysMayus;
         final JTextField[] inputKey = { input.get(0) };
-        inputKey[0].setBackground(Color.LIGHT_GRAY);
-        inputKey[0].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        inputKey[0].setBorder(BorderFactory.createLineBorder(Color.black, 1));
         for (int i = 0; i < keys.length; i++) {
             for (int j = 0; j < keys[i].length; j++) {
                 if (keys[i][j].equals("ESPACIO")) {
@@ -58,22 +57,17 @@ public class ScreenKeyboard {
                     JButton button = StyleConfig.createButton("ENTER", StyleConfig.ButtonPrimary(), 40, 40);
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
+                    final int[] ind = { 0 };
                     button.addActionListener(e -> {
-                        inputKey[0].setBackground(Color.WHITE);
                         inputKey[0].setBorder(null);
-                        if (textfield) {
-                            inputKey[0] = input.get(1);
-                            temp[0] = key[0];
-                            key[0] = "";
-                            textfield = false;
-                        } else {
-                            inputKey[0] = input.get(0);
-                            key[0] = temp[0];
-                            inputKey[0].setText(key[0]);
-                            textfield = true;
+                        ind[0]++;
+                        if (ind[0] >= input.size()) {
+                            ind[0] = 0;
                         }
-                        inputKey[0].setBackground(Color.LIGHT_GRAY);
-                        inputKey[0].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+                        inputKey[0] = input.get(ind[0]);
+                        inputKey[0].setText("");
+                        key[0] = "";
+                        inputKey[0].setBorder(BorderFactory.createLineBorder(Color.black, 1));
                     });
                 } else if (keys[i][j].equals("Mayus")) {
                     JButton button = StyleConfig.createButton("Mayus", StyleConfig.ButtonPrimary(), 40, 40);
