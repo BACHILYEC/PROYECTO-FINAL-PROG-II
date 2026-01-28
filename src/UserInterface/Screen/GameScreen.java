@@ -5,6 +5,7 @@ import javax.swing.*;
 import BusinessLogic.AnswerBL;
 import BusinessLogic.QuestionBL;
 import BusinessLogic.UserPlayerBL;
+import DataAccessComponent.DAOs.AnswerDAO;
 import DataAccessComponent.DTOs.AnswerDTO;
 import DataAccessComponent.DTOs.QuestionDTO;
 import Infrastructure.AppException;
@@ -58,6 +59,7 @@ public class GameScreen {
             options.setLayout(new GridLayout(6, 1, 10, 10));
             options.setOpaque(false);
             JButton[] optionButtons = new JButton[4];
+            UserPlayerBL bl = new UserPlayerBL();
             for (int i[] = { 0 }; i[0] < 4; i[0]++) {
                 JButton optionButton = StyleConfig.createButton(answers[i[0]], new Color(255, 255, 255),
                         50,
@@ -88,12 +90,12 @@ public class GameScreen {
                                 options.revalidate();
                                 options.repaint();
                             } else {
-                                UserPlayerBL.create(CreatePlayer.playerNameField.getText(), score[0]);
+                                bl.create(CreatePlayer.playerNameField.getText(), score[0]);
                                 MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], false));
                             }
                         } else {
                             MainFrame.setContentPane(ScreenLosing.losingScreen(score[0], true));
-                            UserPlayerBL.create(CreatePlayer.playerNameField.getText(), score[0]);
+                            bl.create(CreatePlayer.playerNameField.getText(), score[0]);
                         }
                     } catch (Exception e1) {
                         AppException e2 = new AppException("No puede validaer la respuesta", e1, null, "game()");
@@ -145,7 +147,7 @@ public class GameScreen {
     }
 
     public static String[] getOptions(int index) throws Exception {
-        AnswerBL abL = new AnswerBL();
+        AnswerBL abL = new AnswerBL(new AnswerDAO());
         ArrayList<AnswerDTO> options = new ArrayList<>(abL.readOption(index, true));
         String[] optionTexts = new String[options.size()];
         for (int i = 0; i < options.size(); i++) {
@@ -155,7 +157,7 @@ public class GameScreen {
     }
 
     public static String getCorrectAnswer(int questionId) throws Exception {
-        AnswerBL abL = new AnswerBL();
+        AnswerBL abL = new AnswerBL(new AnswerDAO());
         String correctAnswer = abL.readCorrectAns(questionId);
         return correctAnswer;
     }

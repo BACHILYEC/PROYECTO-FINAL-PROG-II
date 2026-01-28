@@ -103,7 +103,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     @Override
     public Integer getMaxReg() throws AppException {
         String query = "SELECT COUNT(*) TotalReg FROM UserType" +
-                " WHERE Estado = 'Activo';";
+                " WHERE Status = 'Activo';";
         try {
             Connection conn = openConnection();
             Statement pstmt = conn.createStatement();

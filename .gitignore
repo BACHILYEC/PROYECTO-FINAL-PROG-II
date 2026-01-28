@@ -1,5 +1,5 @@
 *.class
-
+*.jar
 # Carpetas de compilación
 bin/
 build/

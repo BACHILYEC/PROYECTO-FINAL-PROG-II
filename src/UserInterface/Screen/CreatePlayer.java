@@ -62,7 +62,8 @@ public class CreatePlayer {
                     MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
                 } else {
                     try {
-                        UserPlayerBL.create(playerNameField.getText().trim(), 0);
+                        UserPlayerBL bl = new UserPlayerBL();
+                        bl.create(playerNameField.getText().trim(), 0);
 
                         MainFrame.setContentPane(GameScreen.game());
                     } catch (AppException appEx) {

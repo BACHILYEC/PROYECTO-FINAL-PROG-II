@@ -195,7 +195,7 @@ public class SearchPlayerScreen {
                                 return;
                         }
 
-                        UserPlayerDTO playerDTO = UserPlayerBL.readById(playerId);
+                        UserPlayerDTO playerDTO = new UserPlayerBL().readById(playerId);
 
                         if (playerDTO != null) {
                                 String mensaje = "¡Jugador encontrado!\n\n" +

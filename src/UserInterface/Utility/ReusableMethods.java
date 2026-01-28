@@ -80,6 +80,7 @@ public class ReusableMethods {
         model.setRowCount(0);
 
         try {
+            UserPlayerBL UserPlayerBL = new UserPlayerBL();
             for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(status)) {
                 String[] row = { dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(),
                         dto.getStatus(), dto.getCreationDate(),
@@ -116,7 +117,8 @@ public class ReusableMethods {
         model.setRowCount(0);
 
         try {
-            for (UserPlayerDTO dto : UserPlayerBL.getAllActivePlayers(status)) {
+            UserPlayerBL bl = new UserPlayerBL();
+            for (UserPlayerDTO dto : bl.getAllActivePlayers(status)) {
                 String[] row = { dto.getIdPlayer().toString(), dto.getName(), dto.getScore().toString(),
                         dto.getModificateDate() };
                 model.addRow(row);
