@@ -35,6 +35,7 @@ public class SearchPlayerScreen {
                 JLabel nameLabel = new JLabel("Buscar por Nombre:");
                 nameLabel.setFont(labelFont);
                 searchNameTextField = new JTextField(15);
+                searchNameTextField.setFocusable(false);
                 searchByNamePanel.add(nameLabel);
                 searchByNamePanel.add(searchNameTextField);
                 centerPanel.add(searchByNamePanel);
@@ -46,6 +47,7 @@ public class SearchPlayerScreen {
                 JLabel idLabel = new JLabel("Buscar por ID:");
                 idLabel.setFont(labelFont);
                 searchIdTextField = new JTextField(15);
+                searchIdTextField.setFocusable(false);
                 searchByIdPanel.add(idLabel);
                 searchByIdPanel.add(searchIdTextField);
                 centerPanel.add(searchByIdPanel);
