@@ -139,7 +139,11 @@ public class ReusableMethods {
     }
 
     public static java.net.URL getImage(String relativePath) {
-        return ReusableMethods.class.getResource(relativePath);
+        java.net.URL url = ReusableMethods.class.getResource(relativePath);
+        if (url == null) {
+            System.err.println("WARNING: Resource not found: " + relativePath);
+        }
+        return url;
     }
 
     public static URL getImageBackground() {
@@ -149,6 +153,11 @@ public class ReusableMethods {
 
     public static URL getTittle() {
         URL url = ReusableMethods.getImage("/UserInterface/Resources/icon.png");
+        return url;
+    }
+
+    public static URL getQR() {
+        URL url = ReusableMethods.getImage("/UserInterface/Resources/QR.png");
         return url;
     }
 

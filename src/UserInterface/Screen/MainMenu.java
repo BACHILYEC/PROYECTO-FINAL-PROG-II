@@ -58,12 +58,22 @@ public class MainMenu {
         buttonssecond.add(exitButton);
         backgroundPanel.add(buttonPlay);
         backgroundPanel.add(buttonssecond);
+        JPanel icons = new JPanel(new FlowLayout());
+        icons.setLayout(new BoxLayout(icons, BoxLayout.X_AXIS));
+        icons.setOpaque(false);
         JPanel icon = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         ImageIcon icontittle = new ImageIcon(ReusableMethods.getTittle());
+        ImageIcon iconQR = new ImageIcon(ReusableMethods.getQR());
+        JPanel QRPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JLabel labelQR = new JLabel(iconQR);
         JLabel labelIcon = new JLabel(icontittle);
         icon.setOpaque(false);
         icon.add(labelIcon);
-        backgroundPanel.add(icon);
+        QRPanel.setOpaque(false);
+        QRPanel.add(labelQR);
+        icons.add(QRPanel);
+        icons.add(icon);
+        backgroundPanel.add(icons);
         main.add(backgroundPanel, BorderLayout.CENTER);
 
         buttons = new JComponent[][] { { playButton, playButton, playButton },
