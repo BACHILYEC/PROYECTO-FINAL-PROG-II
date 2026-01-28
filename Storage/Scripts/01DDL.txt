@@ -69,7 +69,3 @@ CREATE TABLE Answer (
     ,CreationDate DATETIME NOT NULL DEFAULT(datetime('now','localtime'))
     ,ModificateDate DATETIME DEFAULT NULL
 );
-
-CREATE TABLE IF NOT EXISTS _db_init (
-    initialized INTEGER
-);
