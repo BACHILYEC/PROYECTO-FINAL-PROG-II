@@ -2,40 +2,32 @@ package BusinessLogic;
 
 import DataAccessComponent.DAOs.UserTypeDAO;
 import DataAccessComponent.DTOs.UserTypeDTO;
+import Infrastructure.AppException;
 import java.util.List;
 
 public class UserTypeBL {
 
-    public List<UserTypeDTO> GetAll(Boolean status) throws Exception {
+    public List<UserTypeDTO> GetAll(Boolean status) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
         return userTypeDAO.readAllstatus(status);
     }
 
-    public Boolean create(UserTypeDTO user) throws Exception {
+    public Boolean create(UserTypeDTO user) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
-        if (userTypeDAO.create(user)) {
-            return true;
-        }
-        return false;
+        return userTypeDAO.create(user);
     }
 
-    public Boolean Update(UserTypeDTO user) throws Exception {
+    public Boolean Update(UserTypeDTO user) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
-        if (userTypeDAO.update(user)) {
-            return true;
-        }
-        return false;
+        return userTypeDAO.update(user);
     }
 
-    public Boolean ChangeStatus(int id, Boolean status) throws Exception {
+    public Boolean ChangeStatus(int id, Boolean status) throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
-        if (userTypeDAO.changestatus(id, status)) {
-            return true;
-        }
-        return false;
+        return userTypeDAO.changestatus(id, status);
     }
 
-    public Integer GetMaxRow() throws Exception {
+    public Integer GetMaxRow() throws AppException {
         UserTypeDAO userTypeDAO = new UserTypeDAO();
         return userTypeDAO.getMaxReg();
     }

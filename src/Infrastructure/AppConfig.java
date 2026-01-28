@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 import Infrastructure.Tools.CMD;
@@ -18,13 +21,23 @@ public class AppConfig {
 
     
     // Configuración dinámica  (Sin recompilar)
-    public static final String getDATABASE  (){ return getProperty( KEY_DB_NAME      ); }
-    public static final String getLOGFILE   (){ 
+    public static final String getDATABASE  (){ return getProperty(KEY_DB_NAME); }
+
+    public static final String getLOGFILE   () throws IOException{ 
         String relativePath = getProperty( KEY_FILE_LOG );
-        if (relativePath != null) {
-            return System.getProperty("user.dir") + File.separator + relativePath;
+
+        Path path = Paths.get(System.getenv("APPDATA") + "\\Liminalis\\" + relativePath);
+        Path dirPath = path.getParent();
+        
+
+        if (!Files.exists(dirPath)) {
+                Files.createDirectories(dirPath);
         }
-        return null;
+
+        if (relativePath != null) {
+            return path.toString();
+        }
+        return path.toString();
     }
     
     // AppMSGs

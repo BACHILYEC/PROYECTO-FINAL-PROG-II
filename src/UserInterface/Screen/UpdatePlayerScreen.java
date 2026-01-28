@@ -2,6 +2,8 @@ package UserInterface.Screen;
 
 import DataAccessComponent.DAOs.UserPlayerDAO;
 import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
+import Infrastructure.AppMSG;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
@@ -224,12 +226,12 @@ public class UpdatePlayerScreen {
     private static void updatePlayer() {
 
         int id = Integer.parseInt(txtId.getText());
-        if (id < 0) {
-            JOptionPane.showMessageDialog(null,
-                    "Seleccione un jugador válido de la tabla",
-                    "Error de Validación",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
+        try {
+            if (id < 2) {
+                throw new AppException("ID no puede ser negativo", null, null, "updatePlayer()");
+            }
+        } catch (AppException e) {
+                AppMSG.showError( e.getMessage());
         }
 
         String name = txtName.getText().trim();

@@ -16,12 +16,12 @@ import java.sql.Statement;
 public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
 
     @Override
-    public List<UserTypeDTO> readBy(String name) throws Exception {
-        return null;
+    public List<UserTypeDTO> readBy(String name) throws AppException {
+        throw new AppException("Método readBy no implementado para UserTypeDAO", null, getClass(), "readBy");
     }
 
     @Override
-    public List<UserTypeDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserTypeDTO> readAllstatus(boolean status) throws AppException {
         String query = "SELECT IdUserType, Name, Description, CreationDate, ModificateDate FROM UserType";
         if (status) {
             query += " WHERE Status = 'Activo';";
@@ -43,7 +43,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     }
 
     @Override
-    public boolean create(UserTypeDTO entity) throws Exception {
+    public boolean create(UserTypeDTO entity) throws AppException {
         String query = "INSERT INTO UserType (Name, Description) "
                 + "VALUES (?, ?);";
         try {
@@ -59,7 +59,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     }
 
     @Override
-    public boolean update(UserTypeDTO entity) throws Exception {
+    public boolean update(UserTypeDTO entity) throws AppException {
         String query = "UPDATE UserType SET Name = ?, Description = ?, ModificateDate = ? WHERE IdUserType = ?;";
         try {
             Connection conn = openConnection();
@@ -76,7 +76,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
+    public boolean changestatus(int id, Boolean status) throws AppException {
         String query = "UPDATE UserType SET Status = ? WHERE IdUserType = ?;";
         String sta;
         if (status) {
@@ -97,7 +97,7 @@ public class UserTypeDAO extends DataHelperSQLite implements IDAO<UserTypeDTO> {
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
+    public Integer getMaxReg() throws AppException {
         String query = "SELECT COUNT(*) TotalReg FROM UserType" +
                 " WHERE Estado = 'Activo';";
         try {

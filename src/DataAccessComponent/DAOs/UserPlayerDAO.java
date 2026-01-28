@@ -18,12 +18,12 @@ import java.util.List;
 public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDTO> {
 
     @Override
-    public List<UserPlayerDTO> readBy(String name) throws Exception {
+    public List<UserPlayerDTO> readBy(String name) throws AppException {
         throw new AppException("Método readBy no implementado para UserPlayerDAO", null, getClass(), "readBy");
     }
 
     @Override
-    public List<UserPlayerDTO> readAllstatus(boolean status) throws Exception {
+    public List<UserPlayerDTO> readAllstatus(boolean status) throws AppException {
         String query = "SELECT idPlayer, idUserType, Name, Score, Status, ModificateDate, CreationDate FROM UserPlayer";
         if (status) {
             query += " WHERE Status = 'Activo'";
@@ -48,14 +48,13 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
             pstmt.close();
             // conn.close();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            throw new AppException("No se pudo leer los jugadores", e, getClass(), "readAllstatus");
         }
         return players;
     }
 
     @Override
-    public boolean create(UserPlayerDTO entity) throws Exception {
+    public boolean create(UserPlayerDTO entity) throws AppException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         String query = "INSERT INTO UserPlayer (IdUserType, Name, Score, CreationDate, ModificateDate) "
@@ -76,7 +75,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     @Override
-    public boolean update(UserPlayerDTO entity) throws Exception {
+    public boolean update(UserPlayerDTO entity) throws AppException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
@@ -99,8 +98,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     @Override
-    public boolean changestatus(int id, Boolean status) throws Exception {
-        String query = "UPDATE UserPlayer SET Status = ? WHERE idPlayer = ?;";
+    public boolean changestatus(int id, Boolean status) throws AppException {
+        String query = "UPDATE UserPlayer SET Status = ? WHERE idPlayer = ?";
         String sta;
         if (status) {
             sta = "Activo";
@@ -121,8 +120,8 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
     }
 
     @Override
-    public Integer getMaxReg() throws Exception {
-        String query = "SELECT COUNT(*) TotalReg FROM UserPlayer WHERE Status = 'Activo';";
+    public Integer getMaxReg() throws AppException {
+        String query = "SELECT COUNT(*) TotalReg FROM UserPlayer WHERE Status = 'Activo'";
         try {
             Connection conn = openConnection();
             Statement pstmt = conn.createStatement();
@@ -137,7 +136,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         return 0;
     }
 
-    public UserPlayerDTO readByName(String username) throws Exception {
+    public UserPlayerDTO readByName(String username) throws AppException {
         UserPlayerDTO userPlayerDTO = null;
 
         String query = "SELECT idPlayer, idUserType, Name, Score, CreationDate, ModificateDate FROM UserPlayer WHERE Name = ?;";
@@ -165,7 +164,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         return userPlayerDTO;
     }
 
-    public UserPlayerDTO readById(int id) throws Exception {
+    public UserPlayerDTO readById(int id) throws AppException {
         UserPlayerDTO userPlayerDTO = null;
 
         String query = "SELECT idPlayer, idUserType, Name, Score, Status, CreationDate, ModificateDate FROM UserPlayer WHERE idPlayer = ?;";
@@ -193,7 +192,7 @@ public class UserPlayerDAO extends DataHelperSQLite implements IDAO<UserPlayerDT
         return userPlayerDTO;
     }
 
-    public UserPlayerDTO searchByName(String username) throws Exception {
+    public UserPlayerDTO searchByName(String username) throws AppException {
         UserPlayerDTO userPlayerDTO = null;
 
         String query = "SELECT Name FROM UserPlayer WHERE Name = ?;";
