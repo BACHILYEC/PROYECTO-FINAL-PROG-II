@@ -1,6 +1,5 @@
 package Infrastructure;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +18,6 @@ public class AppConfig {
     private static final String KEY_FILE_LOG = "df.logFile";
     private static final String KEY_DB_NAME = "db.File";
 
-    // Configuración dinámica (Sin recompilar)
     public static final String getDatabase() {
         return getProperty(KEY_DB_NAME);
     }

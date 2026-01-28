@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class GameScreen {
     private static String question;
-    private static String correctAnswer;
+    public static String correctAnswer;
     private static Integer indexAnswer;
     private static String[] answers;
     private static Integer indexCategory;
@@ -103,7 +103,13 @@ public class GameScreen {
             }
             JButton gotoback = StyleConfig.createButton("Salir del Juego", StyleConfig.buttonSecondary(), 40, 40);
             gotoback.addActionListener(e -> {
-                MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
+                try {
+                    MainFrame.setContentPane(ExitGame.confirmExitPanel(gamePanel));
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(gamePanel, "Error al salir del juego: " + ex.getMessage(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    new AppException("Error al salir del juego", ex, GameScreen.class, "game()");
+                }
             });
             options.add(gotoback);
             backgroundPanel.add(options);
@@ -126,7 +132,9 @@ public class GameScreen {
     }
 
     public static int randomNumber(int max) {
-        return (int) (Math.random() * max);
+        int s = (int) (Math.random() * max);
+        return s;
+
     }
 
     public static ArrayList<QuestionDTO> getQuestion() throws Exception {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import BusinessLogic.UserPlayerBL;
 import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
@@ -60,10 +61,19 @@ public class CreatePlayer {
                     JOptionPane.showMessageDialog(namePanel, "Nombre no Valido", "Error", JOptionPane.ERROR_MESSAGE);
                     MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
                 } else {
-                    MainFrame.setContentPane(GameScreen.game());
+                    try {
+                        UserPlayerBL playerBL = new UserPlayerBL();
+                        playerBL.create(playerNameField.getText().trim(), 0);
+                        MainFrame.setContentPane(GameScreen.game());
+                    } catch (AppException appEx) {
+                        throw new AppException("Error al crear jugador: " + appEx.getMessage(), appEx,
+                                CreatePlayer.class, "createPlayerPanel");
+                    }
                 }
-            } catch (AppException e1) {
-                e1.printStackTrace();
+            } catch (AppException appEx) {
+                JOptionPane.showMessageDialog(namePanel, appEx.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                appEx.printStackTrace();
             }
         });
         JButton goBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);

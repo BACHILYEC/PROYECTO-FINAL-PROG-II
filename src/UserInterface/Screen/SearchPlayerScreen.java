@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import BusinessLogic.UserPlayerBL;
 import DataAccessComponent.DTOs.UserPlayerDTO;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
@@ -65,7 +66,12 @@ public class SearchPlayerScreen {
 
                 JButton GoToBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
                 GoToBack.addActionListener(e -> {
-                        MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                        try {
+                                MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+                        } catch (Exception ex) {
+                                throw new RuntimeException(new AppException("Error al regresar", ex,
+                                                SearchPlayerScreen.class, "searchPlayerPanel"));
+                        }
                 });
                 buttonPanel.add(GoToBack);
 

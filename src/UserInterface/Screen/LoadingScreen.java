@@ -2,6 +2,7 @@ package UserInterface.Screen;
 
 import javax.swing.*;
 
+import Infrastructure.AppException;
 import UserInterface.Utility.ImageLoadingPanel;
 import UserInterface.Utility.ReusableMethods;
 
@@ -33,7 +34,14 @@ public class LoadingScreen {
                 progressBar.setValue(value + 1);
             } else {
                 loading.stop();
-                MainFrame.setContentPane(MainMenu.gameMenu());
+                try {
+                    MainFrame.setContentPane(MainMenu.gameMenu());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(mainPanel, "Error al cargar menú: " + ex.getMessage(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    new AppException("Error al cargar pantalla de menú principal", ex, LoadingScreen.class,
+                            "loadingPanel()");
+                }
             }
         });
         loading.start();

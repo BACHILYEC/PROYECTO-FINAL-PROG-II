@@ -4,6 +4,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
@@ -25,7 +26,12 @@ public class MainMenu {
         JButton playButton = StyleConfig.createButton("Iniciar Juego", StyleConfig.buttonPrimary(), 500, 100);
         playButton.setFont(new Font("Cooper Black", Font.PLAIN, 25));
         playButton.addActionListener(e -> {
-            MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
+            try {
+                MainFrame.setContentPane(CreatePlayer.createPlayerPanel());
+            } catch (Exception ex) {
+                throw new RuntimeException(new AppException("Error al cargar la pantalla de crear jugador", ex,
+                        MainMenu.class, "gameMenu"));
+            }
         });
         buttonPlay.add(playButton);
         JPanel buttonssecond = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 0));

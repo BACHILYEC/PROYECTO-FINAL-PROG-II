@@ -9,7 +9,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 
 public class ExitGame {
@@ -31,7 +33,14 @@ public class ExitGame {
         JButton yesButton = StyleConfig.createButton("Si", StyleConfig.buttonPrimary(), 100, 50);
         yesButton.setFont(new Font("Comic Sans MS", Font.BOLD, 18));
         yesButton.addActionListener(e -> {
-            MainFrame.setContentPane(MainMenu.gameMenu());
+            try {
+                MainFrame.setContentPane(MainMenu.gameMenu());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(confirmPanel,
+                        new AppException("Error al regresar al menú", ex, ExitGame.class, "confirmExitPanel")
+                                .getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
         JButton noButton = StyleConfig.createButton("No", StyleConfig.buttonSecondary(), 100, 50);

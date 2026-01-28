@@ -206,7 +206,14 @@ public class UpdatePlayerScreen {
         btnCancel.addActionListener(e -> clearForm());
 
         JButton btnBack = StyleConfig.createButton("Regresar", StyleConfig.buttonSecondary(), 150, 40);
-        btnBack.addActionListener(e -> MainFrame.setContentPane(ScreenAdmin.MenuAdmin()));
+        btnBack.addActionListener(e -> {
+            try {
+                MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
+            } catch (Exception ex) {
+                throw new RuntimeException(
+                        new AppException("Error al regresar", ex, UpdatePlayerScreen.class, "createButtonsPanel"));
+            }
+        });
         components[5][0] = btnUpdate;
         components[5][1] = btnCancel;
         components[5][2] = btnBack;

@@ -3,6 +3,7 @@ package UserInterface.Screen;
 import java.awt.*;
 import javax.swing.*;
 
+import Infrastructure.AppException;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
@@ -32,19 +33,30 @@ public class ScreenLosing {
         scorePanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         scorePanel.setOpaque(false);
         JLabel scoreLabel = new JLabel("Tu puntaje final es: " + score, SwingConstants.CENTER);
-        scoreLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 100, 10));
+        scoreLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         scoreLabel.setForeground(Color.black);
         scoreLabel.setFont(tittlefont);
         scorePanel.add(scoreLabel);
+        JPanel correct = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
+        correct.setBorder(BorderFactory.createEmptyBorder(10, 10, 100, 10));
+        correct.setOpaque(false);
+        JLabel correctAns = new JLabel("Respuesta correcta: " + GameScreen.correctAnswer, SwingConstants.CENTER);
+        correctAns.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        correctAns.setFont(tittlefont);
+        correctAns.setForeground(Color.black);
+        correct.add(correctAns);
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         buttonPanel.setOpaque(false);
         JButton retryButton = StyleConfig.createButton("Volver a Jugar", StyleConfig.buttonPrimary(), 150, 40);
         retryButton.addActionListener(e -> {
             try {
                 MainFrame.setContentPane(GameScreen.game());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al iniciar el juego: " + ex.getMessage(),
+            } catch (AppException appEx) {
+                JOptionPane.showMessageDialog(null, "Error al iniciar el juego: " + appEx.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                throw new RuntimeException(
+                        new AppException("Error al cargar pantalla de juego", ex, ScreenLosing.class, "losingScreen"));
             }
         });
         JButton exitButton = StyleConfig.createButton("Volver al Menú", StyleConfig.buttonPrimary(), 150, 40);
@@ -61,6 +73,7 @@ public class ScreenLosing {
         buttonPanel.add(exitButton);
         centerPanel.add(endPanel);
         centerPanel.add(scorePanel);
+        centerPanel.add(correct);
         centerPanel.add(buttonPanel);
         backgroundPanel.add(centerPanel);
 

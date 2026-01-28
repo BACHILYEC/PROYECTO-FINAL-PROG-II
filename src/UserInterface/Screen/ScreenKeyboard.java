@@ -1,6 +1,7 @@
 package UserInterface.Screen;
 
 import javax.swing.*;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 
 import java.awt.*;
@@ -106,9 +107,13 @@ public class ScreenKeyboard {
                     panelKeyboard.add(button);
                     buttons[i][j] = button;
                     button.addActionListener(e -> {
-                        if (currentKey[0].length() > 0) {
-                            currentKey[0] = currentKey[0].substring(0, currentKey[0].length() - 1);
-                            inputKey[0].setText(currentKey[0]);
+                        try {
+                            if (currentKey[0].length() > 0) {
+                                currentKey[0] = currentKey[0].substring(0, currentKey[0].length() - 1);
+                                inputKey[0].setText(currentKey[0]);
+                            }
+                        } catch (Exception ex) {
+                            new AppException("Error al eliminar carácter", ex, ScreenKeyboard.class, "keyboard()");
                         }
                     });
                 } else {

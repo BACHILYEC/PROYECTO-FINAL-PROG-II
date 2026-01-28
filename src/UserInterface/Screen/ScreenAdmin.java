@@ -3,6 +3,7 @@ package UserInterface.Screen;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
 import UserInterface.Utility.StyleConfig;
+import Infrastructure.AppException;
 import java.awt.*;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -49,26 +50,47 @@ public class ScreenAdmin {
             }
             String index = buttonLabels[i];
             boton.addActionListener(e -> {
-                switch (index) {
-                    case "Tabla De Jugadores": {
-                        String[] columnNames = { "Player Id", "Usuario", "Score", "Status", "Creation Date",
-                                "Modificate Date" };
-                        JPanel pan = new JPanel();
-                        JScrollPane tableScrollPane = ReusableMethods.createTableUser(columnNames, pan, true);
-                        pan.setLayout(new BorderLayout());
-                        pan.add(tableScrollPane, BorderLayout.CENTER);
-                        JOptionPane.showMessageDialog(panel, pan, "Tabla De Jugadores",
-                                JOptionPane.INFORMATION_MESSAGE);
-                        break;
+                try {
+                    switch (index) {
+                        case "Tabla De Jugadores": {
+                            try {
+                                String[] columnNames = { "IdJugador", "Usuario", "Puntuación", "Estado",
+                                        "Fecha de Creación",
+                                        "Fecha de Modificación" };
+                                JPanel pan = new JPanel();
+                                JScrollPane tableScrollPane = ReusableMethods.createTableUser(columnNames, pan, true);
+                                pan.setLayout(new BorderLayout());
+                                pan.add(tableScrollPane, BorderLayout.CENTER);
+                                JOptionPane.showMessageDialog(panel, pan, "Tabla De Jugadores",
+                                        JOptionPane.INFORMATION_MESSAGE);
+                            } catch (Exception ex) {
+                                throw new AppException("Error al cargar tabla de jugadores", ex, ScreenAdmin.class,
+                                        "MenuAdmin");
+                            }
+                            break;
+                        }
+                        case "Modificar Jugador": {
+                            try {
+                                MainFrame.setContentPane(UpdatePlayerScreen.updatePlayerPanel());
+                            } catch (Exception ex) {
+                                throw new AppException("Error al cargar pantalla de modificación", ex,
+                                        ScreenAdmin.class, "MenuAdmin");
+                            }
+                            break;
+                        }
+                        case "Buscar Jugador": {
+                            try {
+                                MainFrame.setContentPane(SearchPlayerScreen.searchPlayerPanel());
+                            } catch (Exception ex) {
+                                throw new AppException("Error al cargar pantalla de búsqueda", ex, ScreenAdmin.class,
+                                        "MenuAdmin");
+                            }
+                            break;
+                        }
                     }
-                    case "Modificar Jugador": {
-                        MainFrame.setContentPane(UpdatePlayerScreen.updatePlayerPanel());
-                        break;
-                    }
-                    case "Buscar Jugador": {
-                        MainFrame.setContentPane(SearchPlayerScreen.searchPlayerPanel());
-                        break;
-                    }
+                } catch (AppException appEx) {
+                    JOptionPane.showMessageDialog(panel, "Error: " + appEx.getMessage(), "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             });
         }

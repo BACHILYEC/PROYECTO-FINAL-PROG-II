@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import BusinessLogic.UserAdminBL;
 import DataAccessComponent.DTOs.UserAdminDTO;
+import Infrastructure.AppException;
 import UserInterface.Utility.StyleConfig;
 import UserInterface.Utility.ImageBackgroundPanel;
 import UserInterface.Utility.ReusableMethods;
@@ -76,20 +77,22 @@ public class LoginScreen {
                 } else {
                     try {
                         UserAdminDTO dto = BL.searchByName(username);
-                        if (dto.getPassword().equals(password)) {
-
+                        if (dto != null && dto.getPassword().equals(password)) {
                             MainFrame.setContentPane(ScreenAdmin.MenuAdmin());
                             return;
+                        } else {
+                            throw new AppException("Usuario o contraseña incorrectos");
                         }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(mainPanel, "Usuario o contraseña incorrectos.");
-                        e.printStackTrace();
+                    } catch (AppException appEx) {
+                        JOptionPane.showMessageDialog(mainPanel, appEx.getMessage());
                         usernameField.setText("");
                         passwordField.setText("");
+                    } catch (Exception e) {
+                        throw new AppException("Error al validar credenciales: ");
                     }
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(mainPanel, "Error: " + e.getMessage());
+            } catch (AppException appEx) {
+                JOptionPane.showMessageDialog(mainPanel, "Error: " + appEx.getMessage());
             }
         });
         JPanel buttonPanelBack = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
